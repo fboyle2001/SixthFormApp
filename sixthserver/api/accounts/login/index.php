@@ -3,7 +3,7 @@
 
   $username = post("username");
   $password = post("password");
-  
+
   $reply = new Reply();
 
   if($username == null || $password == null) {
@@ -43,11 +43,11 @@
 
   $json = '{"username":"' . $username . '","secret":"' . $secret . '"}';
 	$json = base64_encode($json);
-	
+
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
-	
+
   $reply->setValue("auth", $json);
 	echo $reply->toJson();
-  
+
   //use reply
 ?>

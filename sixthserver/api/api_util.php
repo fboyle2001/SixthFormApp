@@ -1,14 +1,14 @@
 <?php
   include($_SERVER["DOCUMENT_ROOT"] . "/sixthserver/api/Reply.php");
 	include($_SERVER["DOCUMENT_ROOT"] . "/sixthserver/database/DatabaseHandler.php");
-  
+
   class AccessLevel {
-	
+
 	const student = 0;
 	const admin = 1;
-	
+
   }
-  
+
   #header('Content-Type: application/json');
   #echo password_hash("test", PASSWORD_BCRYPT);
 
