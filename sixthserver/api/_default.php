@@ -1,0 +1,10 @@
+<?php
+  include($_SERVER["DOCUMENT_ROOT"] . "/sixthserver/api/api_util.php");
+
+  if(!validate(0)) {
+    $status = ReplyStatus::withData(403, "Unauthorised access is restricted");
+    $reply = Reply::withStatus($status);
+    die($reply->toJson());
+  }
+
+?>
