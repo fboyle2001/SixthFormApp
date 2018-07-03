@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2018 at 11:38 AM
+-- Generation Time: Jul 03, 2018 at 03:40 PM
 -- Server version: 10.1.9-MariaDB
 -- PHP Version: 5.6.15
 
@@ -34,6 +34,14 @@ CREATE TABLE `accounts` (
   `IsAdmin` tinyint(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`ID`, `Username`, `Password`, `Year`, `IsAdmin`) VALUES
+(1, 'DevAdmin', '$2y$10$tHweuXW5nQeBoP4sBdLaLu5rinctHj60YJ93AfyzC720bTVPEEFY6', 12, 1),
+(2, 'DevUser', '$2y$10$yxsHy5Sba0llvYa7dNlL9.vAnS2X4rcxB11.bC15ZAUTbNFUlXyPa', 12, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -43,8 +51,17 @@ CREATE TABLE `accounts` (
 CREATE TABLE `apikeys` (
   `ID` int(11) NOT NULL,
   `Username` text NOT NULL,
-  `APIKey` text NOT NULL
+  `Secret` text NOT NULL,
+  `ExpireTime` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `apikeys`
+--
+
+INSERT INTO `apikeys` (`ID`, `Username`, `Secret`, `ExpireTime`) VALUES
+(22, 'DevAdmin', 'N4LU0QNuzIylzVQsCb2hNGYMHbZsqSVe.1', 1530628496),
+(23, 'DevUser', 'yu9CbftyVRgwRymtz26UaxkMfLoySW8c.0', 1530628506);
 
 -- --------------------------------------------------------
 
@@ -71,6 +88,7 @@ CREATE TABLE `files` (
   `Name` text NOT NULL,
   `AddedDate` int(11) NOT NULL,
   `ExpiryDate` int(11) NOT NULL,
+  `Type` tinyint(4) NOT NULL,
   `Link` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -129,12 +147,12 @@ ALTER TABLE `links`
 -- AUTO_INCREMENT for table `accounts`
 --
 ALTER TABLE `accounts`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `apikeys`
 --
 ALTER TABLE `apikeys`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 --
 -- AUTO_INCREMENT for table `calender`
 --
