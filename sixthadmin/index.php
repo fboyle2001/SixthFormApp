@@ -21,5 +21,15 @@
 		// Includes the default body which includes the navigation menu at the top of the page
 		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/body.php"); 
 	?>
+	<div>
+		<h2>Web Application</h2>
+		<ul>
+			<li>Users with admin rights are the only users with access to this</li>
+			<li>Used to push content to the app (notices, newsletters etc.)</li>
+			<li>Used to create and reset account passwords</li>
+			<li>Will be able to make announcements which will then appear on the app</li>
+			<li>Will also be able to manage school events on the calendar</li>
+		</ul>
+	</div>
   </body>
 </html>
