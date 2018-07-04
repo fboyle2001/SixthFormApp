@@ -20,15 +20,30 @@
  
 
 <?php
+	if(isset($_POST['submit'])){
+		$Date = date("d/m/y");
+		$_POST['ExpDate'];
+		$_FILES['File']['name'];
+		
+		
+		$servername = 'localhost';
+		$username = 'DevAdmin';
+		$password = 'test';
+		$db_name = 'sixthapp';
 
-	echo $date = date("d/m/y");
-	echo $_POST['ExpDate'];
-	echo $_FILES['File']['name'];
+		$con = mysqli_connect($servername, $username, $password, $db_name);
+
+
+
+
+		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) values('".$_FILES['File']['name']."', '".$Date."', '".$_POST['ExpDate']."', '".Daily."','".$_FILES['file']."')";
+	
+	
+		if(mysqli_query($con, $sql)){
+			echo 'data added';
+		}
+	}
 ?>
-	<iframe src=\"$_FILES['File']['name']\" width=\"100%\" style=\"height:100%\"></iframe>;
-
-
-
 
 
 
@@ -36,3 +51,5 @@
 
 
 </html>
+
+
