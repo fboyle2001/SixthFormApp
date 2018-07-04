@@ -5,7 +5,7 @@
 
 	// Calls a function from the shared page which prevents non-logged in users from accessing the page
 	// Guests will be redirect to the login page
-	// rejectGuest();
+	rejectGuest();
 ?>
 <!DOCTYPE html>
 <html>
