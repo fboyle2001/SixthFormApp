@@ -4,8 +4,16 @@
 
   class AccessLevel {
 
-	const student = 0;
-	const admin = 1;
+  	const student = 0;
+  	const admin = 1;
+
+  }
+
+  class StoreType {
+
+    const other = 0;
+    const newsletters = 1;
+    const notices = 2;
 
   }
 
