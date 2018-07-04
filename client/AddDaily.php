@@ -20,27 +20,25 @@
  
 
 <?php
-	if(isset($_POST['submit'])){
-		$Date = date("d/m/y");
+	if(isset($_POST['upload'])){
+		$Date = time();
 		$_POST['ExpDate'];
 		$_FILES['File']['name'];
-		
+
 		
 		$servername = 'localhost';
 		$username = 'DevAdmin';
 		$password = 'test';
 		$db_name = 'sixthapp';
-
-		$con = mysqli_connect($servername, $username, $password, $db_name);
-
-
-
-
-		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) values('".$_FILES['File']['name']."', '".$Date."', '".$_POST['ExpDate']."', '".Daily."','".$_FILES['file']."')";
+		$con = mysqli_connect($servername, "root", "", $db_name);
+		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Link`) values('".$_FILES['File']['name']."', '".$Date."', '".$_POST['ExpDate']."','".$_FILES['File']["name"]."')";
 	
 	
 		if(mysqli_query($con, $sql)){
 			echo 'data added';
+		}
+		else{
+			echo'failed';
 		}
 	}
 ?>
@@ -51,5 +49,3 @@
 
 
 </html>
-
-
