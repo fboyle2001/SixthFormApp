@@ -126,5 +126,33 @@
     // Check if the user is an admin based on the value in the session
 		return $_SESSION["admin"] === true;
 	}
+	  function has_arg($method , $name) {
+		if(strtoupper($method) == "GET") {
+		  return isset($_GET[$name]);
+		} else if(strtoupper($method) == "POST") {
+		  return isset($_POST[$name]);
+		}
 
+		return false;
+	  }
+
+	  function get_arg($method, $name) {
+		if(!has_arg($method, $name)) {
+		  return null;
+		}
+
+		if(strtoupper($method) == "GET") {
+		  return $_GET[$name];
+		} else if(strtoupper($method) == "POST") {
+		  return $_POST[$name];
+		}
+	  }
+
+	  function get($name) {
+		return get_arg("GET", $name);
+	  }
+
+	  function post($name) {
+		return get_arg("POST", $name);
+	  }
 ?>
