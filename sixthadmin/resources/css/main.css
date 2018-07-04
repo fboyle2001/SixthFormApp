@@ -1,0 +1,192 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300|Open+Sans');
+
+/* Defaults */
+
+body {
+	font-family: 'Open Sans', sans-serif;
+	font-size: 16px;
+	text-rendering: optimizeLegibility;
+  height: 100%;
+  padding-left: 2%;
+  padding-right: 2%;
+	margin-top: 0;
+  overflow-x: hidden;
+	margin: 0;
+	padding: 0;
+}
+
+div {
+	padding: 2%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: 'Roboto', sans-serif;
+	margin: 0;
+}
+
+p {
+    margin: 0;
+}
+
+/* Generic */
+
+.hidden {
+	display: none;
+}
+
+.normal {
+	margin: 2%;
+	margin-bottom: 0;
+}
+
+/* Div Specific */
+
+div.container {
+	all: unset;
+}
+
+div.content {
+	padding: 0;
+}
+
+div.data, div.inspect, div.recent, div.filters, div.map {
+	display: inline-block;
+	clear: both;
+}
+
+div.inspect {
+	width: 45%;
+}
+
+div.data {
+	width: 67%;
+}
+
+div.filters, div.map, div.recent {
+	float: right;
+}
+
+div.map {
+	height: 500px;
+	width: 45%;
+}
+
+div.filters {
+	width: 22%;
+}
+
+div.centred {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* ID Specific */
+
+#show_map {
+	height: 90%;
+	width: 90%;
+}
+
+/* Log Table */
+
+table.data-table {
+	border: 1px #66bb6a solid;
+	border-collapse: collapse;
+}
+
+table.data-table > tbody > tr > td, table.data-table > thead > tr > th {
+	text-align: center;
+	padding: 9px;
+}
+
+table.data-table > thead > tr > th {
+	background-color: #66bb6a;
+	color: white;
+	font-weight: normal;
+}
+
+table.data-table > tbody > tr > td {
+	border-color:
+}
+
+table.data-table > tbody > tr:nth-child(even) {
+	background-color: #a5d6a7;
+}
+
+table.data-table > tbody > tr:nth-child(odd) > td {
+	border-right: 1px #a5d6a7 solid;
+}
+
+table.data-table > tbody > tr:nth-child(odd) > td:last-child {
+	border: none;
+}
+
+td.skipsize {
+	white-space: nowrap;
+}
+
+/* Navigation */
+
+div.navigation {
+  padding: 0;
+  padding-right: 400%;
+  margin-right: -400%;
+  padding-left: 401.5%;
+  margin-left: -400%;
+  width: 100%;
+  background-color: #81c784; /** 300 **/
+}
+
+div.navigation > nav > ul > a > li, div.navigation > nav > ul > li {
+  display: inline-block;
+  margin-right: 1%;
+  padding: 0.5%;
+  transition: all 0.6s ease;
+  background-color: #81c784;
+  color: #e8f5e9;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+div.navigation > nav > ul > a > li:hover, div.navigation > nav > ul > li:hover {
+  background-color: #e8f5e9;
+  color: #81c784;
+}
+
+div.navigation > nav > ul {
+	margin: 0;
+	padding: 0;
+}
+
+div.subnav {
+	padding: 0;
+  padding-right: 400%;
+  margin-right: -400%;
+  padding-left: 401.5%;
+  margin-left: -400%;
+  display: none;
+  width: 100%;
+  background-color: #e8f5e9; /** 50 **/
+}
+
+div.subnav > nav > ul > a > li {
+	display: inline-block;
+	margin-right: 1%;
+	padding: 0.5%;
+	transition: all 0.6s ease;
+	background-color: #e8f5e9;
+	color: #81c784;
+	cursor: pointer;
+}
+
+div.subnav > nav > ul {
+	margin: 0;
+	padding: 0;
+}
+
+div.subnav > nav > ul > a > li:hover {
+  text-decoration: underline;
+}
