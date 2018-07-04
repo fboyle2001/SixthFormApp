@@ -24,9 +24,12 @@
 	echo $date = date("d/m/y");
 	echo $_POST['ExpDate'];
 	echo $_FILES['File']['name'];
-	
-
 ?>
+	<iframe src=\"$_FILES['File']['name']\" width=\"100%\" style=\"height:100%\"></iframe>;
+
+
+
+
 
 
 </body>
