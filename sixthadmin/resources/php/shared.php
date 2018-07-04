@@ -9,7 +9,7 @@
   */
 
   // Includes the database connection
-	require($_SERVER["DOCUMENT_ROOT"] . "/coursework/resources/php/database/DatabaseHandler.php");
+	require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/database/DatabaseHandler.php");
 
   // Starts the session
 	session_start();
