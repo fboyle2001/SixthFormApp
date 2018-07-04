@@ -96,7 +96,7 @@
 		}
 
     // Redirects the user to the login page
-		header("Location: /coursework/accounts/login.php");
+		header("Location: /sixthadmin/accounts/login.php");
     // Prevents the rest of the page loading in case they do not redirect
 		die();
 	}
@@ -126,7 +126,8 @@
     // Check if the user is an admin based on the value in the session
 		return $_SESSION["admin"] === true;
 	}
-	  function has_arg($method , $name) {
+
+  function has_arg($method , $name) {
 		if(strtoupper($method) == "GET") {
 		  return isset($_GET[$name]);
 		} else if(strtoupper($method) == "POST") {
@@ -134,9 +135,9 @@
 		}
 
 		return false;
-	  }
+  }
 
-	  function get_arg($method, $name) {
+  function get_arg($method, $name) {
 		if(!has_arg($method, $name)) {
 		  return null;
 		}
@@ -146,13 +147,13 @@
 		} else if(strtoupper($method) == "POST") {
 		  return $_POST[$name];
 		}
-	  }
+  }
 
-	  function get($name) {
+  function get($name) {
 		return get_arg("GET", $name);
-	  }
+  }
 
-	  function post($name) {
+  function post($name) {
 		return get_arg("POST", $name);
-	  }
+  }
 ?>
