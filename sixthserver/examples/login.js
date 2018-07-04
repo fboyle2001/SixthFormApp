@@ -55,6 +55,7 @@ function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   }
 
   if(window.user !== null) {
+    //console.log(count * timePerPause);
     callback();
   } else {
     setTimeout(function () {
@@ -62,9 +63,5 @@ function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
     }, timePerPause);
   }
 }
-
-performLogin("DevAdmin", "test", "http://localhost/sixthserver/api", function() {
-  console.log(window.user);
-});
 
 //open the console and run 'window.user.query("/accounts/details/", {}, function(data) {console.log(data)}, null);' it will work.
