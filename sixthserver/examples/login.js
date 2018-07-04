@@ -17,7 +17,7 @@ function login(username, password, base, error, success) {
 }
 
 function performLogin(username, password, base, start) {
-  login("DevAdmin", "test", "http://localhost/sixthserver/api",
+  login(username, password, base,
   function error(code, msg) {
     console.log(code + ": " + msg);
   }, function success(data, base) {
