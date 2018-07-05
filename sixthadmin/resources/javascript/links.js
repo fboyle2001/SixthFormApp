@@ -31,7 +31,8 @@ function process(result) {
 
   $.each(result["content"]["records"], function (index, item) {
     var date = new Date(item["ExpiryDate"] * 1000);
-    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
+		console.log(date);
+    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
     var link = decodeURIComponent(item["Link"]);
     $("#links_table").append('<tr><td>' + item["ID"] + '</td><td>' + item["Name"] + '</td><td>' + displayDate + '</td><td><a target="_blank" href="' + link + '">' + link + '</a></td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
   });

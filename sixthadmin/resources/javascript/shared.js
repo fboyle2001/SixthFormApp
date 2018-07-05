@@ -4,7 +4,7 @@ var dropdownContent = {
   'announcements': '<a href="/sixthadmin/announce/"><li>View Announcements</li></a><a href="/sixthadmin/announce/make.php"><li>Make Announcement</li></a><a href="/sixthadmin/announce/remove.php"><li>Remove Announcement</li></a>',
   'calendar': '<a href="/sixthadmin/calendar/"><li>View Calendar</li></a><a href="/sixthadmin/calendar/add.php"><li>Add Event</li></a><a href="/sixthadmin/calendar/remove.php"><li>Remove Event</li></a>',
   'files': '<a href="/sixthadmin/files/"><li>View Files</li></a><a href="/sixthadmin/files/upload.php"><li>Upload File</li></a><a href="/sixthadmin/files/delete.php"><li>Remove File</li></a>',
-  'links': '<a href="/sixthadmin/links/"><li>View Links</li></a><a href="/sixthadmin/links/add.php"><li>Add Link</li></a><a href="/sixthadmin/links/remove.php"><li>Remove Link</li></a>'
+  'links': '<a href="/sixthadmin/links/"><li>View Links</li></a><a href="/sixthadmin/links/add.php"><li>Add Link</li></a>'
 };
 
 // Waits until the document is loaded
