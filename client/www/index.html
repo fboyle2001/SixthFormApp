@@ -13,7 +13,7 @@
 				performLogin($("#username").val(), $("#password").val(), "http://localhost/sixthserver/api", function(code, msg) {
 					alert(msg);
 				}, function() {
-					//in here make it redirect the user to the next page. Look into window.location
+
 				 window.location = "index1.html"
 				  $("#auth").append(window.user.auth);
 				});
