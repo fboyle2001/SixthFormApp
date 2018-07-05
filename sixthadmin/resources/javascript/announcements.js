@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  contSearch("");
+  titleSearch("");
 
 	$("#search_by_title").click(function (e) {
 		e.preventDefault();
@@ -11,13 +11,13 @@ $(document).ready(function () {
     e.preventDefault();
     var contentTerm = $("#contentsearch").val();
     console.log("content: " + contentTerm);
-    contSearch(contentTerm);
+    contentSearch(contentTerm);
   });
 });
 
-function contSearch(content) {
-  console.log("made it");
+function contentSearch(content) {
   var queryUrl = "http://localhost/sixthadmin/announcements/content_search.php?content=" + content;
+
   $.getJSON(queryUrl, function (data) {
     processData(data);
   });
@@ -25,7 +25,7 @@ function contSearch(content) {
 
 function titleSearch(title) {
   var queryUrl = "http://localhost/sixthadmin/announcements/title_search.php?title=" + title;
-  console.log(queryUrl);
+
   $.getJSON(queryUrl, function (data) {
     processData(data);
   });
@@ -48,12 +48,35 @@ function processData(result) {
 
   $.each(result["content"]["records"], function(index, item) {
     var date = new Date(item["DateAdded"] * 1000);
-    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
+    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
 
-    $("#announcements_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Title"] + '</td><td>' + item["Content"] + '</td><td>' + displayDate + '</td><td>DELETE HERE</td></tr>');
+    $("#announcements_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Title"] + '</td><td>' + item["Content"] + '</td><td>' + displayDate + '</td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
   });
 
   $("#announcements_table").append("</tbody>");
 }
 
-function contentSearch(title) {}
+function remove(id) {
+  $("#delete_link_" + id).remove();
+  $("#delete_" + id).text("Deleting...");
+	var queryUrl = "http://localhost/sixthadmin/announcements/delete.php";
+
+	$.ajax({
+		url: queryUrl,
+		type: "post",
+		dataType: "json",
+		data: "id=" + id,
+		success: function(data) {
+			processRemoveResult(data, id);
+		},
+		error: function(data) {
+			alert("An unexpected error occurred");
+			console.log(data);
+		}
+	});
+}
+
+function processRemoveResult(data, id) {
+	var status = data["status"];
+	$("#delete_" + id).text(status["description"]);
+}
