@@ -23,27 +23,14 @@ function performLogin(username, password, base, onerror, start) {
     onerror(code, msg);
   }, function success(data, base) {
     var auth = data["content"]["auth"];
+    console.log(Cookies.get("auth"));
     window.user = {
       auth: auth,
-      base: base,
-      query: function (url, postData, callback, fatal) {
-        $.ajax({
-          url: base + url,
-          type: "post",
-          dataType: "json",
-          data: postData,
-          headers: {
-            authorization: auth
-          },
-          success: function(data) {
-            callback(data);
-          },
-          error: function(data) {
-            fatal(data);
-          }
-        });
-      }
+      base: base
     };
+
+    Cookies.set("auth", auth);
+    Cookies.set("base", base);
   });
 
   waitForLoginCompletion(250, 8, 0, start); //max wait 2 seconds

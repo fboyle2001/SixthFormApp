@@ -5,14 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Content-Language" content="en-gb">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-
+<script src="jquery-3.2.1.min.js"></script>
+<script src="js.cookie.js"></script>
 <title>New Page 1</title>
 <link href="styles.css" rel="stylesheet" type="text/css">
+<script>
+	$(document).ready(function () {
+		query("/fetch/announcements/list/", {"limit": 10}, function(data) {
+			loadAnnouncements(data);
+		}, function(data) {
+			alert(data);
+		})
+	});
+
+	function query(url, postData, callback, fatal) {
+		$.ajax({
+			url: Cookies.get("base") + url,
+			type: "post",
+			dataType: "json",
+			data: postData,
+			headers: {
+				authorization: Cookies.get("auth")
+			},
+			success: function(data) {
+				callback(data);
+			},
+			error: function(data) {
+				fatal(data);
+			}
+		});
+	}
+
+	function loadAnnouncements(data) {
+		$.each(data["content"]["records"], function(index, item){
+			$("#announcements").append('<div><h1>' + item["Title"] + '</h1><p>' + item["Content"] + '</p></div>');
+		});
+	}
+</script>
 </head>
 
 <body>
-	
-	
+
+
 
 	<div align="center">
 		<table border="0" style = "max-width:100%; max-height:140%;"cellspacing="0">
@@ -28,7 +62,7 @@
 			<tr>
 				<td  style="border-left: 1px solid #000080; border-bottom: 1px solid #000080; max-width:100%;height:auto;">
 				<table border="0" style="max-width:100%;height:auto;" cellspacing="0" cellpadding="0" id="table1">
-	
+
 				</table>
 				</td>
 				<td  align="right" style="border-right: 1px solid #000080; border-bottom: 1px solid #000080; max-width:140%; max-height:140%;">
@@ -49,33 +83,22 @@
 		</table>
 </div>
 <br>
-	<div align="center">
-		<table border="0"  cellspacing="0" style="border: 1px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
-			<tr>
-				<td valign="top" align = "center" style="font-size:5vw">Announcement<p><font color="#FF0000"></td>
-				</tr>
-				<tr>
-				<td valign="top" align = "center" style="font-size:3vw">Where the Announcements would go<p><font color="#FF0000"></td>
-				</tr>
-				
-				
-				
-			</tr>
-		</table>
+	<div align="center" id="announcements">
+
 	</div>
 	<div align="center">
 		<table border="0"  cellspacing="0" style="border: 1px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
 			<tr>
 				<td valign="top" align = "center" style="font-size:5vw">Calendar<p><font color="#FF0000"></td></tr>
 				<tr><td><iframe align = "center" src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=milcollegeoftech%40gmail.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" style="border-width:0; width:auto;" height = "600" frameborder="0" scrolling="no"></iframe></td>
-				
-				
-				
+
+
+
 			</tr>
 		</table>
 	</div>
-	
+
 	<tr>
-				
+
 </body>
 </html>
