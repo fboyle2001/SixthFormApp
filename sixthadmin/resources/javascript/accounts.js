@@ -56,7 +56,6 @@ function remove(id) {
 
 function processRemoveResult(data, id) {
 	var status = data["status"];
-	var code = status["code"];
 	$("#delete_" + id).text(status["description"]);
 }
 

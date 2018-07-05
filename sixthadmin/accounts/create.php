@@ -71,7 +71,6 @@
 		<h1>Create New Account</h1>
 		<p>To create a new user, enter a unique username and select if they are an admin or enter their year group.</p>
 		<p>By default, their password will be Passw0rd (which they can then change).</p>
-		<p id="test"></p>
 		<br>
 		<form method="POST" id="account_form">
 			<table>
