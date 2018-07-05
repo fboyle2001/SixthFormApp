@@ -27,17 +27,42 @@ function process(result) {
 	} else {
 		$("#account_table").append("<tbody>");
 		$.each(result["content"]["records"], function (index, item) {
-			$("#account_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td>Fill</td></tr>');
+			$("#account_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
 		});
 		$("#account_table").append("</tbody>");
 	}
 }
 
+function remove(id) {
+	$("#delete_link_" + id).remove();
+	$("#delete_" + id).text("Deleting...");
+	var queryUrl = "http://localhost/sixthadmin/accounts/delete_account.php";
+
+	$.ajax({
+		url: queryUrl,
+		type: "post",
+		dataType: "json",
+		data: "id=" + id,
+		success: function(data) {
+			processRemoveResult(data, id);
+		},
+		error: function(data) {
+			alert("An unexpected error occurred");
+			console.log(data);
+		}
+	});
+}
+
+function processRemoveResult(data, id) {
+	var status = data["status"];
+	var code = status["code"];
+	$("#delete_" + id).text(status["description"]);
+}
+
 function reset(id) {
-	//disable the button
 	$("#reset_link_" + id).remove();
 	$("#reset_" + id).text("Resetting...");
-	console.log("removed");
+
 	var queryUrl = "http://localhost/sixthadmin/accounts/reset_password.php";
 	$.ajax({
 		url: queryUrl,
@@ -49,6 +74,7 @@ function reset(id) {
 		},
 		error: function(data) {
 			alert("An unexpected error occurred.");
+			console.log(data);
 		}
 	});
 }
