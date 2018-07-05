@@ -9,17 +9,17 @@
 		$(document).ready(function() {
 			$("#login").click(function(e){
 				e.preventDefault();
-				performLogin($("#username").val(), $("#password").val(), "http://localhost/sixthserver/api", function(code, msg) {
+				performLogin($("#username").val(), $("#password").val(), "http://192.168.43.140/sixthserver/api", function(code, msg) {
 					alert(msg);
 				}, function() {
 					//in here make it redirect the user to the next page. Look into window.location
+				 window.location = "index1.html"
 				  $("#auth").append(window.user.auth);
 				});
 			});
 		});
 
 //192.168.43.140
-
 		</script>
 <meta http-equiv="Content-Language" content="en-gb">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
@@ -65,15 +65,8 @@
 			<tr><td><input type="password" id="password"></td></tr>
 			<tr><td><button id = "login" >Login</button></td></tr>
 			</form>
-			<form action="index1.html">
-			<td><input type="submit" value="click on me!"></td>
-			</form>
-			<body>
-		<div>
-			<h3>Login Data</h3>
-			<p>Auth Key: <span id="auth"></span></p>
-		</div>
-	</body>
+			
+			
 			</td>
 			</tr>
 		</table>
