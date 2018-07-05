@@ -10,39 +10,24 @@
 </head>
 
 <body>
-	<script>
-		$(document).ready(function () {
-			query("/fetch/links/list/", {"limit": 10}, function(data) {
-				loadLinks(data);
-			}, function(data) {
-				alert(data);
-			})
+<script src="jquery-3.2.1.min.js"></script>
+<script src="js.cookie.js"></script>
+<script src="query.js"></script>
+<script>
+	$(document).ready(function () {
+		query("/fetch/links/list/",  {"limit": 10},function(data) {
+			loadlinks(data);
+		}, function(data) {
+			alert(data);
+		})
+	});
+
+	function loadlinks(data) {
+		$.each(data["content"]["records"], function(index, item){
+			$("#links").append('<div><h1>' + item["Name"] + '</h1><p>' + item["Link"] + '</p></div>');
 		});
-
-		function query(url, postData, callback, fatal) {
-			$.ajax({
-				url: Cookies.get("base") + url,
-				type: "post",
-				dataType: "json",
-				data: postData,
-				headers: {
-					authorization: Cookies.get("auth")
-				},
-				success: function(data) {
-					callback(data);
-				},
-				error: function(data) {
-					fatal(data);
-				}
-			});
-		}
-
-		function loadLinks(data) {
-			$.each(data["content"]["records"], function(index, item){
-				$("#links").append('<div><h1>' + item["Name"] + '</h1><p>' + item["Link"] + '</p></div>');
-			});
-		}
-	</script>
+	}
+</script>
 
 
 	<div align="center">
@@ -80,6 +65,7 @@
 		</table>
 </div>
 <br>
+
 	<div align="center">
 		<table border="0"  cellspacing="0" style="border: 1px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
 			<tr>
@@ -88,10 +74,7 @@
 				<td valign="top" align = "center" style="font-size:5vw">Links<p><font color="#FF0000"></td>
 				</tr>
 				<tr>
-				<td valign="top" align = "center" style="font-size:3vw">Where the Links will go<p><font color="#FF0000"></td>
-
-
-
+				<td><div align="center" id="links"></div></td>
 			</tr>
 		</table>
 	</div>

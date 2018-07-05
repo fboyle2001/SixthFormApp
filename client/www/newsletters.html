@@ -10,7 +10,24 @@
 </head>
 
 <body>
-	
+<script src="jquery-3.2.1.min.js"></script>
+<script src="js.cookie.js"></script>
+<script src="query.js"></script>
+<script>
+	$(document).ready(function () {
+		query("/fetch/files/newsletters/list/", {"limit": 10}, function(data) {
+			loadNewsletters(data);
+		}, function(data) {
+			alert(data);
+		})
+	});
+
+	function loadNewsletters(data) {
+		$.each(data["content"]["records"], function(index, item){
+			$("#newsletters").append('<div><h1>' + item["Name"] + '</h1><p>' + item["Link"] + '</p></div>');
+		});
+	}
+</script>
 	
 
 	<div align="center">
@@ -48,13 +65,14 @@
 		</table>
 </div>
 <br>
+
 	<div align="center">
 		<table border="0"  cellspacing="0" style="border: 1px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
 			<tr>
 				<td valign="top" align = "center" style="font-size:5vw">Newsletters<p><font color="#FF0000"></td>
 				</tr>
 				<tr>
-				<td valign="top" align = "center" style="font-size:3vw">This is where newsletters will go<p><font color="#FF0000"></td>
+				<td><div align="center" id="newsletters"></div></td>
 				
 				
 			</tr>
