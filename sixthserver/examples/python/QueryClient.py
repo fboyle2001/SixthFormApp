@@ -42,5 +42,5 @@ class User:
         
         return False
     
-user = User("DevAdmin", "Passw0rd", "http://localhost/sixthserver/api")
+user = User("Finlay", "Passw0rd", "http://localhost/sixthserver/api")
 print(user.query("/accounts/details/", None))
