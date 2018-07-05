@@ -10,16 +10,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <?php 
+    <?php
 		// Includes the default header which includes the stylesheet and navigation JavaScript
 		// It also includes jQuery in the page
-		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php"); 
-	?>
+		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
+		?>
   </head>
   <body>
-    <?php 
+    <?php
 		// Includes the default body which includes the navigation menu at the top of the page
-		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/body.php"); 
-	?>
+		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/body.php");
+		?>
   </body>
 </html>

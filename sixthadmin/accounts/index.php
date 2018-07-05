@@ -38,6 +38,7 @@
 			</thead>
 			<tbody></tbody>
 		</table>
+		<p id="message"></p>
 	</div>
   </body>
 </html>

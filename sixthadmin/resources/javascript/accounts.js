@@ -5,7 +5,6 @@ $(document).ready(function () {
 		var searchTerm = $("#usersearch").val();
 		search(searchTerm);
 	});
-
 });
 
 function search(username) {
@@ -19,18 +18,20 @@ function process(result) {
 	$("#account_table > tbody").remove();
 
 	if(result["status"]["code"] != 200) {
+		$("#message").text("An error occurred");
 		return;
 	}
 
 	if(result["content"]["found"] == false) {
-
-	} else {
-		$("#account_table").append("<tbody>");
-		$.each(result["content"]["records"], function (index, item) {
-			$("#account_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
-		});
-		$("#account_table").append("</tbody>");
+		$("#message").text("No data found");
+		return;
 	}
+
+	$("#account_table").append("<tbody>");
+	$.each(result["content"]["records"], function (index, item) {
+		$("#account_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
+	});
+	$("#account_table").append("</tbody>");
 }
 
 function remove(id) {
