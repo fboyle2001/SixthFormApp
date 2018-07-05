@@ -1,8 +1,23 @@
-
+<!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script> xmlhttp.open("init.php"); xmlhttp.send();</script>
 <head>
+<script src="jquery-3.2.1.min.js"></script>
+		<script src="login.js"></script>
+		<script>
+
+		$(document).ready(function() {
+			$("#login").click(function(e){
+				e.preventDefault();
+				performLogin("DevAdmin", "Passw0rd", "http://localhost/sixthserver/api",function() {
+				  $("#auth").append(window.user.auth);
+				});
+			});
+		});
+
+
+
+		</script>
 <meta http-equiv="Content-Language" content="en-gb">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>New Page 1</title>
@@ -24,7 +39,7 @@
 			<tr>
 				<td style="border-left: 1px solid #000080; border-bottom: 1px solid #000080; max-width:100%;height:auto;">
 				<table border="0" style="max-width:100%;height:auto;" cellspacing="0" cellpadding="0" id="table1">
-				
+
 				</table>
 				</td>
 				<td align="right" style="border-right: 1px solid #000080; border-bottom: 1px solid #000080; max-width:100%;height:auto;">
@@ -42,15 +57,20 @@
 			<tr>
 				<td valign="top" align ="center"><form>
 			<tr><td><h1 style="font-size:2vw">Username</h1></td></tr>
-			<tr><td><input type="text" name="username"></td></tr>
+			<tr><td><input type="text" id="username"></td></tr>
 			<tr><td><h1 style="font-size:2vw">Password</h1></td></tr>
-			<tr><td><input type="password" name="password"></td></tr>
-			<tr><td><input type="hidden" name="input3" value="3"></td></tr>
-			<tr><td><input type="submit" value="Login"></td></tr>
+			<tr><td><input type="password" id="password"></td></tr>
+			<tr><td><button id = "login" >Login</button></td></tr>
 			</form>
 			<form action="index1.html">
 			<td><input type="submit" value="click on me!"></td>
 			</form>
+			<body>
+		<div>
+			<h3>Login Data</h3>
+			<p>Auth Key: <span id="auth"></span></p>
+		</div>
+	</body>
 			</td>
 			</tr>
 		</table>
