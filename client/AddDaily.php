@@ -43,11 +43,7 @@
  		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) values('".$_FILES['File']['name']."', '".$Date."', '".$_POST['ExpDate']."', '".$_POST['Type']."','".$_FILES['File']["tmp_name"]."')"; 
  		
 		
-		#header('Content-type: application/pdf');
-		#header('Content-Disposition: inline; filename="' . $_FILES['File']['name'] . '"');
-		#header('Content-Transfer-Encoding: binary');
-		#header('Accept-Ranges: bytes');
-		#@readfile($_FILES['File']["tmp_name"]);
+
  	 
 	 
  		if(mysqli_query($con, $sql)){ 
@@ -58,6 +54,16 @@
 			
 
  		} 
+		
+		$sql= "select Link from `files` where `Name`='".$_FILES['File']['name']."' ";
+		
+
+		
+		header('Content-type: application/pdf');
+		header('Content-Disposition: inline; filename="' . $_FILES['File']['name'] . '"');
+		header('Content-Transfer-Encoding: binary');
+		header('Accept-Ranges: bytes');
+		@readfile($sql);
  	}
 	
 	
