@@ -2,6 +2,7 @@ window.user = null;
 
 function login(username, password, base, error, success) {
   var queryUrl = base + "/accounts/login/";
+  console.log(queryUrl);
   var postData = "username=" + username + "&password=" + password;
 
   $.post(queryUrl, postData, function(data, textStatus) {
@@ -50,6 +51,7 @@ function performLogin(username, password, base, start) {
 
 function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   if(count >= maxPauses) {
+    console.log("here");
     return;
   }
 

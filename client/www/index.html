@@ -5,15 +5,18 @@
 <script src="jquery-3.2.1.min.js"></script>
 		<script src="login.js"></script>
 		<script>
-			
-		$("#login").click(function(){
-			performLogin("DevAdmin", "test", "http://192.168.43.140/sixthserver/api",function() {
-			  $("#auth").append(window.user.auth);
+
+		$(document).ready(function() {
+			$("#login").click(function(e){
+				e.preventDefault();
+				performLogin("DevAdmin", "Passw0rd", "http://localhost/sixthserver/api",function() {
+				  $("#auth").append(window.user.auth);
+				});
 			});
 		});
-	
-			
-			
+
+
+
 		</script>
 <meta http-equiv="Content-Language" content="en-gb">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
@@ -36,7 +39,7 @@
 			<tr>
 				<td style="border-left: 1px solid #000080; border-bottom: 1px solid #000080; max-width:100%;height:auto;">
 				<table border="0" style="max-width:100%;height:auto;" cellspacing="0" cellpadding="0" id="table1">
-				
+
 				</table>
 				</td>
 				<td align="right" style="border-right: 1px solid #000080; border-bottom: 1px solid #000080; max-width:100%;height:auto;">
