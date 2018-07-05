@@ -17,10 +17,10 @@ function login(username, password, base, error, success) {
   }, "json");
 }
 
-function performLogin(username, password, base, start) {
+function performLogin(username, password, base, onerror, start) {
   login(username, password, base,
   function error(code, msg) {
-    console.log(code + ": " + msg);
+    onerror(code, msg);
   }, function success(data, base) {
     var auth = data["content"]["auth"];
     window.user = {

@@ -9,7 +9,10 @@
 		$(document).ready(function() {
 			$("#login").click(function(e){
 				e.preventDefault();
-				performLogin($("#username").val(), $("#password").val(), "http://localhost/sixthserver/api",function() {
+				performLogin($("#username").val(), $("#password").val(), "http://localhost/sixthserver/api", function(code, msg) {
+					alert(msg);
+				}, function() {
+					//in here make it redirect the user to the next page. Look into window.location
 				  $("#auth").append(window.user.auth);
 				});
 			});
