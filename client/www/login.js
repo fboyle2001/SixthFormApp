@@ -51,7 +51,7 @@ function performLogin(username, password, base, start) {
 
 function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   if(count >= maxPauses) {
-    console.log("Timeout");
+    console.log("here");
     return;
   }
 
