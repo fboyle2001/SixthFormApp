@@ -27,20 +27,21 @@
 <?php 
  	if(isset($_POST['upload'])){ 
 	
-		print_r($_FILES["File"]);
+
  		$Date = time(); 
  		$_POST['ExpDate']; 
  		$_FILES['File']['name']; 
 
+		$ExpDate = strtotime($_POST['ExpDate']);
 		
- 		echo $_POST['Type'];
+
 		
 		$servername = 'localhost'; 
 		$username = 'DevAdmin'; 
  		$password = 'test'; 
  		$db_name = 'sixthapp'; 
  		$con = mysqli_connect($servername, "root", "", $db_name); 
- 		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) values('".$_FILES['File']['name']."', '".$Date."', '".$_POST['ExpDate']."', '".$_POST['Type']."','".$_FILES['File']["tmp_name"]."')"; 
+ 		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) values('".$_FILES['File']['name']."', '".$Date."', '".$ExpDate."', '".$_POST['Type']."','".$_FILES['File']["tmp_name"]."')"; 
  		
 		
 
@@ -54,16 +55,17 @@
 			
 
  		} 
+		###################################
 		
-		$sql= "select Link from `files` where `Name`='".$_FILES['File']['name']."' ";
-		
+		#header('Content-type: application/pdf');
+		#header('Content-Disposition: inline; filename="' . $_FILES['File']['name'] . '"');
+		#header('Content-Transfer-Encoding: binary');
+		#header('Accept-Ranges: bytes');
+		#@readfile($_FILES['File']["tmp_name"]);
 
+		################################### Once the database links are set up just put the link from the database in the last brackets where the temp name currently is
 		
-		header('Content-type: application/pdf');
-		header('Content-Disposition: inline; filename="' . $_FILES['File']['name'] . '"');
-		header('Content-Transfer-Encoding: binary');
-		header('Accept-Ranges: bytes');
-		@readfile($sql);
+		
  	}
 	
 	
@@ -72,7 +74,7 @@
 
 	
 ?>	
-	<iframe src=\"$_FILES['File']['name']\" width=\"100%\" style=\"height:100%\"></iframe>
+
 
  
  
