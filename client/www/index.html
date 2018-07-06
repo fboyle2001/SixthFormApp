@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <head>
@@ -10,7 +11,7 @@
 		$(document).ready(function() {
 			$("#login").click(function(e){
 				e.preventDefault();
-				performLogin($("#username").val(), $("#password").val(), "http://172.20.10.2/sixthserver/api", function(code, msg) {
+				performLogin($("#username").val(), $("#password").val(), "http://192.168.43.140/sixthserver/api", function(code, msg) {
 					alert(msg);
 				}, function() {
 				 window.location = "index1.html"
@@ -18,7 +19,7 @@
 				});
 			});
 		});
-
+//172.20.10.2
 //192.168.43.140
 		</script>
 <meta http-equiv="Content-Language" content="en-gb">
@@ -33,19 +34,19 @@
 	<div align="center">
 		<table border="0" style="max-width:100%;height:auto;" cellspacing="0">
 			<tr>
-				<td style="border-left: 1px solid #000080; border-top: 1px solid #000080; max-width:100%;height:auto;">
+				<td style="border-left: 0px solid #000080; border-top: 0px solid #000080; max-width:100%;height:auto;">
 				<img border="0" src="images/MCA.png" style="max-width:100%;height:auto;"></td>
-				<td valign="bottom" align="right"  style="border-top: 1px solid #000080; border-right: 1px solid #000080; max-width:100%;height:auto;">
-				<div class="title" style="font-size:3vw">LOGIN PAGE<img border="0" src="images/Blank.gif" width="2" height="8"></div>
+				<td valign="bottom" align="right"  style="border-top: 0px solid #000080; border-right: 0px solid #000080; max-width:100%;height:auto;">
+				<div class="title" style="font-size:3vw"><img border="0" src="images/Blank.gif" width="2" height="8"></div>
 				</td>
 			</tr>
 			<tr>
-				<td style="border-left: 1px solid #000080; border-bottom: 1px solid #000080; max-width:100%;height:auto;">
+				<td style="border-left: 0px solid #000080; border-bottom: 0px solid #000080; max-width:100%;height:auto;">
 				<table border="0" style="max-width:100%;height:auto;" cellspacing="0" cellpadding="0" id="table1">
 
 				</table>
 				</td>
-				<td align="right" style="border-right: 1px solid #000080; border-bottom: 1px solid #000080; max-width:100%;height:auto;">
+				<td align="right" style="border-right: 0px solid #000080; border-bottom: 0px solid #000080; max-width:100%;height:auto;">
 				<table border="0" cellpadding="0" id="table2" style="max-width:100%;height:auto;">
 					<tr>
 					</tr>
@@ -56,14 +57,14 @@
 </div>
 <br>
 	<div align="center">
-		<table border="0" cellspacing="0" style="border: 1px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 1px; padding-bottom: 1px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
+		<table border="0" cellspacing="0" style="border: 0px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 0px; padding-bottom: 0px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
 			<tr>
-				<td valign="top" align ="center"><form>
-			<tr><td><h1 style="font-size:2vw">Username</h1></td></tr>
-			<tr><td><input type="text" id="username"></td></tr>
-			<tr><td><h1 style="font-size:2vw">Password</h1></td></tr>
-			<tr><td><input type="password" id="password"></td></tr>
-			<tr><td><button id = "login" >Login</button></td></tr>
+				<td valign="top" align ="center"><form></tr>
+			<tr><td><h1 style="font-size:2vw">Username:</h1></td>
+			<td><input type="text" id="username"></td></tr>
+			<tr><td><h1 style="font-size:2vw">Password:</h1></td>
+			<td><input type="password" id="password"></td></tr>
+			<tr><td><button id = "login" style = "background-color: white; color: black;border-radius: 25%;";>Login</button></td></tr>
 			</form>
 
 
