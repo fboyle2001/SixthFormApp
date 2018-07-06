@@ -16,7 +16,7 @@
 <script src="query.js"></script>
 <script>
 	$(document).ready(function () {
-		query("/fetch/links/list/",  {"limit": 10},function(data) {
+		query("/fetch/links/list/",  {"validOnly": true},function(data) {
 			loadlinks(data);
 		}, function(data) {
 			alert(data);
@@ -25,7 +25,7 @@
 
 	function loadlinks(data) {
 		$.each(data["content"]["records"], function(index, item){
-			$("#links").append('<div><a href ="' + item["Link"] + '">'+item["Name"]+'</a></div>');
+			$("#links").append('<div><a href ="' + item["Link"] + '">'+item["Name"]+'</a><p>' + new Date(item["ExpiryDate"] * 1000) + '</p></div>');
 			//$("#links").append('<div><iframe style = "width:auto" height = "600"  frameborder="1" id = "' + item["ID"] + '"src ="' + item["Link"] + '"></iframe></div>');
 			//$("#links").append('<div><button type="button" onlick="document.getElementById("'+item["ID"] + '").style.display="block"">Hide</button></div>');
 		});
