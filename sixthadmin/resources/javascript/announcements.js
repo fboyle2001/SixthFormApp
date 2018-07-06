@@ -57,6 +57,12 @@ function processData(result) {
 }
 
 function remove(id) {
+  var certain = confirm("Are you sure you want to delete this?");
+
+  if(certain == false) {
+    return;
+  }
+
   $("#delete_link_" + id).remove();
   $("#delete_" + id).text("Deleting...");
 	var queryUrl = "http://localhost/sixthadmin/announcements/delete.php";

@@ -35,6 +35,12 @@ function process(result) {
 }
 
 function remove(id) {
+  var certain = confirm("Are you sure you want to delete this?");
+
+  if(certain == false) {
+    return;
+  }
+
 	$("#delete_link_" + id).remove();
 	$("#delete_" + id).text("Deleting...");
 	var queryUrl = "http://localhost/sixthadmin/accounts/delete_account.php";
@@ -60,6 +66,12 @@ function processRemoveResult(data, id) {
 }
 
 function reset(id) {
+  var certain = confirm("Are you sure you want to reset the password?");
+
+  if(certain == false) {
+    return;
+  }
+
 	$("#reset_link_" + id).remove();
 	$("#reset_" + id).text("Resetting...");
 
