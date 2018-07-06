@@ -20,11 +20,21 @@
     die($reply->toJson());
   }
 
+  $link = $selectQuery->getRecords()[0]["Link"];
+  $storedFile = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $link;
+
+  $unlinkResult = unlink($storedFile);
+
+  if($unlinkResult == false) {
+    $reply->setStatus(ReplyStatus::withData(500, "Unable to delete file"));
+    die($reply->toJson());
+  }
+
   $deleteQuery = "DELETE FROM `files` WHERE `ID` = '$id'";
   $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
 
   if($deleteQuery->wasSuccessful() == false) {
-    $reply->setStatus(ReplyStatus::withData(500, "Unable to delete file"));
+    $reply->setStatus(ReplyStatus::withData(500, "File deleted but unable to remove database reference"));
     die($reply->toJson());
   }
 
