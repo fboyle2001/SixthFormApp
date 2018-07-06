@@ -83,13 +83,6 @@ div.centred {
   transform: translate(-50%, -50%);
 }
 
-/* ID Specific */
-
-#show_map {
-	height: 90%;
-	width: 90%;
-}
-
 /* Log Table */
 
 table.data-table {
@@ -122,10 +115,6 @@ table.data-table > tbody > tr:nth-child(odd) > td {
 
 table.data-table > tbody > tr:nth-child(odd) > td:last-child {
 	border: none;
-}
-
-td.skipsize {
-	white-space: nowrap;
 }
 
 /* Navigation */

@@ -36,10 +36,10 @@
 		}
 
 		$record = $selectResult->getRecords()[0];
-		
+
 		// Checks the password against the hash stored in the database
 		$passwordsMatch = password_verify($password, $record["Password"]);
-		
+
 		if($record["IsAdmin"] != 1) {
 			return "You must be an admin to access this website.";
 		}
@@ -71,7 +71,7 @@
 	// If the user is logged in, redirect them to the home page
 	// This must come here because then if their login attempt was successful they will be redirected
 	if(isLoggedIn() === true) {
-		header("Location: /sixthadmin/");
+		header("Location: /sixthadmin/accounts/");
 		die();
 	}
 ?>
