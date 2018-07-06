@@ -66,10 +66,18 @@ function processData(result) {
 
   $.each(result["content"]["records"], function(index, item) {
     var addedDate = new Date(item["AddedDate"] * 1000);
-    var expiryDate = new Date(item["ExpiryDate"] * 1000);
+
+		var timeDate = item["ExpiryDate"];
+		var displayExpiryDate = "";
+
+		if(timeDate == 2147483647) {
+			displayExpiryDate = "Never";
+		} else {
+      var expiryDate = new Date(item["ExpiryDate"] * 1000);
+      var displayExpiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900) + " " + expiryDate.getHours() + ":" + expiryDate.getMinutes();
+		}
 
     var displayAddedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900) + " " + addedDate.getHours() + ":" + addedDate.getMinutes();
-    var displayExpiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900) + " " + expiryDate.getHours() + ":" + expiryDate.getMinutes();
     var type = types.resolve(item["Type"]);
 
     $("#files_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Name"] + '</td><td>' + displayAddedDate + '</td><td>' + displayExpiryDate + '</td><td>' + type + '</td><td><a target="_blank" href="/sixthserver' + item["Link"] + '">Open</a></td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
