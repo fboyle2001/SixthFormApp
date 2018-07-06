@@ -10,10 +10,9 @@
 		$(document).ready(function() {
 			$("#login").click(function(e){
 				e.preventDefault();
-				performLogin($("#username").val(), $("#password").val(), "http://localhost/sixthserver/api", function(code, msg) {
+				performLogin($("#username").val(), $("#password").val(), "http://172.20.10.2/sixthserver/api", function(code, msg) {
 					alert(msg);
 				}, function() {
-
 				 window.location = "index1.html"
 				  $("#auth").append(window.user.auth);
 				});
