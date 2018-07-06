@@ -6,6 +6,7 @@
 <meta http-equiv="Content-Language" content="en-gb">
 <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 <title>New Page 1</title>
+
 <link href="styles.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -24,7 +25,9 @@
 
 	function loadlinks(data) {
 		$.each(data["content"]["records"], function(index, item){
-			$("#links").append('<div><a href ="' + item["Link"] + '">' + item["Name"] + '</a></div>');
+			$("#links").append('<div><a href ="' + item["Link"] + '">'+item["Name"]+'</a></div>');
+			//$("#links").append('<div><iframe style = "width:auto" height = "600"  frameborder="1" id = "' + item["ID"] + '"src ="' + item["Link"] + '"></iframe></div>');
+			//$("#links").append('<div><button type="button" onlick="document.getElementById("'+item["ID"] + '").style.display="block"">Hide</button></div>');
 		});
 	}
 </script>
@@ -74,6 +77,8 @@
 				</tr>
 				<tr>
 				<td><div align="center" id="links" style = "font-size:2vw"></div></td>
+				<!-- <button type="button" onclick="document.getElementById('links').style.display='none'">Hide</button> -->
+				<!-- <button type="button" onclick="document.getElementById('links').style.display='block'">Display</button> -->
 				<!-- <td><div class ="list"><a class = "item" herf = "https://www.youtube.com/" onclick="window.open('https://www.youtube.com/', 'system', 'location=yes')"> Open YouTube </a></div></td> -->
 			</tr>
 		</table>

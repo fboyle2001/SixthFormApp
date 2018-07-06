@@ -29,11 +29,13 @@
       <p>To create a new File that will be distributed to the app, choose the file and pick an expiry Date.</p>
       <p>If you do not want the URL to expire, leave the date field empty.</p>
       <br>
-			<form method="post" action="AddDaily.php" enctype="multipart/form-data">
+			<form method="post" action="add.php" enctype="multipart/form-data">
 	    <p>File :</p>
 	    <input type="file" accept ="application/pdf" name="File">
 	 	<p>Expiry Date :</p>
 	 	<input type = "date" name ="ExpDate">
+		<p>Name :</p>
+		<input type = "text" name ="Name">
 		<p>File Type :</p>
 		<input type="radio" name="type" value="2" checked> Daily Notice<br>
 		<input type="radio" name="type" value="1"> News Letter<br>
@@ -48,7 +50,19 @@
 
  		$Date = time();
  		$_POST['ExpDate'];
- 		$_FILES['File']['name'];
+
+		if ($_POST['Name'] == ""){
+
+				$FileName = $_FILES['File']['name'];
+
+		}
+		else {
+
+			$FileName = $_POST['Name'];
+
+		}
+
+
 
 		$ExpDate = strtotime($_POST['ExpDate']);
 
@@ -59,7 +73,7 @@
  		$password = 'test';
  		$db_name = 'sixthapp';
  		$con = mysqli_connect($servername, "root", "", $db_name);
- 		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) values('".$_FILES['File']['name']."', '".$Date."', '".$ExpDate."', '".$_POST['type']."','".$_FILES['File']["tmp_name"]."')";
+ 		$sql="insert into `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) values('".$FileName."', '".$Date."', '".$ExpDate."', '".$_POST['type']."','".$_FILES['File']["tmp_name"]."')";
 
 
 
