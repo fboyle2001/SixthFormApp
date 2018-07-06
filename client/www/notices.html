@@ -1,34 +1,33 @@
 <!DOCTYPE html>
 <html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="Content-Language" content="en-gb">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+		<title>New Page 1</title>
+		<script src="./javascript/jquery-3.2.1.min.js"></script>
+		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/query.js"></script>
+		<link href="./css/styles.css" rel="stylesheet" type="text/css">
+		<script>
+			$(document).ready(function () {
+				query("/fetch/files/notices/list/", {"limit": 10}, function(data) {
+					loadnotices(data);
+				}, function(data) {
+					alert(data);
+				})
+			});
 
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Language" content="en-gb">
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>New Page 1</title>
-<link href="styles.css" rel="stylesheet" type="text/css">
-</head>
+			function loadnotices(data) {
+				$.each(data["content"]["records"], function(index, item){
+					$("#notices").append('<div><h1>' + item["Name"] + '</h1><p>' + item["Link"] + '</p></div>');
+				});
+			}
+		</script>
+	</head>
 
 <body>
-<script src="jquery-3.2.1.min.js"></script>
-<script src="js.cookie.js"></script>
-<script src="query.js"></script>
-<script>
-	$(document).ready(function () {
-		query("/fetch/files/notices/list/", {"limit": 10}, function(data) {
-			loadnotices(data);
-		}, function(data) {
-			alert(data);
-		})
-	});
 
-	function loadnotices(data) {
-		$.each(data["content"]["records"], function(index, item){
-			$("#notices").append('<div><h1>' + item["Name"] + '</h1><p>' + item["Link"] + '</p></div>');
-		});
-	}
-</script>	
-	
 
 	<div align="center">
 		<table border="0" style = "max-width:100%; max-height:140%;"cellspacing="0">
@@ -44,7 +43,7 @@
 			<tr>
 				<td  style="border-left: 0px solid #000080; border-bottom: 0px solid #000080; max-width:100%;height:auto;">
 				<table border="0" style="max-width:100%;height:auto;" cellspacing="0" cellpadding="0" id="table1">
-	
+
 				</table>
 				</td>
 				<td  align="right" style="border-right: 0px solid #000080; border-bottom: 0px solid #000080; max-width:140%; max-height:140%;">
@@ -53,7 +52,7 @@
 						<td align="center"  bgcolor="#ADD8E6" width = "170" height = "30">
 						<a href="notices.html" class="menu" style="font-size:3vw">Notices</a></td>
 						<td align="center"  bgcolor="#d80000" width = "170">
-						<a href="index1.html" class="menu" style="font-size:3vw">Index</a></td>
+						<a href="home.html" class="menu" style="font-size:3vw">Index</a></td>
 						<td align="center"  bgcolor="#00008b" width = "170">
 						<a href="links.html" class="menu" style="font-size:3vw">Links</a></td>
 						<td align="center"  bgcolor="#037d50" width = "170">
@@ -73,8 +72,8 @@
 				</tr>
 				<tr>
 				<td><div align="center" id="notices"></div></td>
-				
-				
+
+
 			</tr>
 		</table>
 	</div>

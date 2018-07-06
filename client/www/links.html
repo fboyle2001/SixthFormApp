@@ -2,35 +2,36 @@
 <html>
 
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="Content-Language" content="en-gb">
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-<title>New Page 1</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="Content-Language" content="en-gb">
+	<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	<title>New Page 1</title>
 
-<link href="styles.css" rel="stylesheet" type="text/css">
+			<script src="./javascript/jquery-3.2.1.min.js"></script>
+			<script src="./javascript/js.cookie.js"></script>
+			<script src="./javascript/query.js"></script>
+
+			<link href="./css/styles.css" rel="stylesheet" type="text/css">
+		<script>
+			$(document).ready(function () {
+				query("/fetch/links/list/",  {"validOnly": true},function(data) {
+					loadlinks(data);
+				}, function(data) {
+					alert(data);
+				})
+			});
+
+			function loadlinks(data) {
+				$.each(data["content"]["records"], function(index, item){
+					$("#links").append('<div><a href ="' + item["Link"] + '">'+item["Name"]+'</a><p>' + new Date(item["ExpiryDate"] * 1000) + '</p></div>');
+					//$("#links").append('<div><iframe style = "width:auto" height = "600"  frameborder="1" id = "' + item["ID"] + '"src ="' + item["Link"] + '"></iframe></div>');
+					//$("#links").append('<div><button type="button" onlick="document.getElementById("'+item["ID"] + '").style.display="block"">Hide</button></div>');
+				});
+			}
+		</script>
 </head>
 
 <body>
-<script src="jquery-3.2.1.min.js"></script>
-<script src="js.cookie.js"></script>
-<script src="query.js"></script>
-<script>
-	$(document).ready(function () {
-		query("/fetch/links/list/",  {"validOnly": true},function(data) {
-			loadlinks(data);
-		}, function(data) {
-			alert(data);
-		})
-	});
-
-	function loadlinks(data) {
-		$.each(data["content"]["records"], function(index, item){
-			$("#links").append('<div><a href ="' + item["Link"] + '">'+item["Name"]+'</a><p>' + new Date(item["ExpiryDate"] * 1000) + '</p></div>');
-			//$("#links").append('<div><iframe style = "width:auto" height = "600"  frameborder="1" id = "' + item["ID"] + '"src ="' + item["Link"] + '"></iframe></div>');
-			//$("#links").append('<div><button type="button" onlick="document.getElementById("'+item["ID"] + '").style.display="block"">Hide</button></div>');
-		});
-	}
-</script>
 
 
 	<div align="center">
@@ -56,7 +57,7 @@
 						<td align="center"  bgcolor="#ADD8E6" width = "170" height = "30">
 						<a href="notices.html" class="menu" style="font-size:3vw">Notices</a></td>
 						<td align="center"  bgcolor="#d80000" width = "170">
-						<a href="index1.html" class="menu" style="font-size:3vw"v>Index</a></td>
+						<a href="home.html" class="menu" style="font-size:3vw"v>Index</a></td>
 						<td align="center"  bgcolor="#00008b" width = "170">
 						<a href="links.html" class="menu" style="font-size:3vw">Links</a></td>
 						<td align="center"  bgcolor="#037d50" width = "170">
