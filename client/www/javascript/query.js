@@ -40,3 +40,7 @@ function query(url, postData, callback, fatal) {
     }
   });
 }
+
+function openInBrowser(url) {
+	window.open(url, "_blank");
+}

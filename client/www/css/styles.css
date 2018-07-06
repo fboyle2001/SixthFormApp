@@ -2,15 +2,33 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300|Open+Sans');
 /* CSS Document */
 
-body,td,th
-{
+body {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 15px;
+	font-size: 16px;
+	text-rendering: optimizeLegibility;
+  height: 100%;
+	margin-top: 0;
+  overflow-x: hidden;
+	margin: 0;
+	padding: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Roboto', sans-serif;
 	margin: 0;
+}
+
+.centred {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.horizontal_centred {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
 }
 
 div .announcement {
