@@ -55,15 +55,7 @@
 			
 
  		} 
-		###################################
 		
-		#header('Content-type: application/pdf');
-		#header('Content-Disposition: inline; filename="' . $_FILES['File']['name'] . '"');
-		#header('Content-Transfer-Encoding: binary');
-		#header('Accept-Ranges: bytes');
-		#@readfile($_FILES['File']["tmp_name"]);
-
-		################################### Once the database links are set up just put the link from the database in the last brackets where the temp name currently is
 		
 		
  	}
