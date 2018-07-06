@@ -13,6 +13,12 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 }
 
+div .announcement {
+	border: #929599 1px solid;
+	border-radius: 2px;
+	padding: 2%;
+}
+
 .title
 {
 	font-size: 24px;

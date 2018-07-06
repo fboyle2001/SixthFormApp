@@ -5,7 +5,15 @@
 		<meta http-equiv="Content-Language" content="en-gb">
 		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
 		<title>New Page 1</title>
+		<script src="./javascript/jquery-3.2.1.min.js"></script>
+		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/query.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
+		<script>
+			if(!isLoggedIn()) {
+			  window.location = "index.html";
+			}
+		</script>
 	</head>
 <body>
 

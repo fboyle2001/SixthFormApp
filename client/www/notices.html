@@ -10,6 +10,10 @@
 		<script src="./javascript/query.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
+			if(!isLoggedIn()) {
+			  window.location = "index.html";
+			}
+
 			$(document).ready(function () {
 				query("/fetch/files/notices/list/", {"limit": 10}, function(data) {
 					loadnotices(data);
