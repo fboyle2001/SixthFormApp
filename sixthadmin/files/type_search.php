@@ -5,11 +5,11 @@
 	rejectGuest();
 
 	$reply = new Reply();
-	$name = get("name");
+	$type = get("type");
 	$selectQuery = "SELECT * FROM `files`";
 
-	if($name != null) {
-		$selectQuery .= " WHERE `Name` LIKE '%$name%'";
+	if($type != null) {
+		$selectQuery .= " WHERE `Type` = $type";
 	}
 
 	$selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);

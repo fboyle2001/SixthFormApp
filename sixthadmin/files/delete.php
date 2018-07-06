@@ -12,7 +12,7 @@
     die($reply->toJson());
   }
 
-  $selectQuery = "SELECT * FROM `links` WHERE `ID` = '$id'";
+  $selectQuery = "SELECT * FROM `files` WHERE `ID` = '$id'";
   $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
 
   if($selectQuery->wasDataReturned() == false) {
@@ -20,14 +20,14 @@
     die($reply->toJson());
   }
 
-  $deleteQuery = "DELETE FROM `links` WHERE `ID` = '$id'";
+  $deleteQuery = "DELETE FROM `files` WHERE `ID` = '$id'";
   $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
 
   if($deleteQuery->wasSuccessful() == false) {
-    $reply->setStatus(ReplyStatus::withData(500, "Unable to delete link"));
+    $reply->setStatus(ReplyStatus::withData(500, "Unable to delete file"));
     die($reply->toJson());
   }
 
-  $reply->setStatus(ReplyStatus::withData(200, "Successfully deleted link"));
+  $reply->setStatus(ReplyStatus::withData(200, "Successfully deleted file"));
   echo $reply->toJson();
 ?>
