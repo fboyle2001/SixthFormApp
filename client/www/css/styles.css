@@ -4,7 +4,7 @@
 
 body {
 	font-family: 'Open Sans', sans-serif;
-	font-size: 16px;
+	font-size: 15px;
 	text-rendering: optimizeLegibility;
   height: 100%;
 	margin-top: 0;
@@ -67,14 +67,14 @@ nav > ul > a {
 nav > ul > a > li {
 	display: inline-block;
 	width: 20%;
-	padding: 2%;
+	padding: 1.5%;
 	text-align: center;
 }
 
 nav > ul > li {
 	display: inline-block;
 	width: 20%;
-	padding: 2%;
+	padding: 1.5%;
 	text-align: center;
 }
 
