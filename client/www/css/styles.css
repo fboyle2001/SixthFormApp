@@ -72,6 +72,22 @@ nav > ul > li:last-of-type {
 	margin-right: 0;
 }
 
+.header {
+	text-align: center;
+	margin-bottom: 0;
+	padding-bottom: 0;
+}
+
+.announcement {
+	border: 1px solid #080D0D;
+	border-radius: 0.5%;
+	padding: 2%;
+}
+
+.added {
+	font-size: 80%;
+}
+
 .current {
 	color: #080D0D;
 	background-color: #F8F8FF;

@@ -18,14 +18,39 @@
 			}
 
 			$(document).ready(function () {
-				query("/fetch/announcements/list/", {"limit": 10}, function(data) {
-					loadAnnouncements(data);
-				}, function(data) {
-					alert(data);
+				search(null);
+
+				$("#search").click(function (e) {
+					e.preventDefault();
+					var value = $("#contains").val();
+					search(value);
+				});
+
+				$("#reset").click(function (e) {
+					e.preventDefault();
+					$("#contains").val("");
+					search(null);
 				})
 			});
 
-			function loadAnnouncements(data) {}
+			function search(parameter) {
+				query("/fetch/announcements/list/", {"limit": 10, "contains": parameter}, function(data) {
+					loadAnnouncements(data);
+				}, function(data) {
+					alert(data);
+				});
+			}
+
+			function loadAnnouncements(data) {
+				console.log(data);
+				$("#announcements").empty();
+				$.each(data["content"]["records"], function(index, item){
+					var date = new Date(item["DateAdded"] * 1000);
+			    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
+
+					$("#announcements").append('<div class="announcement"><h2 class="title">' + item["Title"] + '</h2><p class="added">Added ' + displayDate + '</p><p>' + item["Content"] + '</p></div><br>');
+				});
+			}
 		</script>
 	</head>
 	<body>
@@ -40,7 +65,14 @@
 			</nav>
 		</div>
 		<div class="content">
-			<h1>Announcements</h1>
+			<h1 class="header">Announcements</h1>
+			<h2>Search</h2>
+			<p>Contains: <input type="text" id="contains"></p>
+			<button id="search">Search</button> <button id="reset">Reset</button>
+			<br>
+			<br>
+			<div id="announcements">
+			</div>
 		</div>
 	</body>
 </html>

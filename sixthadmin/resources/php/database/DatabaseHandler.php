@@ -41,17 +41,12 @@
 		/**
 		* Validates a query by checking:
 		* - It is not empty
-		* - It does not contain a semi-colon (to prevent multiple queries)
 		* - Has a WHERE clause if it is an UPDATE or DELETE query to prevent it affecting all data
 		*
 		* It then removes all of the HTML tags (such as <h1> and <script>) and returns the validated query.
 		**/
 		public function validate($query, $bypass = false) {
 			if(empty($query)) {
-				return false;
-			}
-
-			if(strpos($query, ';') !== false) {
 				return false;
 			}
 
