@@ -31,6 +31,7 @@ function performLogin(username, password, base, onerror, start) {
 
     Cookies.set("auth", auth);
     Cookies.set("base", base);
+    Cookies.set("resource_base", base.substr(0, base.lastIndexOf("/")));
   });
 
   waitForLoginCompletion(250, 8, 0, start); //max wait 2 seconds
