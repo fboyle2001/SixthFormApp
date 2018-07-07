@@ -11,12 +11,15 @@ body {
   overflow-x: hidden;
 	margin: 0;
 	padding: 0;
+	border-top: 1px #080D0D solid;
 }
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: 'Roboto', sans-serif;
 	margin: 0;
 }
+
+/* Login Page */
 
 .centred {
   position: absolute;
@@ -31,33 +34,47 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate(-50%, 0%);
 }
 
-div .announcement {
-	border: #929599 1px solid;
-	border-radius: 2px;
+/* Home Page */
+
+.content {
+	color: #080D0D;
+	background-color: #F8F8FF;
+	box-sizing: border-box;
 	padding: 2%;
+	padding-top: 0%;
 }
 
-.title
-{
-	font-size: 24px;
-	font-weight: bold;
-	color: #000080;
+.menu {
+	color: #F8F8FF;
+	background-color: #080D0D;
+	box-sizing: border-box;
+	margin-bottom: 3%;
 }
 
-a.menu
-{
-	text-decoration: none;
-	color: #ffffff;
+nav, nav > ul {
+	margin: 0;
+	padding: 0;
+	height: 100%;
 }
 
-a.menu:hover
-{
-	text-decoration: none;
-	color: #ffff00;
-	font-weight: bold;
+nav > ul > li {
+	display: inline-block;
+	width: 20%;
+	padding: 2%;
+	text-align: center;
 }
 
-.Guest
-{
-	color: #000080;
+nav > ul > li:first-of-type {
+	margin-left: 0;
+}
+
+nav > ul > li:last-of-type {
+	margin-right: 0;
+}
+
+.current {
+	color: #080D0D;
+	background-color: #F8F8FF;
+	border: 0px;
+	border-left: 4px solid #080D0D;
 }
