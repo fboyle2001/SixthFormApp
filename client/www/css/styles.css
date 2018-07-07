@@ -11,7 +11,6 @@ body {
   overflow-x: hidden;
 	margin: 0;
 	padding: 0;
-	border-top: 1px #080D0D solid;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -57,19 +56,26 @@ nav, nav > ul {
 	height: 100%;
 }
 
-nav > ul > li {
+nav > ul > a {
+	color: #F8F8FF;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	text-decoration: none;
+}
+
+nav > ul > a > li {
 	display: inline-block;
 	width: 20%;
 	padding: 2%;
 	text-align: center;
 }
 
-nav > ul > li:first-of-type {
-	margin-left: 0;
-}
-
-nav > ul > li:last-of-type {
-	margin-right: 0;
+nav > ul > li {
+	display: inline-block;
+	width: 20%;
+	padding: 2%;
+	text-align: center;
 }
 
 .header {
@@ -92,5 +98,4 @@ nav > ul > li:last-of-type {
 	color: #080D0D;
 	background-color: #F8F8FF;
 	border: 0px;
-	border-left: 4px solid #080D0D;
 }
