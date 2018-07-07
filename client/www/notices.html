@@ -10,20 +10,55 @@
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
 			if(!isLoggedIn()) {
-			  window.location = "index.html";
+				window.location = "index.html";
 			}
 
 			$(document).ready(function () {
-				query("/fetch/files/notices/list/", {"limit": 10}, function(data) {
-					loadnotices(data);
+				query("/fetch/files/notices/latest/", {}, function(data) {
+					loadLatest(data);
 				}, function(data) {
 					alert(data);
-				})
+				});
+
+				query("/fetch/files/notices/list/", {validOnly: true}, function(data) {
+					loadNotices(data);
+				}, function(data) {
+					console.log(data);
+					alert(data);
+				});
 			});
 
-			function loadnotices(data) {
+			function loadLatest(data) {
+				if(data["content"]["found"] == false) {
+					return;
+				}
+
+				var latest = data["content"]["latest"];
+				$("#latest_name").text(latest["Name"]);
+				$("#latest_link").attr("href", Cookies.get("resource_base") + latest["Link"]);
+			}
+
+			function loadNotices(data) {
+				if(data["content"]["found"] == false) {
+					return;
+				}
+
 				$.each(data["content"]["records"], function(index, item){
-					$("#notices").append('<div><h1>' + item["Name"] + '</h1><p>' + item["Link"] + '</p></div>');
+					var expiryDate = item["ExpiryDate"];
+
+					if(expiryDate == 2147483647) {
+						expiryDate = "Never";
+					} else {
+						expiryDate = new Date(expiryDate * 1000);
+						expiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
+					}
+
+					var addedDate = new Date(item["AddedDate"] * 1000);
+					addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
+
+					var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
+
+					$("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '">View</a></td></tr>');
 				});
 			}
 		</script>
@@ -39,17 +74,18 @@
 				</ul>
 			</nav>
 		</div>
-	<div align="center">
-		<table border="0"  cellspacing="0" style="border: 0px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 0px; padding-bottom: 0px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
-			<tr>
-				<td valign="top" align = "center" style="font-size:5vw">Notices<p><font color="#FF0000"></td>
-				</tr>
-				<tr>
-				<td><div align="center" id="notices"></div></td>
-
-
-			</tr>
-		</table>
-	</div>
-</body>
+		<div class="content">
+			<h1>Notices</h1>
+			<strong><a style="font-size: 18px; text-align: center" id="latest_link"><p>View Latest Newsletter (<span id="latest_name"></span>)</p></a></strong>
+			<h2>Older Newsletters</h2>
+			<table id="notices_table" class="data-table">
+				<thead>
+					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<br>
+		</div>
+	</body>
 </html>
