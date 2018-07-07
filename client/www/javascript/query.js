@@ -42,5 +42,5 @@ function query(url, postData, callback, fatal) {
 }
 
 function openInBrowser(url) {
-	window.open(url, "_blank");
+	cordova.InAppBrowser.open(url, "_system", "location=yes");
 }

@@ -10,6 +10,7 @@
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
 		<script src="./javascript/query.js"></script>
+		<script src="cordova.js"></script>
 
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
@@ -18,18 +19,28 @@
 			}
 
 			$(document).ready(function () {
-				query("/fetch/links/list/",  {"validOnly": true},function(data) {
+				query("/fetch/links/list/", {"validOnly": true}, function(data) {
 					loadlinks(data);
 				}, function(data) {
 					alert(data);
-				})
+				});
 			});
 
 			function loadlinks(data) {
+				$("#ltl").empty();
+				$("#perm").empty();
 				$.each(data["content"]["records"], function(index, item){
-					$("#links").append('<div><a href ="' + item["Link"] + '">'+item["Name"]+'</a><p>' + new Date(item["ExpiryDate"] * 1000) + '</p></div>');
-					//$("#links").append('<div><iframe style = "width:auto" height = "600"  frameborder="1" id = "' + item["ID"] + '"src ="' + item["Link"] + '"></iframe></div>');
-					//$("#links").append('<div><button type="button" onlick="document.getElementById("'+item["ID"] + '").style.display="block"">Hide</button></div>');
+					var storedDate = item["ExpiryDate"];
+					var link = "javascript:openInBrowser('" + item["Link"] + "')";
+
+					if(storedDate == 2147483647) {
+						$("#perm").append('<a href="' + link + '">' + item["Name"] + '</a>');
+					} else {
+						var date = new Date(storedDate * 1000);
+				    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
+						var displayTime = date.getHours() + ":" + date.getMinutes();
+						$("#ltl").append('<a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ' at ' + displayTime + ')');
+					}
 				});
 			}
 		</script>
@@ -45,20 +56,17 @@
 				</ul>
 			</nav>
 		</div>
-	<div align="center">
-		<table border="0"  cellspacing="0" style="border: 0px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 0px; padding-bottom: 0px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
-			<tr>
-
-
-				<td valign="top" align = "center" style="font-size:5vw">Links<p><font color="#FF0000"></td>
-				</tr>
-				<tr>
-				<td><div align="center" id="links" style = "font-size:2vw"></div></td>
-				<!-- <button type="button" onclick="document.getElementById('links').style.display='none'">Hide</button> -->
-				<!-- <button type="button" onclick="document.getElementById('links').style.display='block'">Display</button> -->
-				<!-- <td><div class ="list"><a class = "item" herf = "https://www.youtube.com/" onclick="window.open('https://www.youtube.com/', 'system', 'location=yes')"> Open YouTube </a></div></td> -->
-			</tr>
-		</table>
-	</div>
-</body>
+		<div class="content">
+			<h1 class="header">Links</h1>
+			<h2>Limited Time Links</h2>
+			<br>
+			<div id="ltl">
+			</div>
+			<br>
+			<h2>Permanent Links</h2>
+			<br>
+			<div id="perm">
+			</div>
+		</div>
+	</body>
 </html>
