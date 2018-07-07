@@ -21,9 +21,10 @@
 					alert(data);
 				});
 
-				query("/fetch/files/newsletters/list/", {"limit": 10}, function(data) {
+				query("/fetch/files/newsletters/list/", {validOnly: true}, function(data) {
 					loadNewsletters(data);
 				}, function(data) {
+					console.log(data);
 					alert(data);
 				});
 			});
