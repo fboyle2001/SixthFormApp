@@ -2,90 +2,67 @@
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="Content-Language" content="en-gb">
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-
-		<title>Home</title>
-
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
 		<script src="./javascript/query.js"></script>
-
+		<script src="cordova.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
-
 		<script>
-			if(!isLoggedIn()) {
-			  window.location = "index.html";
+			function loadPage() {
+				search(null);
+
+				$("#search").click(function (e) {
+					e.preventDefault();
+					var value = $("#contains").val();
+					search(value);
+				});
+
+				$("#reset").click(function (e) {
+					e.preventDefault();
+					$("#contains").val("");
+					search(null);
+				})
 			}
-			
-			$(document).ready(function () {
-				query("/fetch/announcements/list/", {"limit": 10}, function(data) {
+
+			function search(parameter) {
+				query("/fetch/announcements/list/", {"limit": 10, "contains": parameter}, function(data) {
 					loadAnnouncements(data);
 				}, function(data) {
 					alert(data);
-				})
-			});
+				});
+			}
 
 			function loadAnnouncements(data) {
+				$("#announcements").empty();
 				$.each(data["content"]["records"], function(index, item){
-					$("#announcements").append('<div class="announcement"><h1>' + item["Title"] + '</h1><p>' + item["Content"] + '</p></div><br>');
+					var date = new Date(item["DateAdded"] * 1000);
+			    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
+
+					$("#announcements").append('<div class="announcement"><h2 class="title">' + item["Title"] + '</h2><p class="added">Added ' + displayDate + '</p><p>' + item["Content"] + '</p></div><br>');
 				});
 			}
 		</script>
 	</head>
 	<body>
-		<div align="center">
-			<table border="0" style = "max-width:100%; max-height:140%;"cellspacing="0">
-				<tr>
-					<td style="border-left: 0px solid #000080; border-top: 0px solid #000080; max-width:100%;height:auto;">
-					<a href = "MCA.html">
-					<img border="0" src="images/MCA.png" style="max-width:100%;height:auto;" ></td>
-					</a>
-					<td valign="bottom" align="right"  style="border-top: 0px solid #000080; border-right: 0px solid #000080; max-width:100%;height:auto;">
-					<div class="title" style="font-size:4vw">Index Page<img border="0" src="images/Blank.gif" ></div>
-					</td>
-				</tr>
-				<tr>
-					<td  style="border-left: 0px solid #000080; border-bottom: 0px solid #000080; max-width:100%;height:auto;">
-						<table border="0" style="max-width:100%;height:auto;" cellspacing="0" cellpadding="0" id="table1">
-
-						</table>
-					</td>
-					<td  align="right" style="border-right: 0px solid #000080; border-bottom: 0px solid #000080; max-width:140%; max-height:140%;">
-						<table border="0" style = "max-width:140%; max-height:140%;" cellpadding="0" id="table2">
-							<tr style="max-width:140%;height:auto;">
-								<td align="center"  bgcolor="#ADD8E6" width = "170" height = "30">
-								<a href="notices.html" class="menu" style="font-size:3vw">Notices</a></td>
-								<td align="center"  bgcolor="#d80000" width = "170">
-								<a href="home.html" class="menu" style="font-size:3vw">Index</a></td>
-								<td align="center"  bgcolor="#00008b" width = "170">
-								<a href="links.html" class="menu" style="font-size:3vw">Links</a></td>
-								<td align="center"  bgcolor="#037d50" width = "170">
-								<a href="newsletters.html" class="menu" style="font-size:3vw">Newsletters</a></td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-			</table>
+		<div class="menu">
+			<nav>
+				<ul>
+					<li class="current">Home</li>
+					<a href="notices.html"><li>Notices</li></a>
+					<a href="links.html"><li>Links</li></a>
+					<a href="newsletters.html"><li>Newsletters</li></a>
+				</ul>
+			</nav>
 		</div>
-		<br>
-		<div align="center">
-			<table border="0"  cellspacing="0" style="border: 0px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 0px; padding-bottom: 0px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
-				<tr>
-					<td valign="top" align = "center" style="font-size:5vw">Announcements<p><font color="#FF0000"></td></tr>
-					<td><div align="center" id="announcements" style = "font-size:2vw"></div></td>
-				</tr>
-			</table>
-		</div>
-		<br>
-		<div align="center">
-			<table border="0"  cellspacing="0" style="border: 0px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 0px; padding-bottom: 0px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
-				<tr>
-					<td valign="top" align = "center" style="font-size:5vw">Calendar<p><font color="#FF0000"></td></tr>
-					<tr>
-						<td><iframe align = "center" src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=milcollegeoftech%40gmail.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" style="border-width:0; width:auto;" height = "600" frameborder="0" scrolling="no"></iframe></td>
-				</tr>
-			</table>
+		<div class="content">
+			<h1 class="header">Announcements</h1>
+			<h2>Search</h2>
+			<p>Contains: <input type="text" id="contains"></p>
+			<button id="search">Search</button> <button id="reset">Reset</button>
+			<br>
+			<br>
+			<div id="announcements">
+			</div>
 		</div>
 	</body>
 </html>

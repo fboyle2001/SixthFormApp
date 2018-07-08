@@ -1,92 +1,63 @@
 <!DOCTYPE html>
 <html>
-
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta http-equiv="Content-Language" content="en-gb">
-		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
-		<title>Links</title>
-
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
 		<script src="./javascript/query.js"></script>
-
+		<script src="cordova.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
-			if(!isLoggedIn()) {
-			  window.location = "index.html";
-			}
-
-			$(document).ready(function () {
-				query("/fetch/links/list/",  {"validOnly": true},function(data) {
+			function loadPage() {
+				query("/fetch/links/list/", {"validOnly": true}, function(data) {
 					loadlinks(data);
 				}, function(data) {
 					alert(data);
-				})
-			});
+				});
+			}
 
 			function loadlinks(data) {
+				$("#ltl").empty();
+				$("#perm").empty();
 				$.each(data["content"]["records"], function(index, item){
-					$("#links").append('<div><a href ="' + item["Link"] + '">'+item["Name"]+'</a><p>' + new Date(item["ExpiryDate"] * 1000) + '</p></div>');
-					//$("#links").append('<div><iframe style = "width:auto" height = "600"  frameborder="1" id = "' + item["ID"] + '"src ="' + item["Link"] + '"></iframe></div>');
-					//$("#links").append('<div><button type="button" onlick="document.getElementById("'+item["ID"] + '").style.display="block"">Hide</button></div>');
+					var storedDate = item["ExpiryDate"];
+					var link = "javascript:openInBrowser('" + item["Link"] + "')";
+
+					if(storedDate == 2147483647) {
+						$("#perm").append('<a href="' + link + '">' + item["Name"] + '</a>');
+					} else {
+						var date = new Date(storedDate * 1000);
+				    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
+						var displayTime = date.getHours() + ":" + date.getMinutes();
+						$("#ltl").append('<a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ' at ' + displayTime + ')');
+					}
 				});
 			}
 		</script>
-</head>
-
-<body>
-
-
-	<div align="center">
-		<table border="0" style = "max-width:100%; max-height:140%;"cellspacing="0">
-			<tr>
-				<td style="border-left: 0px solid #000080; border-top: 0px solid #000080; max-width:100%;height:auto;">
-				<a href = "MCA.html">
-				<img border="0" src="images/MCA.png" style="max-width:100%;height:auto;" ></td>
-				</a>
-				<td valign="bottom" align="right"  style="border-top: 0px solid #000080; border-right: 0px solid #000080; max-width:100%;height:auto;">
-				<div class="title" style="font-size:4vw">Links<img border="0" src="images/Blank.gif" ></div>
-				</td>
-			</tr>
-			<tr>
-				<td  style="border-left: 0px solid #000080; border-bottom: 0px solid #000080; max-width:100%;height:auto;">
-				<table border="0" style="max-width:100%;height:auto;" cellspacing="0" cellpadding="0" id="table1">
-
-				</table>
-				</td>
-				<td  align="right" style="border-right: 0px solid #000080; border-bottom: 0px solid #000080; max-width:140%; max-height:140%;">
-				<table border="0" style = "max-width:140%; max-height:140%;" cellpadding="0" id="table2">
-					<tr style="max-width:140%;height:auto;">
-						<td align="center"  bgcolor="#ADD8E6" width = "170" height = "30">
-						<a href="notices.html" class="menu" style="font-size:3vw">Notices</a></td>
-						<td align="center"  bgcolor="#d80000" width = "170">
-						<a href="home.html" class="menu" style="font-size:3vw"v>Index</a></td>
-						<td align="center"  bgcolor="#00008b" width = "170">
-						<a href="links.html" class="menu" style="font-size:3vw">Links</a></td>
-						<td align="center"  bgcolor="#037d50" width = "170">
-						<a href="newsletters.html" class="menu" style="font-size:3vw">Newsletters</a></td>
-					</tr>
-				</table>
-				</td>
-			</tr>
-		</table>
-</div>
-<br>
-	<div align="center">
-		<table border="0"  cellspacing="0" style="border: 0px solid #000080; padding-left: 4px; padding-right: 4px; padding-top: 0px; padding-bottom: 0px max-width:100%;height:auto;"  bordercolor="#000080" id="table3" cellpadding="2">
-			<tr>
-
-
-				<td valign="top" align = "center" style="font-size:5vw">Links<p><font color="#FF0000"></td>
-				</tr>
-				<tr>
-				<td><div align="center" id="links" style = "font-size:2vw"></div></td>
-				<!-- <button type="button" onclick="document.getElementById('links').style.display='none'">Hide</button> -->
-				<!-- <button type="button" onclick="document.getElementById('links').style.display='block'">Display</button> -->
-				<!-- <td><div class ="list"><a class = "item" herf = "https://www.youtube.com/" onclick="window.open('https://www.youtube.com/', 'system', 'location=yes')"> Open YouTube </a></div></td> -->
-			</tr>
-		</table>
-	</div>
-</body>
+	</head>
+	<body>
+		<div class="menu">
+			<nav>
+				<ul>
+					<a href="home.html"><li>Home</li></a>
+					<a href="notices.html"><li>Notices</li></a>
+					<li class="current">Links</li>
+					<a href="newsletters.html"><li>Newsletters</li></a>
+				</ul>
+			</nav>
+		</div>
+		<div class="content">
+			<h1 class="header">Important Links</h1>
+			<br>
+			<h2>Limited Time Links</h2>
+			<br>
+			<div id="ltl">
+			</div>
+			<br>
+			<h2>Permanent Links</h2>
+			<br>
+			<div id="perm">
+			</div>
+		</div>
+	</body>
 </html>
