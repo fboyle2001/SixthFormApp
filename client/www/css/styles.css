@@ -37,14 +37,12 @@ h1, h2, h3, h4, h5, h6 {
 
 .content {
 	color: #080D0D;
-	background-color: #F8F8FF;
 	box-sizing: border-box;
 	padding: 2%;
 	padding-top: 0%;
 }
 
 .menu {
-	color: #F8F8FF;
 	background-color: #080D0D;
 	box-sizing: border-box;
 	margin-bottom: 3%;
@@ -95,8 +93,8 @@ nav > ul > li {
 }
 
 .current {
+	background-color: white;
 	color: #080D0D;
-	background-color: #F8F8FF;
 	border: 0px;
 }
 

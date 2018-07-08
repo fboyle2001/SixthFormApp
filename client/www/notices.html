@@ -23,7 +23,6 @@
 				query("/fetch/files/notices/list/", {validOnly: true}, function(data) {
 					loadNotices(data);
 				}, function(data) {
-					console.log(data);
 					alert(data);
 				});
 			});
@@ -42,6 +41,8 @@
 				if(data["content"]["found"] == false) {
 					return;
 				}
+
+				console.log(data);
 
 				$.each(data["content"]["records"], function(index, item){
 					var expiryDate = item["ExpiryDate"];
@@ -76,8 +77,8 @@
 		</div>
 		<div class="content">
 			<h1>Notices</h1>
-			<strong><a style="font-size: 18px; text-align: center" id="latest_link"><p>View Latest Newsletter (<span id="latest_name"></span>)</p></a></strong>
-			<h2>Older Newsletters</h2>
+			<strong><a style="font-size: 18px; text-align: center" id="latest_link"><p>View Latest Notices (<span id="latest_name"></span>)</p></a></strong>
+			<h2>Older Notices</h2>
 			<table id="notices_table" class="data-table">
 				<thead>
 					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>
