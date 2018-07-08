@@ -36,7 +36,7 @@
 							$admin = 0;
 						}
 
-						$password = password_hash("Passw0rd", PASSWORD_BCRYPT);
+						$password = password_hash("Passw0rd", PASSWORD_BCRYPT, ["cost" => $cost]);
 
 						$insertQuery = "INSERT INTO `accounts` (`Username`, `Password`, `Year`, `IsAdmin`) VALUES ('$username', '$password', '$year', '$admin')";
 						$insertQuery = DatabaseHandler::getInstance()->executeQuery($insertQuery);

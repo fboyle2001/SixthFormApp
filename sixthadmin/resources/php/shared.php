@@ -14,67 +14,7 @@
   // Starts the session
 	session_start();
 
-  // Used to resolve the numerical value stored in the database to text that the user can understand
-	$skipSizes = array(
-		"0" => "4 yard",
-		"1" => "8 yard",
-		"2" => "20 yard",
-		"3" => "30 yard",
-		"4" => "40 yard"
-	);
-
-  // Used to convert the numerical value to the text value
-	function resolveSkipSize($size) {
-		global $skipSizes;
-    // If the size is a key in the skip size array then return the associated text
-		return array_key_exists($size, $skipSizes) ? $skipSizes[$size] : "Error";
-	}
-
-  // Used to convert the text value to the numerical value
-	function reverseResolveSkipSize($type) {
-		global $skipSizes;
-    // If type is in the skip sizes then find the key associated with the value
-		return in_array($type, $skipSizes) ? array_search($type, $skipSizes) : "Error";
-	}
-
-  // Used to resolve the numerical value stored in the database to text that the user can understand
-	$paymentMethods = array(
-		"0" => "Cash on Delivery",
-		"1" => "Card",
-		"2" => "Account",
-		"3" => "N/A"
-	);
-
-  // Used to convert the numerical value to the text value
-	function resolvePaymentMethod($method) {
-		global $paymentMethods;
-    // If the size is a key in the payment methods array then return the associated text
-		return array_key_exists($method, $paymentMethods) ? $paymentMethods[$method] : "Error";
-	}
-
-  // Used to convert the text value to the numerical value
-	function reverseResolvePaymentMethod($type) {
-		global $paymentMethods;
-    // If type is in the payment methods then find the key associated with the value
-		return in_array($type, $paymentMethods) ? array_search($type, $paymentMethods) : "Error";
-	}
-
-  // Converts a date of format YYYY-MM-DD to DD/MM/YYYY
-	function convertDate($date) {
-    // Split the date at '-' into parts e.g. ['YYYY', 'MM', 'DD']
-		$parts = explode("-", $date);
-
-    // Reverse the array e.g. ['DD', 'MM', 'YYYY']
-		$parts = array_reverse($parts);
-
-    // If the year is '0000', the date was left empty so return a dash to indicate this
-		if($parts[2] == "0000") {
-			return "-";
-		}
-
-    // Join the date up using '/' e.g. DD/MM/YYYY
-		return implode("/", $parts);
-	}
+	$cost = 12;
 
 	// Checks if the user is logged in
 	function isLoggedIn() {

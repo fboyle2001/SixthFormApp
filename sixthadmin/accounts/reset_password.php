@@ -20,7 +20,7 @@
     die($reply->toJson());
   }
 
-  $defaultPassword = password_hash("Passw0rd", PASSWORD_BCRYPT);
+  $defaultPassword = password_hash("Passw0rd", PASSWORD_BCRYPT, ["cost" => $cost]);
 
   $resetQuery = "UPDATE `accounts` SET `Password` = '$defaultPassword' WHERE `ID` = '$id'";
   $resetQuery = DatabaseHandler::getInstance()->executeQuery($resetQuery);
