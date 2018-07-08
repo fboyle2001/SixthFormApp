@@ -26,7 +26,8 @@
 			function loadLatest(data) {
 				var latest = data["content"]["latest"];
 				$("#latest_name").text(latest["Name"]);
-				$("#latest_link").attr("href", Cookies.get("resource_base") + latest["Link"]);
+				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
+				$("#latest_link").attr("href", link);
 			}
 
 			function loadNewsletters(data) {
