@@ -12,7 +12,7 @@
 		}
 
 		// Redirect the user to the login page
-		header("Location: http://localhost/sixthadmin/accounts/login.php");
+		header("Location: /sixthadmin/accounts/login.php");
 		die();
 	}
 

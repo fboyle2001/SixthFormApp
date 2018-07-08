@@ -83,7 +83,7 @@
 				<table>
 					<tr><td>File</td><td><input type="file" accept="application/pdf" name="uploadedFile" required></td></tr>
 					<tr><td>Name</td><td><input type="text" name="displayName" required></td></tr>
-					<tr><td>Date</td><td><input type="date" name="expiryDate"></td></tr>
+					<tr><td>Expiry Date</td><td><input type="date" name="expiryDate"></td></tr>
 					<tr><td colspan="2">Type:</td></tr>
 					<tr><td>Notices</td><td><input type="radio" name="type" value="2" required></td></tr>
 					<tr><td>Newsletter</td><td><input type="radio" name="type" value="1" required></td></tr>
