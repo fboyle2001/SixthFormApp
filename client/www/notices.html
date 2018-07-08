@@ -29,7 +29,7 @@
 
 				var latest = data["content"]["latest"];
 				$("#latest_name").text(latest["Name"]);
-				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
+				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
 				$("#latest_link").attr("href", link);
 			}
 
