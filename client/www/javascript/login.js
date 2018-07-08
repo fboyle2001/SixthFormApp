@@ -1,8 +1,7 @@
-window.user = null;
+window.loggedIn = null;
 
 function login(username, password, base, error, success) {
   var queryUrl = base + "/accounts/login/";
-  console.log(queryUrl);
   var postData = "username=" + username + "&password=" + password;
 
   $.post(queryUrl, postData, function(data, textStatus) {
@@ -23,15 +22,12 @@ function performLogin(username, password, base, onerror, start) {
     onerror(code, msg);
   }, function success(data, base) {
     var auth = data["content"]["auth"];
-    console.log(Cookies.get("auth"));
-    window.user = {
-      auth: auth,
-      base: base
-    };
 
-    Cookies.set("auth", auth);
-    Cookies.set("base", base);
-    Cookies.set("resource_base", base.substr(0, base.lastIndexOf("/")));
+    window.loggedIn = true;
+
+    Cookies.set("auth", auth, {expires: 1/24});
+    Cookies.set("base", base, {expires: 1/24});
+    Cookies.set("resource_base", base.substr(0, base.lastIndexOf("/")), {expires: 1/24});
   });
 
   waitForLoginCompletion(250, 8, 0, start); //max wait 2 seconds
@@ -43,7 +39,7 @@ function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
     return;
   }
 
-  if(window.user !== null) {
+  if(window.loggedIn !== null) {
     //console.log(count * timePerPause);
     callback();
   } else {

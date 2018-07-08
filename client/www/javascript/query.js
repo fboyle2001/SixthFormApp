@@ -76,14 +76,12 @@ function verifyUser(start, fatal) {
 }
 
 function onDeviceReady() {
-  console.log("ready");
   $(document).ready(function () {
     loadPage();
   });
 }
 
 function onResume() {
-  console.log("resuming");
   verifyUser(function () {
     return;
   }, function (err) {
