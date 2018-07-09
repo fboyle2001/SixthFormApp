@@ -9,14 +9,23 @@
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
 			function loadPage() {
-				query("/fetch/links/list/", {"validOnly": true}, function(data) {
-					loadlinks(data);
-				}, function(data) {
-					alert(data);
-				});
+				var content = retrieveContent("sixth-links");
+
+				if(content == false || content == null) {
+					query("/fetch/links/list/", {"validOnly": true}, function(data) {
+						loadLinks(data);
+					}, function(data) {
+						alert(data);
+					});
+
+					return;
+				}
+
+				loadLinks(JSON.parse(content));
 			}
 
-			function loadlinks(data) {
+			function loadLinks(data) {
+				cacheContent("sixth-links", JSON.stringify(data));
 				$("#ltl").empty();
 				$("#perm").empty();
 				$.each(data["content"]["records"], function(index, item){
