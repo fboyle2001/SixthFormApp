@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="./javascript/jquery-3.2.1.min.js"></script>
+		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/query.js"></script>
+		<script src="cordova.js"></script>
+		<link href="./css/styles.css" rel="stylesheet" type="text/css">
+		<script>
+			function loadPage() {
+				query("/fetch/files/notices/latest/", {}, function(data) {
+					loadLatestNotice(data);
+				}, function(data) {
+					alert(data);
+				});
+
+				query("/fetch/files/notices/list/", {validOnly: true}, function(data) {
+					loadNotices(data);
+				}, function(data) {
+					alert(data);
+				});
+
+				query("/fetch/files/newsletters/latest/", {}, function(data) {
+					loadLatestNewsletter(data);
+				}, function(data) {
+					alert(data);
+				});
+
+				query("/fetch/files/newsletters/list/", {validOnly: true}, function(data) {
+					loadNewsletters(data);
+				}, function(data) {
+					alert(data);
+				});
+			}
+
+			function loadLatestNotice(data) {
+				if(data["content"]["found"] == false) {
+					return;
+				}
+
+				var latest = data["content"]["latest"];
+				$("#latest_notice_name").text(latest["Name"]);
+				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
+				$("#latest_notice_link").attr("href", link);
+			}
+
+			function loadNotices(data) {
+				if(data["content"]["found"] == false) {
+					return;
+				}
+
+				$.each(data["content"]["records"], function(index, item){
+					var expiryDate = item["ExpiryDate"];
+
+					if(expiryDate == 2147483647) {
+						expiryDate = "Never";
+					} else {
+						expiryDate = new Date(expiryDate * 1000);
+						expiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
+					}
+
+					var addedDate = new Date(item["AddedDate"] * 1000);
+					addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
+
+					var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
+
+					$("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '">View</a></td></tr>');
+				});
+      }
+
+      function loadLatestNewsletter(data) {
+				var latest = data["content"]["latest"];
+				$("#latest_newsletter_name").text(latest["Name"]);
+				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
+				$("#latest_newsletter_link").attr("href", link);
+			}
+
+			function loadNewsletters(data) {
+				$.each(data["content"]["records"], function(index, item){
+					var expiryDate = item["ExpiryDate"];
+
+					if(expiryDate == 2147483647) {
+						expiryDate = "Never";
+					} else {
+						expiryDate = new Date(expiryDate * 1000);
+						expiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
+					}
+
+					var addedDate = new Date(item["AddedDate"] * 1000);
+					addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
+
+					var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
+
+					$("#newsletter_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '">View</a></td></tr>');
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div class="menu">
+			<nav>
+				<ul>
+					<a href="home.html"><li>Home</li></a>
+					<li class="current">Documents</li>
+					<a href="links.html"><li>Links</li></a>
+					<a href="settings.html"><li>Settings</li></a>
+				</ul>
+			</nav>
+		</div>
+		<div class="content">
+			<h1 class="header">Notices and Newsletters</h1>
+			<strong><a style="font-size: 18px; text-align: center" id="latest_notice_link"><p>View Latest Notices (<span id="latest_notice_name"></span>)</p></a></strong>
+			<strong><a style="font-size: 18px; text-align: center" id="latest_newsletter_link"><p>View Latest Newsletter (<span id="latest_newsletter_name"></span>)</p></a></strong>
+			<h2>Older Notices</h2>
+			<table id="notices_table" class="data-table">
+				<thead>
+					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+      <br>
+      <h2>Older Newsletters</h2>
+			<table id="newsletter_table" class="data-table">
+				<thead>
+					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<br>
+		</div>
+	</body>
+</html>
