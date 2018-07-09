@@ -27,7 +27,8 @@
 		* This is a private constructor because it is called by the 'getInstance()' function if no instance exists.
 		**/
 		private function __construct() {
-			$database = new mysqli("localhost", "root", "root", "sixthapp"); #School database
+			$database = new mysqli("localhost", "root", "root", "sixthapp"); #Finlay
+			#$database = new mysqli("localhost", "root", "", "sixthapp"); #Normal
 
 			// Checks if there was an error in connecting to the database because if there was then connect_errno will have a number and be therefore be true
 			if($database->connect_errno) {
