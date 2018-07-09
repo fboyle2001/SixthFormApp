@@ -79,6 +79,26 @@ function verifyUser(start, fatal) {
   });
 }
 
+function clearStorage() {
+  if(typeof(Storage) !== "undefined") {
+    localStorage.clear();
+  }
+}
+
+function retrieveContent(key) {
+  if(typeof(Storage) !== "undefined") {
+    return localStorage.getItem(key);
+  }
+
+  return false;
+}
+
+function cacheContent(key, content) {
+  if(typeof(Storage) !== "undefined") {
+    localStorage.setItem(key, content);
+  }
+}
+
 function onDeviceReady() {
   $(document).ready(function () {
     loadPage();

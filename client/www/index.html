@@ -14,7 +14,11 @@
 					performLogin($("#username").val(), $("#password").val(), "http://localhost/sixthserver/api", function(code, msg) {
 						alert(msg);
 					}, function() {
-					 	window.location = "home.html"
+						if(typeof(Storage) !== "undefined") {
+							localStorage.clear();
+						}
+
+					 	window.location = "home.html";
 					});
 				});
 			});
