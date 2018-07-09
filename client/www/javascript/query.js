@@ -30,7 +30,11 @@ function query(url, postData, callback, fatal) {
 }
 
 function openInBrowser(url) {
-	cordova.InAppBrowser.open(url, "_system", "location=yes");
+  if(typeof cordova !== "undefined") {
+    cordova.InAppBrowser.open(url, "_system", "location=yes");
+  } else {
+    window.open(url, "_blank");
+  }
 }
 
 function isLoggedIn() {

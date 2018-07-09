@@ -24,12 +24,11 @@
 					var link = "javascript:openInBrowser('" + item["Link"] + "')";
 
 					if(storedDate == 2147483647) {
-						$("#perm").append('<a href="' + link + '">' + item["Name"] + '</a>');
+						$("#perm").append('<p><a href="' + link + '">' + item["Name"] + '</a></p>');
 					} else {
 						var date = new Date(storedDate * 1000);
 				    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
-						var displayTime = date.getHours() + ":" + date.getMinutes();
-						$("#ltl").append('<a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ' at ' + displayTime + ')');
+						$("#ltl").append('<p><a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ')</p>');
 					}
 				});
 			}
@@ -50,12 +49,10 @@
 			<h1 class="header">Important Links</h1>
 			<br>
 			<h2>Limited Time Links</h2>
-			<br>
 			<div id="ltl">
 			</div>
 			<br>
 			<h2>Permanent Links</h2>
-			<br>
 			<div id="perm">
 			</div>
 		</div>
