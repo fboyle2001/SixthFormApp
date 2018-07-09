@@ -24,12 +24,12 @@
 					var link = "javascript:openInBrowser('" + item["Link"] + "')";
 
 					if(storedDate == 2147483647) {
-						$("#perm").append('<a href="' + link + '">' + item["Name"] + '</a>');
+						$("#perm").append('<a href="' + link + '">' + item["Name"] + '</a><br>');
 					} else {
 						var date = new Date(storedDate * 1000);
 				    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
 						var displayTime = date.getHours() + ":" + date.getMinutes();
-						$("#ltl").append('<a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ' at ' + displayTime + ')');
+						$("#ltl").append('<a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ' at ' + displayTime + ')<br>');
 					}
 				});
 			}
