@@ -9,32 +9,55 @@
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
 			function loadPage() {
-				query("/fetch/files/notices/latest/", {}, function(data) {
-					loadLatestNotice(data);
-				}, function(data) {
-					alert(data);
-				});
+        var noticeContent = retrieveContent("sixth-notice-list");
+        var newsletterContent = retrieveContent("sixth-nwsl-list");
+        var latestNoticeContent = retrieveContent("sixth-notice-late");
+        var latestNewsletterContent = retrieveContent("sixth-nwsl-late");
 
-				query("/fetch/files/notices/list/", {validOnly: true}, function(data) {
-					loadNotices(data);
-				}, function(data) {
-					alert(data);
-				});
+        if(noticeContent == false || noticeContent == null) {
+  				query("/fetch/files/notices/list/", {validOnly: true}, function(data) {
+  					loadNotices(data);
+  				}, function(data) {
+  					alert(data);
+  				});
+				} else {
+          loadNotices(JSON.parse(noticeContent));
+        }
 
-				query("/fetch/files/newsletters/latest/", {}, function(data) {
-					loadLatestNewsletter(data);
-				}, function(data) {
-					alert(data);
-				});
+        if(newsletterContent == false || newsletterContent == null) {
+  				query("/fetch/files/newsletters/list/", {validOnly: true}, function(data) {
+  					loadNewsletters(data);
+  				}, function(data) {
+  					alert(data);
+  				});
+        } else {
+          loadNewsletters(JSON.parse(newsletterContent));
+        }
 
-				query("/fetch/files/newsletters/list/", {validOnly: true}, function(data) {
-					loadNewsletters(data);
-				}, function(data) {
-					alert(data);
-				});
-			}
+        if(latestNoticeContent == false || latestNoticeContent == null) {
+          query("/fetch/files/notices/latest/", {}, function(data) {
+  					loadLatestNotice(data);
+  				}, function(data) {
+  					alert(data);
+  				});
+        } else {
+          loadLatestNotice(JSON.parse(latestNoticeContent));
+        }
+
+        if(latestNewsletterContent == false || latestNewsletterContent == null) {
+          query("/fetch/files/newsletters/latest/", {}, function(data) {
+            loadLatestNewsletter(data);
+          }, function(data) {
+            alert(data);
+          });
+        } else {
+          loadLatestNewsletter(JSON.parse(latestNewsletterContent));
+        }
+      }
 
 			function loadLatestNotice(data) {
+        cacheContent("sixth-notice-late", JSON.stringify(data));
+
 				if(data["content"]["found"] == false) {
 					return;
 				}
@@ -46,6 +69,8 @@
 			}
 
 			function loadNotices(data) {
+        cacheContent("sixth-notice-list", JSON.stringify(data));
+
 				if(data["content"]["found"] == false) {
 					return;
 				}
@@ -70,6 +95,8 @@
       }
 
       function loadLatestNewsletter(data) {
+        cacheContent("sixth-nwsl-late", JSON.stringify(data));
+
 				var latest = data["content"]["latest"];
 				$("#latest_newsletter_name").text(latest["Name"]);
 				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
@@ -77,6 +104,8 @@
 			}
 
 			function loadNewsletters(data) {
+        cacheContent("sixth-nwsl-list", JSON.stringify(data));
+
 				$.each(data["content"]["records"], function(index, item){
 					var expiryDate = item["ExpiryDate"];
 
