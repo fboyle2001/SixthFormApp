@@ -16,6 +16,7 @@
 			require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
 		?>
     <script src="/sixthadmin/resources/javascript/announcements.js"></script>
+		<title>View Announcements</title>
   </head>
   <body>
     <?php

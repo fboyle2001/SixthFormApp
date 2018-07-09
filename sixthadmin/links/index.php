@@ -16,6 +16,7 @@
   		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
 	  ?>
     <script src="/sixthadmin/resources/javascript/links.js"></script>
+		<title>View Links</title>
   </head>
   <body>
     <?php

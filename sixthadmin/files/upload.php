@@ -69,6 +69,7 @@
 			// It also includes jQuery in the page
 			require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
 		?>
+		<title>Upload File</title>
   </head>
   <body>
     <?php

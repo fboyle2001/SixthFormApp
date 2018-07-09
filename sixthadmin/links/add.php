@@ -44,6 +44,7 @@
   		// It also includes jQuery in the page
   		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
 		?>
+		<title>Add Link</title>
   </head>
   <body>
     <?php

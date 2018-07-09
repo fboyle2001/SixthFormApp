@@ -56,17 +56,18 @@
 <html>
   <head>
     <?php
-		// Includes the default header which includes the stylesheet and navigation JavaScript
-		// It also includes jQuery in the page
-		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
-	?>
+			// Includes the default header which includes the stylesheet and navigation JavaScript
+			// It also includes jQuery in the page
+			require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
+		?>
+		<title>Create Account</title>
 	<script src="/sixthadmin/resources/javascript/create-account.js"></script>
   </head>
   <body>
     <?php
-		// Includes the default body which includes the navigation menu at the top of the page
-		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/body.php");
-	?>
+			// Includes the default body which includes the navigation menu at the top of the page
+			require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/body.php");
+		?>
 	<div>
 		<h1>Create New Account</h1>
 		<p>To create a new user, enter a unique username and select if they are an admin or enter their year group.</p>
