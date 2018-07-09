@@ -7,6 +7,50 @@
 		<script src="./javascript/query.js"></script>
 		<script src="cordova.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
+		<script>
+			//caching is unnecessary on this page
+			function loadPage() {
+				query("/accounts/details/", {}, function (data) {
+					var type = data["content"]["authLevel"] == 1 ? "Admin" : "Student";
+					var time = data["content"]["timeRemaining"];
+					var seconds = time % 60;
+					var displayTime = ((time - seconds) / 60)	+ " minutes " + seconds + " seconds";
+
+					$("#time_left").text(displayTime);
+					$("#account_type").text(type);
+				}, function (data) {
+					alert(data);
+				});
+
+				$("#change_pwd").click(function (e) {
+					e.preventDefault();
+					changePassword();
+				});
+			}
+
+			function logout() {
+				Cookies.remove("auth");
+				Cookies.remove("base");
+				Cookies.remove("resource_base");
+				window.location = "index.html";
+			}
+
+			function changePassword() {
+				var password = $("#new_pwd").val();
+				var check = $("#new_pwd_check").val();
+
+				if(password !== check) {
+					alert("Your passwords do not match.");
+					return;
+				}
+
+				query("/accounts/change/", {"password": password}, function (data) {
+					alert("Successfully changed your password.");
+				}, function(data) {
+					alert(data);
+				});
+			}
+		</script>
 	</head>
 	<body>
 		<div class="menu">
@@ -20,6 +64,18 @@
 			</nav>
 		</div>
 		<div class="content">
+			<h1 class="header">Settings</h1>
+			<br>
+			<h2>Account</h2>
+			<p>Session Time Remaining: <span id="time_left"></span></p>
+			<p>Account Type: <span id="account_type"></span></p>
+			<a href="javascript:logout()"><p>To logout, click here.</p></a>
+			<h3>Change Password</h3>
+			<table>
+				<tr><td>New Password</td><td><input type="password" id="new_pwd"></td></tr>
+				<tr><td>Confirm Password</td><td><input type="password" id="new_pwd_check"></td></tr>
+				<tr><td colspan="2"><button id="change_pwd">Change Password</button></td></tr>
+			</table>
 		</div>
 	</body>
 </html>
