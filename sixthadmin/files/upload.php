@@ -20,11 +20,12 @@
 			$message = "Type must be set.";
 		} else if (!is_uploaded_file($_FILES["uploadedFile"]["tmp_name"])) {
 			$message = "You must upload a file.";
-		} else if (!in_array($type, [0, 1, 2])){
+		} else if (!in_array($type, [1, 2])){
 			$message = "Type is invalid.";
 		} else {
 			$base = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver";
-			$baseStore = "/resources/files/" . basename($_FILES["uploadedFile"]["name"]);
+			$randomName = time() . "_$type.pdf";
+			$baseStore = "/resources/files/$randomName";
 			$storageFile = $base . $baseStore;
 
 			if(file_exists($storageFile)) {
@@ -87,7 +88,6 @@
 					<tr><td colspan="2">Type:</td></tr>
 					<tr><td>Notices</td><td><input type="radio" name="type" value="2" required></td></tr>
 					<tr><td>Newsletter</td><td><input type="radio" name="type" value="1" required></td></tr>
-					<tr><td>Other</td><td><input type="radio" name="type" value="0" required></td></tr>
 					<tr><td colspan="2"><input type="submit" value="Upload File"></td></tr>
 				</table>
 			</form>

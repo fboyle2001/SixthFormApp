@@ -25,7 +25,6 @@
 		 <datalist id="type">
 			<option value="Newsletter" data-id="1">
 			<option value="Notices" data-id="2">
- 			<option value="Other" data-id="0">
 		 </datalist>
      <div>
       <h1>Files</h1>
