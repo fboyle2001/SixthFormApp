@@ -101,7 +101,11 @@ function cacheContent(key, content) {
 
 function onDeviceReady() {
   $(document).ready(function () {
-    loadPage();
+    verifyUser(function () {
+      loadPage();
+    }, function(err) {
+      window.location = "index.html";
+    });
   });
 }
 
