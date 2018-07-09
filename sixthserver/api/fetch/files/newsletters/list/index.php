@@ -17,6 +17,7 @@
 		$selectLatest .= " AND `ExpiryDate` >= $time";
 	}
 
+  $selectLatest .= " ORDER BY `ID` DESC";
 	$selectLatest = DatabaseHandler::getInstance()->executeQuery($selectLatest);
 
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
