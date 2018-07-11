@@ -17,7 +17,7 @@
 	}
 
 	$username = get_username();
-	$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+	$hashedPassword = password_hash($password, PASSWORD_BCRYPT, ["cost" => 12]);
 
 	$changePassword = "UPDATE `accounts` SET `Password` = '$hashedPassword', `Reset` = 0 WHERE `Username` = '$username'";
 	$changePassword = DatabaseHandler::getInstance()->executeQuery($changePassword);

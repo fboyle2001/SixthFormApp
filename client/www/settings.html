@@ -47,9 +47,11 @@
 					alert("Your passwords do not match.");
 					return;
 				}
-				
-        if(!doesPasswordMeetStandard(password)) {
-          alert("Your password is too weak.");
+
+				var standard = doesPasswordMeetStandard(password);
+
+        if(standard !== true) {
+          alert(standard);
           return;
         }
 

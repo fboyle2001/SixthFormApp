@@ -38,6 +38,30 @@ function openInBrowser(url) {
 }
 
 function doesPasswordMeetStandard(password) {
+  if(password == null) {
+    return "You must enter a password.";
+  }
+
+  if(password == "") {
+    return "You must enter a password.";
+  }
+
+  if(password.length < 8) {
+    return "Your password must be at least 8 characters long.";
+  }
+
+  if(/[0-9]+/.test(password) == false) {
+    return "Your password must contain at least one number.";
+  }
+
+  if(/[a-z]+/.test(password) == false) {
+    return "Your password must contain at least one lowercase letter.";
+  }
+
+  if(/[A-Z]+/.test(password) == false) {
+    return "Your password must contain at least one uppercase letter.";
+  }
+
   return true;
 }
 
