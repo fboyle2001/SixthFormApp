@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script src="./javascript/jquery-3.2.1.min.js"></script>
+		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/query.js"></script>
+		<script src="cordova.js"></script>
+		<link href="./css/styles.css" rel="stylesheet" type="text/css">
+		<script>
+			//caching is unnecessary on this page
+			function loadPage() {
+				$("#change_pwd").click(function (e) {
+					e.preventDefault();
+					changePassword();
+				});
+			}
+
+			function logout() {
+				Cookies.remove("auth");
+				Cookies.remove("base");
+				Cookies.remove("resource_base");
+				window.location = "index.html";
+			}
+
+			function changePassword() {
+				var password = $("#new_pwd").val();
+				var check = $("#new_pwd_check").val();
+
+				if(password !== check) {
+					alert("Your passwords do not match.");
+					return;
+				}
+
+        var result = doesPasswordMeetStandard(password);
+
+        if(result !== true) {
+          alert(result);
+          return;
+        }
+
+				query("/accounts/change/", {"password": password}, function (data) {
+          if(data["status"]["code"] == 200) {
+  					alert("Successfully changed your password.");
+            window.location = "home.html";
+          } else {
+            alert(data["status"]["description"]);
+          }
+				}, function(data) {
+					alert(data);
+				});
+			}
+		</script>
+	</head>
+	<body>
+		<div class="content centred" style="width: 70%;">
+			<h1 class="header">Change Password</h1>
+      <p style="text-align: center;">You must change your password before you can continue as it is currently the default.</p>
+			<form>
+				<table>
+					<tr><td>Password</td><td><input type="password" id="new_pwd"></td></tr>
+					<tr><td>Confirm Password</td><td><input type="password" id="new_pwd_check"></td></tr>
+				</table>
+			</form>
+      <br>
+      <button id="change_pwd" class="horizontal_centred">Change Password</button>
+		</div>
+	</body>
+</html>

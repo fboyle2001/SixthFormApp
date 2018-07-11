@@ -22,7 +22,7 @@
 
   $defaultPassword = password_hash("Passw0rd", PASSWORD_BCRYPT, ["cost" => $cost]);
 
-  $resetQuery = "UPDATE `accounts` SET `Password` = '$defaultPassword' WHERE `ID` = '$id'";
+  $resetQuery = "UPDATE `accounts` SET `Password` = '$defaultPassword', `Reset` = 1 WHERE `ID` = '$id'";
   $resetQuery = DatabaseHandler::getInstance()->executeQuery($resetQuery);
 
   if($resetQuery->wasSuccessful() == false) {

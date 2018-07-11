@@ -19,7 +19,11 @@
 							localStorage.clear();
 						}
 
-					 	window.location = "home.html";
+						if(Cookies.get("must_reset") == "false") {
+							window.location = "home.html";
+						} else {
+							window.location = "force_change.html";
+						}
 					});
 				});
 			});

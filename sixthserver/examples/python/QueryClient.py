@@ -33,7 +33,7 @@ class User:
         response = urllib.request.urlopen(request)
         result = response.read().decode()
 
-        #print(result)
+        print(result)
         
         result = json.loads(result)
 
@@ -42,5 +42,5 @@ class User:
         
         return False
     
-user = User("Finlay", "Passw0rd", "http://localhost/sixthserver/api")
+user = User("FinlayBoyle", "Passw0rd", "http://localhost/sixthserver/api")
 print(user.query("/accounts/details/", None))

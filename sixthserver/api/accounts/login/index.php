@@ -31,7 +31,7 @@
   $deleteApiKeys = "DELETE FROM `apikeys` WHERE `Username` = '$username'";
   DatabaseHandler::getInstance()->executeQuery($deleteApiKeys);
 
-  $authQuery = "SELECT `IsAdmin` FROM `accounts` WHERE `Username` = '$username'";
+  $authQuery = "SELECT `IsAdmin`, `Reset` FROM `accounts` WHERE `Username` = '$username'";
   $authResult = DatabaseHandler::getInstance()->executeQuery($authQuery);
 
   $authResult = $authResult->getRecords()[0];
@@ -46,7 +46,10 @@
 
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
 
+  $hasReset = $authResult["Reset"] == 1 ? true : false;
+
   $reply->setValue("auth", $json);
+  $reply->setValue("reset", $hasReset);
 	echo $reply->toJson();
 
   //use reply

@@ -37,6 +37,10 @@ function openInBrowser(url) {
   }
 }
 
+function doesPasswordMeetStandard(password) {
+  return true;
+}
+
 function isLoggedIn() {
   if(Cookies.get("auth") === undefined) {
     return false;

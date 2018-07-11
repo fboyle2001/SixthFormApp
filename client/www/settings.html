@@ -47,6 +47,11 @@
 					alert("Your passwords do not match.");
 					return;
 				}
+				
+        if(!doesPasswordMeetStandard(password)) {
+          alert("Your password is too weak.");
+          return;
+        }
 
 				query("/accounts/change/", {"password": password}, function (data) {
 					alert("Successfully changed your password.");
