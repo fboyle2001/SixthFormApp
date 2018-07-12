@@ -7,19 +7,34 @@
 	// Guests will be redirect to the login page
 	rejectGuest();
 
+	$selectGroups = "SELECT * FROM `groups`";
+	$selectGroups = DatabaseHandler::getInstance()->executeQuery($selectGroups);
+	$options = "";
+
+	if($selectGroups->wasDataReturned()) {
+		foreach($selectGroups->getRecords() as $record) {
+			$options .= '<option value="' . $record["ID"] . '">' . $record["GroupName"] . '</option>';
+		}
+	}
+
   $message = "";
 
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = post("title");
     $content = post("content");
+		$group = post("group");
 
     if($title == null) {
       $message = "Title cannot be empty.";
     } else if ($content == null) {
       $message = "Content cannot be empty.";
     } else {
+			if($group == null) {
+				$group = -999;
+			}
+
       $date = time();
-      $insertQuery = "INSERT INTO `announcements` (`Title`, `Content`, `DateAdded`) VALUES ('$title', '$content', '$date')";
+      $insertQuery = "INSERT INTO `announcements` (`Title`, `Content`, `DateAdded`, `GroupID`) VALUES ('$title', '$content', '$date', '$group')";
       $insertQuery = DatabaseHandler::getInstance()->executeQuery($insertQuery);
 
       if($insertQuery->wasSuccessful()) {
@@ -54,6 +69,14 @@
           <table>
             <tr><td>Title:</td><td><input type="text" name="title" required></td></tr>
             <tr><td>Content:</td><td><textarea rows="8" name="content" cols="60" required form="announcement_form"></textarea></td></tr>
+						<tr>
+							<td>Group:</td>
+							<td>
+								<select form="announcement_form" id="group_list" name="group">
+									<?php echo $options; ?>
+								</select>
+							</td>
+						</tr>
             <tr><td colspan="2"><input type="submit" value="Make Announcement"></td></tr>
           </table>
       </form>

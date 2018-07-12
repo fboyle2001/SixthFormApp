@@ -37,7 +37,7 @@
       <h2>Manage Announcements</h2>
       <table id="announcements_table" class="data-table">
         <thead>
-          <tr><th>ID</th><th>Title</th><th>Content</th><th>Date Added</th><th>Delete</th></tr>
+          <tr><th>ID</th><th>Title</th><th>Content</th><th>Group</th><th>Date Added</th><th>Delete</th></tr>
         </thead>
         <tbody></tbody>
       </table>

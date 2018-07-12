@@ -6,7 +6,7 @@
 
 	$reply = new Reply();
 	$title = get("title");
-	$selectQuery = "SELECT * FROM `announcements`";
+	$selectQuery = "SELECT `announcements`.*, `groups`.`GroupName` FROM `announcements` INNER JOIN `groups` ON `announcements`.`GroupID` = `groups`.`ID`";
 
 	if($title != null) {
 		$selectQuery .= " WHERE `Title` LIKE '%$title%'";
