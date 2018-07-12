@@ -1,7 +1,7 @@
 // Stores the content to be displayed in the dropdown navigation menus.
 var dropdownContent = {
   'accounts': '<a href="/sixthadmin/accounts/"><li>View Accounts</li></a><a href="/sixthadmin/accounts/create.php"><li>Create Account</li></a>',
-  'announcements': '<a href="/sixthadmin/announcements/"><li>View Announcements</li></a><a href="/sixthadmin/announcements/make.php"><li>Make Announcement</li></a>',
+  'announcements': '<a href="/sixthadmin/announcements/"><li>View Announcements</li></a><a href="/sixthadmin/announcements/make.php"><li>Make Announcement</li></a><a href="/sixthadmin/announcements/view_groups.php"><li>View Groups</li></a><a href="/sixthadmin/announcements/create_group.php"><li>Create Group</li></a>',
   'files': '<a href="/sixthadmin/files/"><li>View Files</li></a><a href="/sixthadmin/files/upload.php"><li>Upload File</li></a>',
   'links': '<a href="/sixthadmin/links/"><li>View Links</li></a><a href="/sixthadmin/links/add.php"><li>Add Link</li></a>'
 };
@@ -24,3 +24,13 @@ $(document).ready(function () {
     }
   });
 });
+
+function removeElementFromArray(array, element) {
+  var index = array.indexOf(element);
+
+  if(index == -1) {
+    return;
+  }
+
+  array.splice(index, 1);
+}
