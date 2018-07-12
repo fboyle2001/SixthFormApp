@@ -73,10 +73,6 @@
 							<td>Group:</td>
 							<td>
 								<select form="announcement_form" id="group_list" name="group">
-									<option selected value="-999">All</option>
-									<option value="-998">Year 12</option>
-									<option value="-997">Year 13</option>
-									<option value="-996">Admins</option>
 									<?php echo $options; ?>
 								</select>
 							</td>

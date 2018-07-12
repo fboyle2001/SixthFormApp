@@ -6,7 +6,7 @@
 
 	$reply = new Reply();
 	$content = get("content");
-	$selectQuery = "SELECT * FROM `announcements`";
+	$selectQuery = "SELECT `announcements`.*, `groups`.`GroupName` FROM `announcements` INNER JOIN `groups` ON `announcements`.`GroupID` = `groups`.`ID`";
 
 	if($content != null) {
 		$selectQuery .= " WHERE `Content` LIKE '%$content%'";
