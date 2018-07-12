@@ -15,11 +15,24 @@
 			// It also includes jQuery in the page
 			require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
 		?>
+    <script src="/sixthadmin/resources/javascript/view-groups.js"></script>
+    <title>View Groups</title>
   </head>
   <body>
     <?php
 			// Includes the default body which includes the navigation menu at the top of the page
 			require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/body.php");
 		?>
+    <div>
+      <h1>View Groups</h1>
+      <br>
+      <table class="data-table" id="groups">
+        <thead>
+          <tr><th>Group Name</th><th>Members</th><th>Delete</th></tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
   </body>
 </html>

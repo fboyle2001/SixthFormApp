@@ -68,7 +68,7 @@ function processResult(data, username) {
 
   existingUsers.push(username);
   var removeLink = "javascript:removeMember('" + username + "')";
-  $("#members > tbody").append('<tr data-sid="' + data["content"]["id"] + '" id="row_' + username + '"><td>' + username + '</td><td><a href="' + removeLink + '">Remove</a></td></tr>');
+  $("#members > tbody").append('<tr data-sid="' + data["content"]["id"] + '" id="row_' + username + '"><td>' + username + '</td><td><a class="removeLinks" href="' + removeLink + '">Remove</a></td></tr>');
   $("#add_member").removeAttr("disabled");
 }
 
@@ -125,8 +125,6 @@ function addGroupToDatabase(groupName) {
 }
 
 function processSubmitResult(data) {
-  console.log(data);
-
   if(data["status"]["code"] != 200) {
     $("#submit").removeAttr("disabled");
     alert(data["status"]["description"]);
@@ -134,6 +132,9 @@ function processSubmitResult(data) {
   }
 
   $("#add_member").attr("disabled", "disabled");
+  $(".removeLinks").removeAttr("href");
+  $("#gname").attr("disabled", "disabled");
+  $("#username").attr("disabled", "disabled");
   alert("Successfully created group!");
   return;
 }
