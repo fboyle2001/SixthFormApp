@@ -21,7 +21,7 @@ function verifyUser(username) {
     return;
   }
 
-  var queryUrl = "http://localhost/sixthadmin/announcements/verify_user.php?username=" + username;
+  var queryUrl = "http://localhost/sixthadmin/announcements/groups/verify_user.php?username=" + username;
 
   $.getJSON(queryUrl, function (data) {
     processResult(data, username);
@@ -34,7 +34,7 @@ function verifyGroupName(name) {
     return;
   }
 
-  var queryUrl = "http://localhost/sixthadmin/announcements/verify_name.php?name=" + name;
+  var queryUrl = "http://localhost/sixthadmin/announcements/groups/verify_name.php?name=" + name;
 
   $.getJSON(queryUrl, function (data) {
     processGroupName(data, name);
@@ -117,7 +117,7 @@ function addGroupToDatabase(groupName) {
     idStr += id;
   });
 
-  var queryUrl = "http://localhost/sixthadmin/announcements/submit_group.php?name=" + groupName + "&ids=" + idStr;
+  var queryUrl = "http://localhost/sixthadmin/announcements/groups/submit_group.php?name=" + groupName + "&ids=" + idStr;
 
   $.getJSON(queryUrl, function(data) {
     processSubmitResult(data);
