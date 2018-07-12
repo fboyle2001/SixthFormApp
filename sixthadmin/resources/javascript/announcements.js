@@ -57,7 +57,7 @@ function processData(result) {
 }
 
 function remove(id) {
-  var certain = confirm("Are you sure you want to delete this?");
+  var certain = confirm("Are you sure you want to delete this announcement?");
 
   if(certain == false) {
     return;

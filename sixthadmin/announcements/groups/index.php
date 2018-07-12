@@ -26,6 +26,12 @@
     <div>
       <h1>View Groups</h1>
       <br>
+      <h2>Search</h2>
+      <p>Group Name:</p><input type="text" id="groupsearch">
+      <br>
+      <button id="search_by_name">Search by Group Name</button>
+      <br>
+      <br>
       <table class="data-table" id="groups">
         <thead>
           <tr><th>Group Name</th><th>Members</th><th>Delete</th></tr>
@@ -33,6 +39,7 @@
         <tbody>
         </tbody>
       </table>
+      <p id="message"></p>
     </div>
   </body>
 </html>

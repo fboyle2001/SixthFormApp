@@ -1,5 +1,10 @@
 $(document).ready(function () {
   searchByName("");
+
+  $("#search_by_name").click(function (e) {
+    e.preventDefault();
+    searchByName($("#groupsearch").val());
+  })
 });
 
 function searchByName(name) {
@@ -39,6 +44,35 @@ function processResult(data) {
   });
 }
 
+function deleteGroup(id) {
+  var certain = confirm("Are you sure you want to delete this group?");
+  $("#" + id + "_delete").removeAttr("href");
+  $("#" + id + "_delete").text("Deleting...");
+  $("#" + id + "_members").removeAttr("href");
+  $("#" + id + "_members").text("Unavailable");
+
+  var queryUrl = "http://localhost/sixthadmin/announcements/groups/delete.php";
+
+	$.ajax({
+		url: queryUrl,
+		type: "post",
+		dataType: "json",
+		data: "id=" + id,
+		success: function(data) {
+			processRemoveResult(data, id);
+		},
+		error: function(data) {
+			alert("An unexpected error occurred");
+			console.log(data);
+		}
+	});
+}
+
+function processRemoveResult(data, id) {
+  var status = data["status"];
+  $("#" + id + "_delete").text(status["description"]);
+}
+
 function viewMembers(id) {
   if(usersByGroup[id] != null) {
     return;
@@ -70,5 +104,6 @@ function processMembers(data, id) {
     users += item;
   });
 
+  usersByGroup[id] = users;
   $("#" + id + "_members").text(users);
 }

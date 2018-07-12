@@ -35,7 +35,7 @@ function process(result) {
 }
 
 function remove(id) {
-  var certain = confirm("Are you sure you want to delete this?");
+  var certain = confirm("Are you sure you want to delete this account?");
 
   if(certain == false) {
     return;
@@ -66,7 +66,7 @@ function processRemoveResult(data, id) {
 }
 
 function reset(id) {
-  var certain = confirm("Are you sure you want to reset the password?");
+  var certain = confirm("Are you sure you want to reset the password for this account?");
 
   if(certain == false) {
     return;
