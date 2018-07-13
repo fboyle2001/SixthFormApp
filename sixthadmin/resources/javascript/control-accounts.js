@@ -5,19 +5,37 @@ function forceChange() {
     return;
   }
 
-  var queryUrl = "http://localhost/sixthadmin/accounts/control/force_change.php";
+  var queryUrl = "http://localhost/sixthadmin/accounts/control/admin_action.php";
   $("#fc").removeAttr("href");
   $("#fc").text("Applying...");
 
-  $.getJSON(queryUrl, function(data) {
-    $("#fc").text(data["status"]["description"]);
+  $.ajax({
+		url: queryUrl,
+		type: "post",
+		dataType: "json",
+		data: "actionId=" + 1,
+    success: function(data) {
+      $("#fc").text(data["status"]["description"]);
+    },
+    error: function(data) {
+      alert("An unexpected error occurred")
+      console.log(data);
+    }
   });
 }
 
 function incrementYears() {
+  var certain = confirm("Are you certain you want to increment the year group of all students?");
 
+  if(certain == false) {
+    return;
+  }
 }
 
 function deleteOld() {
+  var certain = confirm("Are you certain you want to delete old students?");
 
+  if(certain == false) {
+    return;
+  }
 }

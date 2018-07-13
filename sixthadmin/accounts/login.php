@@ -48,8 +48,11 @@
 			return "The password entered is incorrect.";
 		}
 
+		$id = $record["ID"];
+
 		// Sets the session username to the username entered by the user
 		$_SESSION["user"] = $username;
+		$_SESSION["userId"] = $id;
 		return "Success";
 	}
 

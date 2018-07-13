@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2018 at 11:40 PM
+-- Generation Time: Jul 13, 2018 at 06:50 PM
 -- Server version: 10.1.13-MariaDB
 -- PHP Version: 7.0.8
 
@@ -46,6 +46,18 @@ INSERT INTO `accounts` (`ID`, `Username`, `Password`, `Year`, `IsAdmin`, `Reset`
 (2, 'DevUser', '$2y$10$ydMisDkUWwxG6rw67NdybOQaJe0ycq8jpXvbiO.m2wd0MRKcz6BaG', 12, 0, 0),
 (7, 'TestUser', '$2y$12$Q5Q3U.ayzI4CPJk0iiw7PuHDAbS5.EZIs5Wx6HGqhn1kMfT81oZjW', 13, 0, 0),
 (9, 'FinlayBoyle', '$2y$12$H4P8OXLZGYNTzpxgaRHq7.QGqGQwev2RsRCpgymjvVpMpZYZJIowi', 12, 0, 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `adminactions`
+--
+
+CREATE TABLE `adminactions` (
+  `ID` int(11) NOT NULL,
+  `AdminID` int(11) NOT NULL,
+  `Action` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -94,9 +106,9 @@ CREATE TABLE `apikeys` (
 
 INSERT INTO `apikeys` (`ID`, `Username`, `Secret`, `ExpireTime`) VALUES
 (44, 'TestUser', 's7PILSu1y3C3b8k3u5bIOojg0Zhqoocp.0', 1530695838),
-(111, 'DevUser', 'pSx84elc2zW3EnpVLCmxHLS5jMyjX8uq.0', 1530704274),
-(390, 'FinlayBoyle', 'rwe8i2ZXFflAxKYmnC879twdkomuSZmh.0', 1531435109),
-(391, 'DevAdmin', 'awJ5juclOyoTLW7GKnKcR47oHLzKlDXd.1', 1531435147);
+(394, 'DevUser', 'GyYilfaiIeOCDttZsphD02NfEP94dKUO.0', 1531499011),
+(395, 'DevAdmin', 'MC2nQWLU6cCQhJ3iBn3QMt5A1S674WBx.1', 1531503616),
+(396, 'FinlayBoyle', '8txqVRmSFU4u4Z7mnVt5h4CK1hvWiSBM.0', 1531503625);
 
 -- --------------------------------------------------------
 
@@ -222,6 +234,12 @@ ALTER TABLE `accounts`
   ADD PRIMARY KEY (`ID`);
 
 --
+-- Indexes for table `adminactions`
+--
+ALTER TABLE `adminactions`
+  ADD PRIMARY KEY (`ID`);
+
+--
 -- Indexes for table `announcements`
 --
 ALTER TABLE `announcements`
@@ -273,6 +291,11 @@ ALTER TABLE `links`
 ALTER TABLE `accounts`
   MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
+-- AUTO_INCREMENT for table `adminactions`
+--
+ALTER TABLE `adminactions`
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `announcements`
 --
 ALTER TABLE `announcements`
@@ -281,7 +304,7 @@ ALTER TABLE `announcements`
 -- AUTO_INCREMENT for table `apikeys`
 --
 ALTER TABLE `apikeys`
-  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=392;
+  MODIFY `ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=397;
 --
 -- AUTO_INCREMENT for table `calender`
 --
