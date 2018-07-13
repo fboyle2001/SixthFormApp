@@ -34,7 +34,6 @@
         </thead>
         <tbody>
           <tr><td>Force Password Change (for All Users)</td><td>This will force all users, when they next login, to change their passwords.</td><td><a id="fc" href="javascript:forceChange()">Force Change</a></td></tr>
-          <tr><td>Force Password Reset (for Students Only)</td><td>This will change all users passwords to Passw0rd. Only use this if you are certain users will login (e.g. start of term) as it could leave account details vulnerable as all users will have the same password.</td><td><a id="fr" href="javascript:forceReset()">Force Reset</a></td></tr>
           <tr><td>Increment Year Groups</td><td>This will increment the year group of all students.</td><td><a id="iy" href="javascript:incrementYears()">Increment Year Groups</a></td></tr>
           <tr><td>Delete Old Users</td><td>This should be used following incrementing year groups. This will cause all users who were in year 13 to be deleted. Make sure to change any resitting students back to the correct year group before using this.</td><td><a id="do" href="javascript:deleteOld()">Delete</a></td></tr>
         </tbody>
