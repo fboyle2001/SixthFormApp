@@ -59,6 +59,7 @@
         cacheContent("sixth-notice-late", JSON.stringify(data));
 
 				if(data["content"]["found"] == false) {
+					$("#latest_notice_name").text("None Available");
 					return;
 				}
 
@@ -72,6 +73,7 @@
         cacheContent("sixth-notice-list", JSON.stringify(data));
 
 				if(data["content"]["found"] == false) {
+					$("#older_notices_error").text("No notices found.");
 					return;
 				}
 
@@ -97,6 +99,11 @@
       function loadLatestNewsletter(data) {
         cacheContent("sixth-nwsl-late", JSON.stringify(data));
 
+				if(data["content"]["found"] == false) {
+					$("#latest_newsletter_name").text("None Available");
+					return;
+				}
+
 				var latest = data["content"]["latest"];
 				$("#latest_newsletter_name").text(latest["Name"]);
 				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
@@ -105,6 +112,11 @@
 
 			function loadNewsletters(data) {
         cacheContent("sixth-nwsl-list", JSON.stringify(data));
+
+				if(data["content"]["found"] == false) {
+					$("#older_newsletters_error").text("No newsletters found.");
+					return;
+				}
 
 				$.each(data["content"]["records"], function(index, item){
 					var expiryDate = item["ExpiryDate"];
@@ -142,6 +154,7 @@
 			<strong><a style="font-size: 18px; text-align: center" id="latest_notice_link"><p>View Latest Notices (<span id="latest_notice_name"></span>)</p></a></strong>
 			<strong><a style="font-size: 18px; text-align: center" id="latest_newsletter_link"><p>View Latest Newsletter (<span id="latest_newsletter_name"></span>)</p></a></strong>
 			<h2>Older Notices</h2>
+			<p id="older_notices_error"></p>
 			<table id="notices_table" class="data-table">
 				<thead>
 					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>
@@ -151,6 +164,7 @@
 			</table>
       <br>
       <h2>Older Newsletters</h2>
+			<p id="older_newsletters_error"></p>
 			<table id="newsletter_table" class="data-table">
 				<thead>
 					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>

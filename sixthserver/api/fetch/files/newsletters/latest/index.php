@@ -9,7 +9,8 @@
     die($reply->toJson());
   }
 
-	$selectLatest = "SELECT * FROM `files` WHERE `Type` = " . StoreType::newsletters . " ORDER BY `AddedDate` DESC LIMIT 0, 1";
+  $time = time();
+	$selectLatest = "SELECT * FROM `files` WHERE `Type` = " . StoreType::newsletters . " AND `ExpiryDate` >= $time ORDER BY `AddedDate` DESC LIMIT 0, 1";
 	$selectLatest = DatabaseHandler::getInstance()->executeQuery($selectLatest);
 
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
