@@ -28,14 +28,6 @@
     die($reply->toJson());
   }
 
-  $deleteQuery = "DELETE FROM `grouplink` WHERE `GroupID` = '$id'";
-  $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
-
-  if($deleteQuery->wasSuccessful() == false) {
-    $reply->setStatus(ReplyStatus::withData(500, "Deleted group but unable to remove members"));
-    die($reply->toJson());
-  }
-
   $reply->setStatus(ReplyStatus::withData(200, "Successfully deleted group"));
   echo $reply->toJson();
 ?>
