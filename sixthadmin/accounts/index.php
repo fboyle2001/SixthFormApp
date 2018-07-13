@@ -25,13 +25,11 @@
 		?>
 	<div>
 		<h1>Manage Accounts</h1>
-		<br>
-		<h2>Search</h2>
+		<h2>List of Accounts</h2>
+		<h3>Search</h3>
 		<p>Username:</p><input type="text" id="usersearch"><br>
 		<button id="search">Search</button>
 		<br>
-		<br>
-		<h2>List of Accounts</h2>
 		<br>
 		<table id="account_table" class="data-table">
 			<thead>
