@@ -30,6 +30,24 @@ function incrementYears() {
   if(certain == false) {
     return;
   }
+
+  var queryUrl = "http://localhost/sixthadmin/accounts/control/admin_action.php";
+  $("#iy").removeAttr("href");
+  $("#iy").text("Applying...");
+
+  $.ajax({
+		url: queryUrl,
+		type: "post",
+		dataType: "json",
+		data: "actionId=" + 2,
+    success: function(data) {
+      $("#iy").text(data["status"]["description"]);
+    },
+    error: function(data) {
+      alert("An unexpected error occurred")
+      console.log(data);
+    }
+  });
 }
 
 function deleteOld() {
@@ -38,4 +56,22 @@ function deleteOld() {
   if(certain == false) {
     return;
   }
+
+  var queryUrl = "http://localhost/sixthadmin/accounts/control/admin_action.php";
+  $("#do").removeAttr("href");
+  $("#do").text("Applying...");
+
+  $.ajax({
+		url: queryUrl,
+		type: "post",
+		dataType: "json",
+		data: "actionId=" + 3,
+    success: function(data) {
+      $("#do").text(data["status"]["description"]);
+    },
+    error: function(data) {
+      alert("An unexpected error occurred")
+      console.log(data);
+    }
+  });
 }
