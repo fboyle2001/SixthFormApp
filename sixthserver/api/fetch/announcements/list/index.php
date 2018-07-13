@@ -17,6 +17,10 @@
 		die($reply->toJson());
 	}
 
+  if($limit > 20) {
+    $limit = 20;
+  }
+
   $username = get_username();
 
   $selectId = "SELECT `ID`, `IsAdmin`, `Year` FROM `accounts` WHERE `Username` = '$username'";
@@ -65,7 +69,7 @@
 
   $sqlList = "($sqlList)";
 
-	$selectLatest = "SELECT * FROM `announcements` ";
+	$selectLatest = "SELECT * FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` ";
   $where = "";
 
   if($contains != null) {
@@ -78,7 +82,8 @@
     $where = "WHERE `GroupID` IN $sqlList";
   }
 
-  $selectLatest .= "$where ORDER BY `ID` DESC LIMIT $limit";
+
+  $selectLatest .= "$where ORDER BY `announcements`.`ID` DESC LIMIT $limit";
 	$selectLatest = DatabaseHandler::getInstance()->executeQuery($selectLatest);
 
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
