@@ -15,7 +15,7 @@
 					query("/fetch/links/list/", {"validOnly": true}, function(data) {
 						loadLinks(data);
 					}, function(data) {
-						alert(data);
+  					sendAlert("An unexpected error occurred.", "Error");
 					});
 
 					return;

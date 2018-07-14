@@ -50,4 +50,12 @@ function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   }
 }
 
+function sendAlert(message, title = "Alert", button = "OK") {
+	if(typeof navigator.notification !== "undefined") {
+		navigator.notification.alert(message, null, title, button);
+	} else {
+		alert(message);
+	}
+}
+
 //open the console and run 'window.user.query("/accounts/details/", {}, function(data) {console.log(data)}, null);' it will work.

@@ -39,7 +39,7 @@
 				query("/fetch/announcements/list/", {"limit": 10, "contains": parameter}, function(data) {
 					loadAnnouncements(data);
 				}, function(data) {
-					alert(data);
+					sendAlert("An unexpected error occurred.", "Error");
 				});
 			}
 

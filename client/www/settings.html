@@ -23,7 +23,7 @@
 						$("#account_type").after('<a href="javascript:refreshCache()"><p>Refresh Cache</p></a>');
 					}
 				}, function (data) {
-					alert(data);
+					sendAlert("An unexpected error occurred.", "Error");
 				});
 
 				$("#change_pwd").click(function (e) {
@@ -44,21 +44,21 @@
 				var check = $("#new_pwd_check").val();
 
 				if(password !== check) {
-					alert("Your passwords do not match.");
+					sendAlert("Your passwords do not match.");
 					return;
 				}
 
 				var standard = doesPasswordMeetStandard(password);
 
         if(standard !== true) {
-          alert(standard);
+          sendAlert(standard);
           return;
         }
 
 				query("/accounts/change/", {"password": password}, function (data) {
-					alert("Successfully changed your password.");
+					sendAlert("Successfully changed your password.");
 				}, function(data) {
-					alert(data);
+					sendAlert("An unexpected error occurred.", "Error");
 				});
 			}
 

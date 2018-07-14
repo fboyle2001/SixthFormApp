@@ -13,7 +13,7 @@
 					e.preventDefault();
 					var address = "http://" + $("#host").val() + "/sixthserver/api"; //This is only for testing
 					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
-						alert(msg);
+						sendAlert(msg, "Error");
 					}, function() {
 						if(typeof(Storage) !== "undefined") {
 							localStorage.clear();

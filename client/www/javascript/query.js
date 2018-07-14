@@ -37,6 +37,14 @@ function openInBrowser(url) {
   }
 }
 
+function sendAlert(message, title = "Alert", button = "OK") {
+	if(typeof navigator.notification !== "undefined") {
+		navigator.notification.alert(message, null, title, button);
+	} else {
+		alert(message);
+	}
+}
+
 function doesPasswordMeetStandard(password) {
   if(password == null) {
     return "You must enter a password.";

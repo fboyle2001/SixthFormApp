@@ -28,26 +28,26 @@
 				var check = $("#new_pwd_check").val();
 
 				if(password !== check) {
-					alert("Your passwords do not match.");
+					sendAlert("Your passwords do not match.");
 					return;
 				}
 
         var result = doesPasswordMeetStandard(password);
 
         if(result !== true) {
-          alert(result);
+          sendAlert(result);
           return;
         }
 
 				query("/accounts/change/", {"password": password}, function (data) {
           if(data["status"]["code"] == 200) {
-  					alert("Successfully changed your password.");
+  					sendAlert("Successfully changed your password.");
             window.location = "home.html";
           } else {
-            alert(data["status"]["description"]);
+            sendAlert(data["status"]["description"], "Error");
           }
 				}, function(data) {
-					alert(data);
+					sendAlert("An unexpected error occurred.", "Error");
 				});
 			}
 		</script>
