@@ -96,4 +96,24 @@
   function post($name) {
 		return get_arg("POST", $name);
   }
+
+	function deleteOldFiles() {
+		$time = time();
+
+	  $selectQuery = "SELECT * FROM `files` WHERE `ExpiryDate` < $time";
+	  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+
+	  if($selectQuery->wasDataReturned() == false) {
+			return;
+	  }
+
+	  foreach($selectQuery->getRecords() as $record) {
+	    $id = $record["ID"];
+	    $resourceLink = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $record["Link"];
+	    $result = unlink($resourceLink);
+
+	    $deleteQuery = "DELETE FROM `files` WHERE `ID` = $id";
+	    $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+	  }
+	}
 ?>

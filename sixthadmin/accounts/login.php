@@ -50,6 +50,9 @@
 
 		$id = $record["ID"];
 
+		// Trigger file deletion
+		deleteOldFiles();
+
 		// Sets the session username to the username entered by the user
 		$_SESSION["user"] = $username;
 		$_SESSION["userId"] = $id;
