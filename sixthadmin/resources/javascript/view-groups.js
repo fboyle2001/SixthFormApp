@@ -36,6 +36,11 @@ function processResult(data) {
     var userDisplay = '<a id="' + item["ID"] + '_members" href="javascript:viewMembers(' + item["ID"] + ')">View Members</a>';
     var deleteDisplay = '<a id="' + item["ID"] + '_delete" href="javascript:deleteGroup(' + item["ID"] + ')">Delete</a>';
 
+    if(item["ID"] < 0) {
+      userDisplay = 'Default Group';
+      deleteDisplay = 'Default Group';
+    }
+
     if(usersByGroup[item["ID"]] != null) {
       var userDisplay = usersByGroup[item["ID"]];
     }
