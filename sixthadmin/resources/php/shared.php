@@ -97,23 +97,33 @@
 		return get_arg("POST", $name);
   }
 
-	function deleteOldFiles() {
+	function deleteOld() {
 		$time = time();
 
 	  $selectQuery = "SELECT * FROM `files` WHERE `ExpiryDate` < $time";
 	  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
 
-	  if($selectQuery->wasDataReturned() == false) {
-			return;
+	  if($selectQuery->wasDataReturned() == true) {
+			foreach($selectQuery->getRecords() as $record) {
+				$id = $record["ID"];
+				$resourceLink = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $record["Link"];
+				$result = unlink($resourceLink);
+
+				$deleteQuery = "DELETE FROM `files` WHERE `ID` = $id";
+				$deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+			}
 	  }
 
-	  foreach($selectQuery->getRecords() as $record) {
-	    $id = $record["ID"];
-	    $resourceLink = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $record["Link"];
-	    $result = unlink($resourceLink);
+		$selectQuery = "SELECT * FROM `links` WHERE `ExpiryDate` < $time";
+		$selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
 
-	    $deleteQuery = "DELETE FROM `files` WHERE `ID` = $id";
-	    $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
-	  }
+		if($selectQuery->wasDataReturned() == true) {
+			foreach($selectQuery->getRecords() as $record) {
+				$id = $record["ID"];
+				$deleteQuery = "DELETE FROM `links` WHERE `ID` = $id";
+				$deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+			}
+		}
+
 	}
 ?>
