@@ -127,3 +127,8 @@ table.data-table > tbody > tr:nth-child(odd) > td {
 table.data-table > tbody > tr:nth-child(odd) > td:last-child {
 	border: none;
 }
+
+table.data-table > tbody > tr > td > a {
+	text-decoration: underline;
+	color: inherit;
+}

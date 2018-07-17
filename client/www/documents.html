@@ -59,12 +59,11 @@
         cacheContent("sixth-notice-late", JSON.stringify(data));
 
 				if(data["content"]["found"] == false) {
-					$("#latest_notice_name").text("None Available");
+					$("#latest_notice_name").text("(None Available)");
 					return;
 				}
 
 				var latest = data["content"]["latest"];
-				$("#latest_notice_name").text(latest["Name"]);
 				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
 				$("#latest_notice_link").attr("href", link);
 			}
@@ -92,7 +91,7 @@
 
 					var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
 
-					$("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '">View</a></td></tr>');
+					$("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
 				});
       }
 
@@ -133,7 +132,7 @@
 
 					var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
 
-					$("#newsletter_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '">View</a></td></tr>');
+					$("#newsletter_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
 				});
 			}
 		</script>
@@ -151,13 +150,13 @@
 		</div>
 		<div class="content">
 			<h1 class="header">Notices and Newsletters</h1>
-			<strong><a style="font-size: 18px; text-align: center" id="latest_notice_link"><p>View Latest Notices (<span id="latest_notice_name"></span>)</p></a></strong>
+			<strong><a style="font-size: 18px; text-align: center" id="latest_notice_link"><p>View Latest Notices <span id="latest_notice_name"></span></p></a></strong>
 			<strong><a style="font-size: 18px; text-align: center" id="latest_newsletter_link"><p>View Latest Newsletter (<span id="latest_newsletter_name"></span>)</p></a></strong>
 			<h2>Older Notices</h2>
 			<p id="older_notices_error"></p>
 			<table id="notices_table" class="data-table">
 				<thead>
-					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>
+					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View</th></tr>
 				</thead>
 				<tbody>
 				</tbody>
@@ -167,7 +166,7 @@
 			<p id="older_newsletters_error"></p>
 			<table id="newsletter_table" class="data-table">
 				<thead>
-					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View File</th></tr>
+					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View</th></tr>
 				</thead>
 				<tbody>
 				</tbody>
