@@ -96,7 +96,7 @@ nav > ul > a > li, nav > ul > li {
 /* Temporary data table */
 
 table.data-table {
-	border: 1px #66bb6a solid;
+	border: 1px #b4b6b6 solid;
 	border-collapse: collapse;
 }
 
@@ -106,21 +106,22 @@ table.data-table > tbody > tr > td, table.data-table > thead > tr > th {
 }
 
 table.data-table > thead > tr > th {
-	background-color: #66bb6a;
+	background-color: #080D0D;
 	color: white;
 	font-weight: normal;
 }
 
 table.data-table > tbody > tr > td {
-	border-color:
+	border-color #6a6d6d;
 }
 
 table.data-table > tbody > tr:nth-child(even) {
-	background-color: #a5d6a7;
+	background-color: #6a6d6d;
+	color: white;
 }
 
 table.data-table > tbody > tr:nth-child(odd) > td {
-	border-right: 1px #a5d6a7 solid;
+	border-right: 1px #6a6d6d solid;
 }
 
 table.data-table > tbody > tr:nth-child(odd) > td:last-child {
