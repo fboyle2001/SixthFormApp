@@ -9,7 +9,10 @@ var dropdownContent = {
 // Waits until the document is loaded
 $(document).ready(function () {
   // When the user hovers over an element with the attribute 'data-content-key'
-  $("[data-content-key]").hover(function () {
+  $("[data-content-key]").hover(function (e) {
+    // Get the left offset of the menu item
+    var left = $(this).offset()["left"];
+
     // Get the value of the data attribute
     var key = $(this).data("content-key");
 
@@ -17,12 +20,20 @@ $(document).ready(function () {
     if(!(key in dropdownContent)) {
       $("#subnav").slideUp();
     } else {
+      // Move the dropdown to the correct position
+      var style = "position: absolute; left: " + left + "px;"
       // Set the HTML content of the dropdown to the value associated with the key in the array.
-      $("#subnav").html("<nav><ul>" + dropdownContent[key] + "</ul></nav>");
+      $("#subnav").html('<nav style="' + style + '"><ul>' + dropdownContent[key] + '</ul></nav>');
       // Slide down the navigation bar.
       $("#subnav").slideDown();
     }
   });
+
+  $("#subnav").mouseleave(function () {
+    $("#subnav").slideUp();
+  });
+
+
 });
 
 function removeElementFromArray(array, element) {

@@ -166,13 +166,19 @@ div.subnav {
 }
 
 div.subnav > nav > ul > a > li {
-	display: inline-block;
-	margin-right: 1%;
-	padding: 0.5%;
+	display: block;
+	padding: 10%;
 	transition: all 0.6s ease;
 	background-color: #e8f5e9;
 	color: #81c784;
 	cursor: pointer;
+	width: 100%;
+	border-bottom: 1px #81c784 solid;
+	text-decoration: none;
+}
+
+div.subnav > nav > ul > a {
+	text-decoration: none;
 }
 
 div.subnav > nav > ul {
