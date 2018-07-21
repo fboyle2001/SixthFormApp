@@ -31,12 +31,13 @@ function performLogin(username, password, base, onerror, start) {
     Cookies.set("must_reset", data["content"]["reset"]);
   });
 
-  waitForLoginCompletion(250, 8, 0, start); //max wait 2 seconds
+  $("#message").text("Logging in, please wait...");
+  waitForLoginCompletion(250, 16, 0, start); //max wait 4 seconds
 }
 
 function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   if(count >= maxPauses) {
-    console.log("here");
+    $("#message").text("Server timed out. Please try again.");
     return;
   }
 
