@@ -33,7 +33,6 @@ $(document).ready(function () {
     $("#subnav").slideUp();
   });
 
-
 });
 
 function removeElementFromArray(array, element) {

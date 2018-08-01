@@ -156,10 +156,6 @@ div.navigation > nav > ul {
 
 div.subnav {
 	padding: 0;
-  padding-right: 400%;
-  margin-right: -400%;
-  padding-left: 401.5%;
-  margin-left: -400%;
   display: none;
   width: 100%;
   background-color: #e8f5e9; /** 50 **/
@@ -167,7 +163,7 @@ div.subnav {
 
 div.subnav > nav > ul > a > li {
 	display: block;
-	padding: 10%;
+	padding: 10px;
 	transition: all 0.6s ease;
 	background-color: #e8f5e9;
 	color: #81c784;
