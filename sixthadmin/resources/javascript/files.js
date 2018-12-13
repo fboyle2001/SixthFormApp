@@ -31,7 +31,7 @@ function nameSearch(name) {
 }
 
 function typeSearch(type) {
-  var queryUrl = "/sixthadmin/files/type_search34.php?type=" + type;
+  var queryUrl = "/sixthadmin/files/type_search.php?type=" + type;
 
   $.getJSON(queryUrl, function (data) {
     processData(data);

@@ -1,7 +1,6 @@
 window.loggedIn = null;
 
 function login(username, password, base, error, success) {
-  console.log("LOGGING IN")
   var queryUrl = base + "/accounts/login/";
   console.log(queryUrl);
   var postData = "username=" + username + "&password=" + password;
@@ -22,10 +21,8 @@ function login(username, password, base, error, success) {
 function performLogin(username, password, base, onerror, start) {
   login(username, password, base,
   function error(code, msg) {
-    console.log("ERROR");
     onerror(code, msg);
   }, function success(data, base) {
-    console.log("SUCCESS");
     var auth = data["content"]["auth"];
 
     window.loggedIn = true;
