@@ -1,7 +1,7 @@
 <?php
 
   // Includes the shared resources such as database access
-	require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/shared.php");
+	require("../shared.php");
 
 	/**
 	* This function attempts to login the user.

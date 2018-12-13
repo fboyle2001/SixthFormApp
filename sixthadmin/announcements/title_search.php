@@ -1,6 +1,5 @@
 <?php
-	require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/shared.php");
-	require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/Reply.php");
+  require("../shared.php");
 
 	rejectGuest();
 

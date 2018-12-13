@@ -11,7 +11,10 @@
 			$(document).ready(function() {
 				$("#login").click(function(e){
 					e.preventDefault();
-					var address = "http://" + $("#host").val() + "/sixthserver/api"; //This is only for testing
+					//var address = "http://" + $("#host").val() + "/sixthserver/api"; //This is only for testing
+					//var address = "http://mcasix.epizy.com/sixthserver/api";
+					var address = "https://finlayboyle.me/sixthserver/api"
+					console.log(address);
 					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
 						sendAlert(msg, "Error");
 					}, function() {

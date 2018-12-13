@@ -1,7 +1,7 @@
 <?php
 
   // Include the shared functions page
-	require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/shared.php");
+	  require("../shared.php");
 
 	// Logs a user out
 	function logout() {

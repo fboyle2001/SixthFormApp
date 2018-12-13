@@ -9,7 +9,8 @@
   */
 
   // Includes the database connection
-	require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/database/DatabaseHandler.php");
+	require(__DIR__ . "/resources/php/database/DatabaseHandler.php");
+	require(__DIR__ . "/resources/php/Reply.php");
 
   // Starts the session
 	session_start();

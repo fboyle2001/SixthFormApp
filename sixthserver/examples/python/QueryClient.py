@@ -1,5 +1,4 @@
-import urllib.parse
-import urllib.request
+import requests
 import json
 
 class User:
@@ -12,13 +11,9 @@ class User:
     def query(self, url, data):
         url = self.host + url
         headers = {"Authorization": self.auth}
-        
-        if data != None:
-            data = urllib.parse.urlencode(data).encode()
             
-        request = urllib.request.Request(url, data=data, headers=headers)
-        response = urllib.request.urlopen(request)
-        result = response.read().decode()
+        request = requests.post(url, data=data, headers=headers, verify="finlayboyle_me.ca-bundle")
+        result = request.text
 
         #print(result)
         
@@ -28,10 +23,8 @@ class User:
         url = self.host + "/accounts/login/"
         data = {"username": username, "password": password}
         
-        data = urllib.parse.urlencode(data).encode()
-        request = urllib.request.Request(url, data=data)
-        response = urllib.request.urlopen(request)
-        result = response.read().decode()
+        request = requests.post(url, data=data, verify="finlayboyle_me.ca-bundle")
+        result = request.text
 
         print(result)
         
@@ -42,5 +35,5 @@ class User:
         
         return False
     
-user = User("FinlayBoyle", "Passw0rd", "http://localhost/sixthserver/api")
+user = User("DevAdmin", "admin", "https://finlayboyle.me/sixthserver/api")
 print(user.query("/accounts/details/", None))
