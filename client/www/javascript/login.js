@@ -2,7 +2,7 @@ window.loggedIn = null;
 
 function login(username, password, base, error, success) {
   var queryUrl = base + "/accounts/login/";
-  console.log(queryUrl);
+  $("#address").text(queryUrl);
   var postData = "username=" + username + "&password=" + password;
 
   $.post(queryUrl, postData, function(data, textStatus) {
@@ -22,10 +22,12 @@ function performLogin(username, password, base, onerror, start) {
   login(username, password, base,
   function error(code, msg) {
     onerror(code, msg);
+    $("#testing").text("Error: (" + code + ") " + msg)
   }, function success(data, base) {
     var auth = data["content"]["auth"];
 
     window.loggedIn = true;
+    $("#testing").text("logged in");
 
     Cookies.set("auth", auth, {expires: 1/24});
     Cookies.set("base", base, {expires: 1/24});

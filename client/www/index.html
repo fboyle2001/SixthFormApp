@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
@@ -11,10 +12,10 @@
 			$(document).ready(function() {
 				$("#login").click(function(e){
 					e.preventDefault();
-					//var address = "http://" + $("#host").val() + "/sixthserver/api"; //This is only for testing
+					var address = $("#host").val() + "/sixthserver/api"; //This is only for testing
 					//var address = "http://mcasix.epizy.com/sixthserver/api";
-					var address = "https://finlayboyle.me/sixthserver/api"
-					console.log(address);
+					//var address = "https://finlayboyle.me/sixthserver/api"
+
 					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
 						sendAlert(msg, "Error");
 					}, function() {
@@ -42,9 +43,11 @@
 		<div class="centred">
 			<h1>Login</h1>
 			<form>
+				<span id="testing"></span>
+				<span id="address"></span>
 				<table class="clear_input_table">
-					<!-- <tr><td>Test Host</td><td><input type="text" id="host"></td></tr> -->
-					<tr><td>Username</td><td><input type="text" id="username"></td></tr>
+					<tr><td>Test Host</td><td><input type="text" id="host"></td></tr>
+					<tr><td>Username (Test)</td><td><input type="text" id="username"></td></tr>
 					<tr><td>Password</td><td><input type="password" id="password"></td></tr>
 					<tr><td colspan="2"><button id="login">Login</button></td></tr>
 					<tr><td colspan="2"><span id="message"></span></td></tr>
