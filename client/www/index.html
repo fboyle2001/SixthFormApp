@@ -12,9 +12,9 @@
 			$(document).ready(function() {
 				$("#login").click(function(e){
 					e.preventDefault();
-					var address = $("#host").val() + "/sixthserver/api"; //This is only for testing
+					//var address = $("#host").val() + "/sixthserver/api"; //This is only for testing
 					//var address = "http://mcasix.epizy.com/sixthserver/api";
-					//var address = "https://finlayboyle.me/sixthserver/api"
+					var address = "https://finlayboyle.me/sixthserver/api"
 
 					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
 						sendAlert(msg, "Error");
@@ -43,11 +43,9 @@
 		<div class="centred">
 			<h1>Login</h1>
 			<form>
-				<span id="testing"></span>
-				<span id="address"></span>
 				<table class="clear_input_table">
-					<tr><td>Test Host</td><td><input type="text" id="host"></td></tr>
-					<tr><td>Username (Test)</td><td><input type="text" id="username"></td></tr>
+					<!-- <tr><td>Test Host</td><td><input type="text" id="host"></td></tr> -->
+					<tr><td>Username</td><td><input type="text" id="username"></td></tr>
 					<tr><td>Password</td><td><input type="password" id="password"></td></tr>
 					<tr><td colspan="2"><button id="login">Login</button></td></tr>
 					<tr><td colspan="2"><span id="message"></span></td></tr>
