@@ -1,6 +1,6 @@
 <?php
   require("Reply.php");
-	require("../database/DatabaseHandler.php");
+	require("DatabaseHandler.php");
 
   class AccessLevel {
 
