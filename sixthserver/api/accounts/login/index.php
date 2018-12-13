@@ -1,5 +1,5 @@
 <?php
-  include($_SERVER["DOCUMENT_ROOT"] . "/sixthserver/api/api_util.php");
+  include("../../api_util.php");
 
   $username = post("username");
   $password = post("password");

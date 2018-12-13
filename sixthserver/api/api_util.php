@@ -1,6 +1,6 @@
 <?php
-  include($_SERVER["DOCUMENT_ROOT"] . "/sixthserver/api/Reply.php");
-	include($_SERVER["DOCUMENT_ROOT"] . "/sixthserver/database/DatabaseHandler.php");
+  require("Reply.php");
+	require("../database/DatabaseHandler.php");
 
   class AccessLevel {
 
