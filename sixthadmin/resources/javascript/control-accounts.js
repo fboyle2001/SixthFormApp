@@ -5,7 +5,7 @@ function forceChange() {
     return;
   }
 
-  var queryUrl = "http://localhost/sixthadmin/accounts/control/admin_action.php";
+  var queryUrl = "/sixthadmin/accounts/control/admin_action.php";
   $("#fc").removeAttr("href");
   $("#fc").text("Applying...");
 
@@ -31,7 +31,7 @@ function incrementYears() {
     return;
   }
 
-  var queryUrl = "http://localhost/sixthadmin/accounts/control/admin_action.php";
+  var queryUrl = "/sixthadmin/accounts/control/admin_action.php";
   $("#iy").removeAttr("href");
   $("#iy").text("Applying...");
 
@@ -57,7 +57,7 @@ function deleteOld() {
     return;
   }
 
-  var queryUrl = "http://localhost/sixthadmin/accounts/control/admin_action.php";
+  var queryUrl = "/sixthadmin/accounts/control/admin_action.php";
   $("#do").removeAttr("href");
   $("#do").text("Applying...");
 

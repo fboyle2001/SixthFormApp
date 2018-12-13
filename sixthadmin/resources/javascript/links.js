@@ -8,7 +8,7 @@ $(document).ready(function () {
 });
 
 function search(name) {
-	var queryUrl = "http://localhost/sixthadmin/links/name_search.php?name=" + name;
+	var queryUrl = "/sixthadmin/links/name_search.php?name=" + name;
 	$.getJSON(queryUrl, function(data) {
 		process(data);
 	});
@@ -56,7 +56,7 @@ function remove(id) {
 
 	$("#delete_link_" + id).remove();
 	$("#delete_" + id).text("Deleting...");
-  var queryUrl = "http://localhost/sixthadmin/links/delete.php";
+  var queryUrl = "/sixthadmin/links/delete.php";
 
   $.ajax({
     url: queryUrl,

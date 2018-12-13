@@ -16,7 +16,7 @@ $(document).ready(function () {
 });
 
 function contentSearch(content) {
-  var queryUrl = "http://localhost/sixthadmin/announcements/content_search.php?content=" + content;
+  var queryUrl = "/sixthadmin/announcements/content_search.php?content=" + content;
 
   $.getJSON(queryUrl, function (data) {
     console.log(data);
@@ -25,7 +25,7 @@ function contentSearch(content) {
 }
 
 function titleSearch(title) {
-  var queryUrl = "http://localhost/sixthadmin/announcements/title_search.php?title=" + title;
+  var queryUrl = "/sixthadmin/announcements/title_search.php?title=" + title;
 
   $.getJSON(queryUrl, function (data) {
     processData(data);
@@ -66,7 +66,7 @@ function remove(id) {
 
   $("#delete_link_" + id).remove();
   $("#delete_" + id).text("Deleting...");
-	var queryUrl = "http://localhost/sixthadmin/announcements/delete.php";
+	var queryUrl = "/sixthadmin/announcements/delete.php";
 
 	$.ajax({
 		url: queryUrl,

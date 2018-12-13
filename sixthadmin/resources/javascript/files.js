@@ -23,7 +23,7 @@ $(document).ready(function () {
 });
 
 function nameSearch(name) {
-  var queryUrl = "http://localhost/sixthadmin/files/name_search.php?name=" + name;
+  var queryUrl = "/sixthadmin/files/name_search.php?name=" + name;
 
   $.getJSON(queryUrl, function (data) {
     processData(data);
@@ -31,7 +31,7 @@ function nameSearch(name) {
 }
 
 function typeSearch(type) {
-  var queryUrl = "http://localhost/sixthadmin/files/type_search34.php?type=" + type;
+  var queryUrl = "/sixthadmin/files/type_search34.php?type=" + type;
 
   $.getJSON(queryUrl, function (data) {
     processData(data);
@@ -95,7 +95,7 @@ function remove(id) {
 
   $("#delete_link_" + id).remove();
   $("#delete_" + id).text("Deleting...");
-	var queryUrl = "http://localhost/sixthadmin/files/delete.php";
+	var queryUrl = "/sixthadmin/files/delete.php";
 
 	$.ajax({
 		url: queryUrl,

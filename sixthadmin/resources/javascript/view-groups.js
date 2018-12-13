@@ -8,7 +8,7 @@ $(document).ready(function () {
 });
 
 function searchByName(name) {
-  var queryUrl = "http://localhost/sixthadmin/announcements/groups/name_search.php?name=" + name;
+  var queryUrl = "/sixthadmin/announcements/groups/name_search.php?name=" + name;
 
   $.getJSON(queryUrl, function (data) {
     processResult(data);
@@ -56,7 +56,7 @@ function deleteGroup(id) {
   $("#" + id + "_members").removeAttr("href");
   $("#" + id + "_members").text("Unavailable");
 
-  var queryUrl = "http://localhost/sixthadmin/announcements/groups/delete.php";
+  var queryUrl = "/sixthadmin/announcements/groups/delete.php";
 
 	$.ajax({
 		url: queryUrl,
@@ -86,7 +86,7 @@ function viewMembers(id) {
   $("#" + id + "_members").removeAttr("href");
   $("#" + id + "_members").text("Retrieving...");
 
-  var queryUrl = "http://localhost/sixthadmin/announcements/groups/get_members.php?id=" + id;
+  var queryUrl = "/sixthadmin/announcements/groups/get_members.php?id=" + id;
 
   $.getJSON(queryUrl, function (data) {
     processMembers(data, id);
