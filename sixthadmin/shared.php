@@ -9,7 +9,7 @@
   */
 
   // Includes the database connection
-	require(__DIR__ . "/resources/php/database/DatabaseHandler.php");
+	require(__DIR__ . "/resources/php/database/Database.php");
 	require(__DIR__ . "/resources/php/Reply.php");
 
   // Starts the session
@@ -53,15 +53,15 @@
 		if(empty($_SESSION["admin"])) {
       // Select if the user is an admin from the database
 			$username = $_SESSION["user"];
-			$adminQuery = "SELECT `IsAdmin` FROM `users` WHERE `Username` = '$username'";
-			$adminResult = DatabaseHandler::getInstance()->executeQuery($adminQuery);
+			$adminQuery = Database::get()->prepare("SELECT `IsAdmin` FROM `users` WHERE `Username` = :username");
+			$adminQuery->execute(["username" => $username]);
 
-			if($adminResult->wasDataReturned() === false) {
+			if($adminQuery == false) {
 				return false;
 			}
 
       // If the value of IsAdmin is 1 then set the session variable admin to true, otherwise set it to false
-			$_SESSION["admin"] = $adminResult->getRecords()[0]["IsAdmin"] == 1 ? true : false;
+			$_SESSION["admin"] = $adminResult->fetch()["IsAdmin"] == 1 ? true : false;
 		}
 
     // Check if the user is an admin based on the value in the session
@@ -101,28 +101,28 @@
 	function deleteOld() {
 		$time = time();
 
-	  $selectQuery = "SELECT * FROM `files` WHERE `ExpiryDate` < $time";
-	  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+	  $selectQuery = Database::get()->prepare("SELECT * FROM `files` WHERE `ExpiryDate` < :expiry");
+	  $selectQuery->execute(["expiry" => $time]);
 
-	  if($selectQuery->wasDataReturned() == true) {
-			foreach($selectQuery->getRecords() as $record) {
+	  if($selectQuery == true) {
+			while($record = $selectQuery->fetch(PDO::FETCH_ASSOC)) {
 				$id = $record["ID"];
 				$resourceLink = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $record["Link"];
 				$result = unlink($resourceLink);
 
-				$deleteQuery = "DELETE FROM `files` WHERE `ID` = $id";
-				$deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+				$deleteQuery = Database::get()->prepare("DELETE FROM `files` WHERE `ID` = :id");
+				$deleteQuery->execute(["id" => $id]);
 			}
 	  }
 
-		$selectQuery = "SELECT * FROM `links` WHERE `ExpiryDate` < $time";
-		$selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+		$selectQuery = Database::get()->prepare("SELECT * FROM `links` WHERE `ExpiryDate` < :expiry");
+		$selectQuery->execute(["expiry" => $time]);
 
-		if($selectQuery->wasDataReturned() == true) {
-			foreach($selectQuery->getRecords() as $record) {
+		if($selectQuery == true) {
+			while($record = $selectQuery->fetch(PDO::FETCH_ASSOC)) {
 				$id = $record["ID"];
-				$deleteQuery = "DELETE FROM `links` WHERE `ID` = $id";
-				$deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+				$deleteQuery = Database::get()->prepare("DELETE FROM `links` WHERE `ID` = :id");
+				$deleteQuery->execute(["id" => $id]);
 			}
 		}
 

@@ -5,16 +5,17 @@
 
 	$reply = new Reply();
 	$username = get("username");
-	$selectQuery = "SELECT * FROM `accounts`";
 
 	if($username != null) {
-		$selectQuery .= " WHERE `Username` LIKE '%$username%'";
-	}
+    $selectQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Username` LIKE '%' :username '%'");
+    $selectQuery->execute(["username" => $username]);
+	} else {
+    $selectQuery = Database::get()->prepare("SELECT * FROM `accounts`");
+    $selectQuery->execute();
+  }
 
-	$selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
-
-	$reply->setValue("found", $selectQuery->wasDataReturned());
-	$reply->setValue("records", $selectQuery->getRecords());
+	$reply->setValue("found", $selectQuery == true);
+	$reply->setValue("records", $selectQuery->fetchAll(PDO::FETCH_ASSOC));
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
 
 	echo $reply->toJson();

@@ -11,18 +11,18 @@
     die($reply->toJson());
   }
 
-  $selectQuery = "SELECT * FROM `accounts` WHERE `ID` = '$id'";
-  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+  $selectQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `ID` = :id");
+  $selectQuery->execute(["id" => $id]);
 
-  if($selectQuery->wasDataReturned() == false) {
+  if($selectQuery == false) {
     $reply->setStatus(ReplyStatus::withData(400, "Invalid ID"));
     die($reply->toJson());
   }
 
-  $deleteQuery = "DELETE FROM `accounts` WHERE `ID` = '$id'";
-  $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+  $deleteQuery = Database::get()->prepare("DELETE FROM `accounts` WHERE `ID` = :id");
+  $deleteQuery->execute(["id" => $id]);
 
-  if($deleteQuery->wasSuccessful() == false) {
+  if($deleteQuery == false) {
     $reply->setStatus(ReplyStatus::withData(500, "Unable to delete account"));
     die($reply->toJson());
   }

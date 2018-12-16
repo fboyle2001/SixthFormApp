@@ -11,20 +11,20 @@
     die($reply->toJson());
   }
 
-  $selectQuery = "SELECT * FROM `accounts` WHERE `ID` = '$id'";
-  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+  $selectQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `ID` = :id");
+  $selectQuery->execute(["id" => $id]);
 
-  if($selectQuery->wasDataReturned() == false) {
+  if($selectQuery == false) {
     $reply->setStatus(ReplyStatus::withData(400, "Invalid ID"));
     die($reply->toJson());
   }
 
   $defaultPassword = password_hash("Passw0rd", PASSWORD_BCRYPT, ["cost" => $cost]);
 
-  $resetQuery = "UPDATE `accounts` SET `Password` = '$defaultPassword', `Reset` = 1 WHERE `ID` = '$id'";
-  $resetQuery = DatabaseHandler::getInstance()->executeQuery($resetQuery);
+  $resetQuery = Database::get()->prepare("UPDATE `accounts` SET `Password` = :password, `Reset` = 1 WHERE `ID` = :id");
+  $resetQuery->execute(["password" => $defaultPassword, "id" => $id]);
 
-  if($resetQuery->wasSuccessful() == false) {
+  if($resetQuery == false) {
     $reply->setStatus(ReplyStatus::withData(500, "Unable to reset password"));
     die($reply->toJson());
   }

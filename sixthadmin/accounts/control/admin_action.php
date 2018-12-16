@@ -17,38 +17,35 @@
     die($reply->toJson());
   }
 
-  $adminQuery = "INSERT INTO `adminactions` (`AdminID`, `Action`) VALUES ($adminId, $actionId)";
-  $adminQuery = DatabaseHandler::getInstance()->executeQuery($adminQuery);
+  $adminQuery = Database::get()->prepare("INSERT INTO `adminactions` (`AdminID`, `Action`) VALUES (:adminId, :actionId)");
+  $adminQuery->execute(["adminId" => $adminId, "actionId" => $actionId]);
 
-  if($adminQuery->wasSuccessful() == false) {
+  if($adminQuery == false) {
     $reply->setStatus(ReplyStatus::withData(500, "Server error"));
     die($reply->toJson());
   }
 
   if($actionId == 1) {
-    $updateQuery = "UPDATE `accounts` SET `Reset` = 1 WHERE 1 = 1";
-    $updateQuery = DatabaseHandler::getInstance()->executeQuery($updateQuery);
+    $updateQuery = Database::get()->exec("UPDATE `accounts` SET `Reset` = 1 WHERE 1 = 1");
 
-    if($updateQuery->wasSuccessful() == false) {
+    if($updateQuery == 0) {
       $reply->setStatus(ReplyStatus::withData(500, "Unable to force password change."));
     } else {
       $reply->setStatus(ReplyStatus::withData(200, "Successfully forced password change on app login for all users."));
     }
   } else if ($actionId == 2) {
-    $updateQuery = "UPDATE `accounts` SET `Year` = `Year` + 1 WHERE `Year` <> 0";
-    $updateQuery = DatabaseHandler::getInstance()->executeQuery($updateQuery, true);
+    $updateQuery = Database::get()->exec("UPDATE `accounts` SET `Year` = `Year` + 1 WHERE `Year` <> 0");
 
-    if($updateQuery->wasSuccessful() == false) {
+    if($updateQuery == 0) {
       $reply->setStatus(ReplyStatus::withData(500, "Unable to increment year group."));
     } else {
       $reply->setStatus(ReplyStatus::withData(200, "Successfully incremented year group for all students."));
     }
   } else if ($actionId == 3) {
-    $deleteQuery = "DELETE FROM `accounts` WHERE `Year` >= 14";
-    $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+    $deleteQuery = Database::get()->exec("DELETE FROM `accounts` WHERE `Year` >= 14");
 
-    if($deleteQuery->wasSuccessful() == false) {
-      $reply->setStatus(ReplyStatus::withData(500, "Unable to delete old students."));
+    if($deleteQuery == 0) {
+      $reply->setStatus(ReplyStatus::withData(500, "Unable to delete old students (or none exist)."));
     } else {
       $reply->setStatus(ReplyStatus::withData(200, "Successfully deleted old students."));
     }

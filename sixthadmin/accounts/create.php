@@ -23,10 +23,10 @@
 				if($admin == null && ($year < 12 || $year > 13)) {
 					$message = "The year group must be either 12 or 13.";
 				} else {
-					$existsQuery = "SELECT * FROM `accounts` WHERE `Username` = '$username'";
-					$existsQuery = DatabaseHandler::getInstance()->executeQuery($existsQuery);
+					$existsQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Username` = :username");
+					$existsQuery->execute(["username" => $username]);
 
-					if($existsQuery->wasDataReturned() == true) {
+					if($existsQuery->rowCount() >= 1) {
 						$message = "An account already exists with username $username";
 					} else {
 						if($admin == "on") {
@@ -38,10 +38,10 @@
 
 						$password = password_hash("Passw0rd", PASSWORD_BCRYPT, ["cost" => $cost]);
 
-						$insertQuery = "INSERT INTO `accounts` (`Username`, `Password`, `Year`, `IsAdmin`) VALUES ('$username', '$password', '$year', '$admin')";
-						$insertQuery = DatabaseHandler::getInstance()->executeQuery($insertQuery);
+						$insertQuery = Database::get()->prepare("INSERT INTO `accounts` (`Username`, `Password`, `Year`, `IsAdmin`) VALUES (:username, :password, :year, :admin)");
+						$insertQuery->execute(["username" => $username, "password" => $password, "year" => $year, "admin" => $admin]);
 
-						if($insertQuery->wasSuccessful()) {
+						if($insertQuery == true) {
 							$message = "Created new account with username $username!";
 						} else {
 							$message = "Unable to create new account, please try again later.";

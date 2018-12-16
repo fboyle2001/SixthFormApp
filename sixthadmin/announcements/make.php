@@ -5,12 +5,11 @@
 	// Guests will be redirect to the login page
 	rejectGuest();
 
-	$selectGroups = "SELECT * FROM `groups`";
-	$selectGroups = DatabaseHandler::getInstance()->executeQuery($selectGroups);
+	$selectGroups = Database::get()->query("SELECT * FROM `groups`");
 	$options = "";
 
-	if($selectGroups->wasDataReturned()) {
-		foreach($selectGroups->getRecords() as $record) {
+	if($selectGroups == true) {
+		while($record = $selectGroups->fetch(PDO::FETCH_ASSOC)) {
 			$options .= '<option value="' . $record["ID"] . '">' . $record["GroupName"] . '</option>';
 		}
 	}
@@ -32,10 +31,10 @@
 			}
 
       $date = time();
-      $insertQuery = "INSERT INTO `announcements` (`Title`, `Content`, `DateAdded`, `GroupID`) VALUES ('$title', '$content', '$date', '$group')";
-      $insertQuery = DatabaseHandler::getInstance()->executeQuery($insertQuery);
+      $insertQuery = Database::get()->prepare("INSERT INTO `announcements` (`Title`, `Content`, `DateAdded`, `GroupID`) VALUES (:title, :content, :dateAdded, :group)");
+      $insertQuery->execute(["title" => $title, "content" => $content, "dateAdded" => $date, "group" => $group]);
 
-      if($insertQuery->wasSuccessful()) {
+      if($insertQuery == true) {
         $message = "Made announcement with title $title.";
       } else {
         $message = "Unable to make announcement at this time, please try again later.";

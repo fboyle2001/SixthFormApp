@@ -23,19 +23,19 @@
 		}
 
 		// Selects the user's details from the database
-		$selectQuery = "SELECT * FROM `accounts` WHERE `Username` = '$username'";
-		$selectResult = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+		$selectQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Username` = :username");
+		$selectQuery->execute(["username" => $username]);
 
 		// If no data is returned, the username must be incorrect
-		if($selectResult->wasDataReturned() == false) {
+		if($selectQuery == false) {
 			return "The username is incorrect.";
 		}
 
-		if(count($selectResult->getRecords()) != 1) {
+		if($selectQuery->rowCount() != 1) {
 			return "The username is incorrect.";
 		}
 
-		$record = $selectResult->getRecords()[0];
+		$record = $selectQuery->fetch();
 
 		// Checks the password against the hash stored in the database
 		$passwordsMatch = password_verify($password, $record["Password"]);
