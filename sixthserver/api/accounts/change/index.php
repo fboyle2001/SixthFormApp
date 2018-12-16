@@ -19,10 +19,10 @@
 	$username = get_username();
 	$hashedPassword = password_hash($password, PASSWORD_BCRYPT, ["cost" => 12]);
 
-	$changePassword = "UPDATE `accounts` SET `Password` = '$hashedPassword', `Reset` = 0 WHERE `Username` = '$username'";
-	$changePassword = DatabaseHandler::getInstance()->executeQuery($changePassword);
+	$changePassword = Database::get()->prepare("UPDATE `accounts` SET `Password` = :hashed, `Reset` = 0 WHERE `Username` = :username");
+	$changePassword->execute(["hashed" => $hashedPassword, "username" => $username]);
 
-	if($changePassword->wasSuccessful() == false) {
+	if($changePassword == false) {
 		$reply->setStatus(ReplyStatus::withData(500, "Unable to change password"));
 		die($reply->toJson());
 	}

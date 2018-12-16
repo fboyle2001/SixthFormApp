@@ -23,21 +23,21 @@
 
   $username = get_username();
 
-  $selectId = "SELECT `ID`, `IsAdmin`, `Year` FROM `accounts` WHERE `Username` = '$username'";
-  $selectId = DatabaseHandler::getInstance()->executeQuery($selectId);
+  $selectId = Database::get()->prepare("SELECT `ID`, `IsAdmin`, `Year` FROM `accounts` WHERE `Username` = :username");
+  $selectId->execute(["username" => $username]);
 
-  if($selectId->wasDataReturned() == false) {
+  if($selectId == false) {
   	$reply->setStatus(ReplyStatus::withData(500, "Unable to get ID"));
   	die($reply->toJson());
   }
 
-  $record = $selectId->getRecords()[0];
+  $record = $selectId->fetch(PDO::FETCH_ASSOC);
   $id = $record["ID"];
   $admin = $record["IsAdmin"];
   $year = $record["Year"];
 
-  $selectGroups = "SELECT `GroupID` from `grouplink` WHERE `AccountID` = $id";
-  $selectGroups = DatabaseHandler::getInstance()->executeQuery($selectGroups);
+  $selectGroups = Database::get()->prepare("SELECT `GroupID` from `grouplink` WHERE `AccountID` = :id");
+  $selectGroups->execute(["id" => $id]);
 
   $groupList = [-999];
 
@@ -51,8 +51,8 @@
     }
   }
 
-  if($selectGroups->wasDataReturned() == true) {
-    foreach($selectGroups->getRecords() as $record) {
+  if($selectGroups->rowCount() != 0) {
+    while($record = $selectGroups->fetch(PDO::FETCH_ASSOC)) {
       array_push($groupList, $record["GroupID"]);
     }
   }
@@ -67,28 +67,21 @@
     $sqlList .= $group;
   }
 
-  $sqlList = "($sqlList)";
+  $sqlList = "$sqlList";
 
-	$selectLatest = "SELECT * FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` ";
-  $where = "";
+	$selectLatest = null;
 
   if($contains != null) {
-    $where = "WHERE `Title` LIKE '%$contains%' OR `Content` LIKE '%$contains%' ";
-  }
-
-  if($where != "") {
-    $where .= "AND `GroupID` IN $sqlList";
+    $selectLatest = Database::get()->prepare("SELECT * FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` WHERE `Title` LIKE '%' :contains '%' OR `Content` LIKE '%' :contains '%' AND `GroupID` IN (:idList) ORDER BY `announcements`.`ID` DESC LIMIT 10");
+    $selectLatest->execute(["contains" => $contains, "idList" => $sqlList]);
   } else {
-    $where = "WHERE `GroupID` IN $sqlList";
+    $selectLatest = Database::get()->prepare("SELECT * FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` WHERE `GroupID` IN (:idList) ORDER BY `announcements`.`ID` DESC LIMIT 10");
+    $selectLatest->execute(["idList" => $sqlList]);
   }
-
-
-  $selectLatest .= "$where ORDER BY `announcements`.`ID` DESC LIMIT $limit";
-	$selectLatest = DatabaseHandler::getInstance()->executeQuery($selectLatest);
 
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
-	$reply->setValue("found", $selectLatest->wasDataReturned());
-	$reply->setValue("records", $selectLatest->getRecords());
+	$reply->setValue("found", $selectLatest->rowCount() != 0);
+	$reply->setValue("records", $selectLatest->fetchAll(PDO::FETCH_ASSOC));
 
 	echo $reply->toJson();
 ?>
