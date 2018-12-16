@@ -8,10 +8,10 @@
   $selectQuery = null;
 
 	if($type != null) {
-		$selectQuery = Databaee::get()->prepare("SELECT * FROM `files` WHERE `Type` = :type");
+		$selectQuery = Database::get()->prepare("SELECT * FROM `files` WHERE `Type` = :type");
     $selectQuery->execute(["type" => $type]);
 	} else {
-    $selectQuery = Database::get()->execute("SELECT * FROM `files`");
+    $selectQuery = Database::get()->query("SELECT * FROM `files`");
   }
 
 	$reply->setValue("found", $selectQuery == true);

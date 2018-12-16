@@ -23,10 +23,10 @@
         $expiryDate = strtotime($expiryDate) + 60 * 60 * 2; //account for timezone issues
       }
 
-      $insertQuery = "INSERT INTO `links` (`Name`, `ExpiryDate`, `Link`) VALUES ('$name', '$expiryDate', '$url')";
-      $insertQuery = DatabaseHandler::getInstance()->executeQuery($insertQuery);
+      $insertQuery = Database::get()->prepare("INSERT INTO `links` (`Name`, `ExpiryDate`, `Link`) VALUES (:name, :expiry, :url)");
+      $insertQuery->execute(["name" => $name, "expiry" => $expiryDate, "url" => $url]);
 
-      if($insertQuery->wasSuccessful()) {
+      if($insertQuery == true) {
         $message = "Created new link with name $name.";
       } else {
         $message = "Unable to create new link, please try again later.";

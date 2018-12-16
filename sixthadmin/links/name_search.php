@@ -8,13 +8,14 @@
 	$selectQuery = "SELECT * FROM `links`";
 
 	if($name != null) {
-		$selectQuery .= " WHERE `Name` LIKE '%$name%'";
-	}
+    $selectQuery = Database::get()->prepare("SELECT * FROM `links` WHERE `Name` LIKE '%' :name '%'");
+		$selectQuery->execute(["name" => $name]);
+	} else {
+    $selectQuery = Database::get()->execute("SELECT * FROM `links`");
+  }
 
-	$selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
-
-	$reply->setValue("found", $selectQuery->wasDataReturned());
-	$reply->setValue("records", $selectQuery->getRecords());
+	$reply->setValue("found", $selectQuery == true);
+	$reply->setValue("records", $selectQuery->fetchAll(PDO::FETCH_ASSOC));
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
 
 	echo $reply->toJson();

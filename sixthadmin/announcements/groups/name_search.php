@@ -10,7 +10,7 @@
 
   if($name != null) {
     $selectQuery = Database::get()->prepare("SELECT * FROM `groups` WHERE `GroupName` LIKE '%' :name '%'");
-    $selectQuery->execute(["name" => $name])
+    $selectQuery->execute(["name" => $name]);
   } else {
     $selectQuery = Database::get()->query("SELECT * FROM `groups`");
   }

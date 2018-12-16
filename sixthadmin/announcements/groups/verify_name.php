@@ -14,7 +14,7 @@
   $selectQuery = Database::get()->prepare("SELECT * FROM `groups` WHERE `GroupName` = :name");
   $selectQuery->execute(["name" => $name]);
 
-  if($selectQuery == true) {
+  if($selectQuery->rowCount() != 0) {
     $reply->setStatus(ReplyStatus::withData(400, "Group name in use"));
     die($reply->toJson());
   }

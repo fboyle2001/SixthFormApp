@@ -14,7 +14,7 @@
   $selectQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Username` = :username");
   $selectQuery->execute(["username" => $username]);
 
-  if($selectQuery == false) {
+  if($selectQuery->rowCount() == 0) {
     $reply->setStatus(ReplyStatus::withData(400, "Invalid username"));
     die($reply->toJson());
   }

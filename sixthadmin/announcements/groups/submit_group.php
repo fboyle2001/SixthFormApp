@@ -27,9 +27,9 @@
   }
 
   $selectGroupId = Database::get()->prepare("SELECT `ID` FROM `groups` WHERE `GroupName` = :name");
-  $selectGroupId->execute(["name" => $name])
+  $selectGroupId->execute(["name" => $name]);
 
-  if($selectGroupId == false) {
+  if($selectGroupId->rowCount() == 0) {
     $reply->setStatus(ReplyStatus::withData(500, "Unable to assign group members"));
     die($reply->toJson());
   }
