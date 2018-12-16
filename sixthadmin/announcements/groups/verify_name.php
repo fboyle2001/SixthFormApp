@@ -11,10 +11,10 @@
     die($reply->toJson());
   }
 
-  $selectQuery = "SELECT * FROM `groups` WHERE `GroupName` = '$name'";
-  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+  $selectQuery = Database::get()->prepare("SELECT * FROM `groups` WHERE `GroupName` = :name");
+  $selectQuery->execute(["name" => $name]);
 
-  if($selectQuery->wasDataReturned() == true) {
+  if($selectQuery == true) {
     $reply->setStatus(ReplyStatus::withData(400, "Group name in use"));
     die($reply->toJson());
   }

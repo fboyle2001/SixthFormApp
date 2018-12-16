@@ -11,15 +11,15 @@
     die($reply->toJson());
   }
 
-  $selectQuery = "SELECT * FROM `accounts` WHERE `Username` = '$username'";
-  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+  $selectQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Username` = :username");
+  $selectQuery->execute(["username" => $username]);
 
-  if($selectQuery->wasDataReturned() == false) {
+  if($selectQuery == false) {
     $reply->setStatus(ReplyStatus::withData(400, "Invalid username"));
     die($reply->toJson());
   }
 
-  $row = $selectQuery->getRecords()[0];
+  $row = $selectQuery->fetch(PDO::FETCH_ASSOC);
 
   $reply->setStatus(ReplyStatus::withData(200, "Successfully found account"));
   $reply->setValue("id", $row["ID"]);

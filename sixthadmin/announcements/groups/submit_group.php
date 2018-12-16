@@ -18,31 +18,33 @@
   }
 
   $insertGroup = "INSERT INTO `groups` (`GroupName`) VALUES ('$name')";
-  $insertGroup = DatabaseHandler::getInstance()->executeQuery($insertGroup);
+  $insertGroup = Database::get()->prepare("INSERT INTO `groups` (`GroupName`) VALUES (:name)");
+  $insertGroup->execute(["name" => $name]);
 
-  if($insertGroup->wasSuccessful() == false) {
+  if($insertGroup == false) {
     $reply->setStatus(ReplyStatus::withData(500, "Unable to create new group"));
     die($reply->toJson());
   }
 
-  $selectGroupId = "SELECT `ID` FROM `groups` WHERE `GroupName` = '$name'";
-  $selectGroupId = DatabaseHandler::getInstance()->executeQuery($selectGroupId);
+  $selectGroupId = Database::get()->prepare("SELECT `ID` FROM `groups` WHERE `GroupName` = :name");
+  $selectGroupId->execute(["name" => $name])
 
-  if($selectGroupId->wasDataReturned() == false) {
+  if($selectGroupId == false) {
     $reply->setStatus(ReplyStatus::withData(500, "Unable to assign group members"));
     die($reply->toJson());
   }
 
-  $groupId = $selectGroupId->getRecords()[0]["ID"];
+  $groupId = $selectGroupId->fetch(PDO::FETCH_ASSOC)["ID"];
   $arrayIds = explode(",", $ids);
   $failures = [];
   $successCount = 0;
 
-  foreach($arrayIds as $index => $id) {
-    $query = "INSERT INTO `grouplink` (`GroupID`, `AccountID`) VALUES ($groupId, $id)";
-    $query = DatabaseHandler::getInstance()->executeQuery($query);
+  $groupInsert = Database::get()->prepare("INSERT INTO `grouplink` (`GroupID`, `AccountID`) VALUES (:groupId, :id)");
 
-    if($query->wasSuccessful()) {
+  foreach($arrayIds as $index => $id) {
+    $result = $groupInsert->execute(["groupId" => $groupId, "id" => $id]);
+
+    if($result == true) {
       $successCount++;
     } else {
       array_push($failures, $id);

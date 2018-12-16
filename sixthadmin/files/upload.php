@@ -41,13 +41,13 @@
 					if($expiryDate == null) {
 						$expiryDate = 2147483647;
 					} else {
-			      $expiryDate = strtotime($expiryDate) + 60 * 60 * 2; //account for timezone issues
+			      $expiryDate = strtotime($expiryDate) + 60 * 60 * 2; //account for timezone issues (CHECK??)
 					}
 
-					$insertQuery = "INSERT INTO `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) VALUES ('$displayName', '$addedDate', '$expiryDate', '$type', '$baseStore')";
-					$insertQuery = DatabaseHandler::getInstance()->executeQuery($insertQuery);
+          $insertQuery = Database::get()->prepare("INSERT INTO `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) VALUES (:name, :added, :expiry, :type, :link)");
+          $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $baseStore]);
 
-					if($insertQuery->wasSuccessful()) {
+					if($insertQuery == true) {
 						$message = "Successfully uploaded file.";
 					} else {
 						$message = "File uploaded but unable to add database. This shouldn't happen.";

@@ -11,15 +11,15 @@
     die($reply->toJson());
   }
 
-  $selectQuery = "SELECT * FROM `files` WHERE `ID` = '$id'";
-  $selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
+  $selectQuery = Database::get()->prepare("SELECT * FROM `files` WHERE `ID` = :id");
+  $selectQuery->execute(["id" => $id]);
 
-  if($selectQuery->wasDataReturned() == false) {
+  if($selectQuery == false) {
     $reply->setStatus(ReplyStatus::withData(400, "Invalid ID"));
     die($reply->toJson());
   }
 
-  $link = $selectQuery->getRecords()[0]["Link"];
+  $link = $selectQuery->fetch(PDO::FETCH_ASSOC)["Link"];
   $storedFile = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $link;
 
   $unlinkResult = unlink($storedFile);
@@ -29,10 +29,10 @@
     die($reply->toJson());
   }
 
-  $deleteQuery = "DELETE FROM `files` WHERE `ID` = '$id'";
-  $deleteQuery = DatabaseHandler::getInstance()->executeQuery($deleteQuery);
+  $deleteQuery = Database::get()->prepare("DELETE FROM `files` WHERE `ID` = :id");
+  $deleteQuery->execute(["id" => $id]);
 
-  if($deleteQuery->wasSuccessful() == false) {
+  if($deleteQuery == false) {
     $reply->setStatus(ReplyStatus::withData(500, "File deleted but unable to remove database reference"));
     die($reply->toJson());
   }

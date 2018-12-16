@@ -5,16 +5,17 @@
 
 	$reply = new Reply();
 	$name = get("name");
-	$selectQuery = "SELECT * FROM `files`";
+	$selectQuery = null;
 
 	if($name != null) {
-		$selectQuery .= " WHERE `Name` LIKE '%$name%'";
-	}
+    $selectQuery = Database::get()->prepare("SELECT * FROM `files` WHERE `Name` LIKE '%' :name '%'");
+    $selectQuery->execute(["name" => $name]);
+	} else {
+    $selectQuery = Database::get()->execute("SELECT * FROM `files`");
+  }
 
-	$selectQuery = DatabaseHandler::getInstance()->executeQuery($selectQuery);
-
-	$reply->setValue("found", $selectQuery->wasDataReturned());
-	$reply->setValue("records", $selectQuery->getRecords());
+	$reply->setValue("found", $selectQuery == true);
+	$reply->setValue("records", $selectQuery->gfetchAll(PDO::FETCH_ASSOC));
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
 
 	echo $reply->toJson();
