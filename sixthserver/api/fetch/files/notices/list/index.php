@@ -9,20 +9,13 @@
     die($reply->toJson());
   }
 
-	$validOnly = post("validOnly");
-	$selectLatest = "SELECT * FROM `files` WHERE `Type` = " . StoreType::notices;
+  $time = time();
+  $selectLatest = Database::get()->prepare("SELECT * FROM `files` WHERE `Type` = :type AND `ExpiryDate` >= :expire ORDER BY `AddedDate` DESC");
+  $selectLatest->execute(["type" => StoreType::notices, "expire" => $time]);
 
-	if($validOnly != null) {
-		$time = time();
-		$selectLatest .= " AND `ExpiryDate` >= $time";
-	}
-
-  $selectLatest .= " ORDER BY `ID` DESC";
-	$selectLatest = DatabaseHandler::getInstance()->executeQuery($selectLatest);
-
-	$reply->setStatus(ReplyStatus::withData(200, "Success"));
-	$reply->setValue("found", $selectLatest->wasDataReturned());
-	$reply->setValue("records", $selectLatest->getRecords());
+  $reply->setStatus(ReplyStatus::withData(200, "Success"));
+  $reply->setValue("found", $selectLatest->rowCount() != 0);
+  $reply->setValue("records", $selectLatest->fetchAll(PDO::FETCH_ASSOC));
 
 	echo $reply->toJson();
 ?>

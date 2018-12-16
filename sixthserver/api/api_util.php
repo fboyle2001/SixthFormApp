@@ -1,6 +1,6 @@
 <?php
   require("Reply.php");
-	require("DatabaseHandler.php");
+	require("Database.php");
 
   class AccessLevel {
 
@@ -130,14 +130,14 @@
     $username = $decoded->username;
     $secret = $decoded->secret;
 
-    $selectApi = "SELECT * FROM `apikeys` WHERE `Username` = '$username'";
-    $result = DatabaseHandler::getInstance()->executeQuery($selectApi);
+    $selectApi = Database::get()->prepare("SELECT * FROM `apikeys` WHERE `Username` = :username");
+    $selectApi->execute(["username" => $username]);
 
-    if($result->wasDataReturned() == false) {
+    if($selectApi->rowCount() == 0) {
       return false;
     }
 
-    $result = $result->getRecords()[0];
+    $result = $selectApi->fetch(PDO::FETCH_ASSOC);
 
     if(time() > intval($result["ExpireTime"])) {
       return false;

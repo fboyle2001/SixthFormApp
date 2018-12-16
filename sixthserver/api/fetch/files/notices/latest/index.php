@@ -10,12 +10,13 @@
   }
 
   $time = time();
-	$selectLatest = "SELECT * FROM `files` WHERE `Type` = " . StoreType::notices . " AND `ExpiryDate` >= $time ORDER BY `AddedDate` DESC LIMIT 0, 1";
-	$selectLatest = DatabaseHandler::getInstance()->executeQuery($selectLatest);
+
+  $selectLatest = Database::get()->prepare("SELECT * FROM `files` WHERE `Type` = :type AND `ExpiryDate` >= :expire ORDER BY `AddedDate` DESC LIMIT 0, 1");
+  $selectLatest->execute(["type" => StoreType::notices, "expire" => $time]);
 
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
-	$reply->setValue("found", $selectLatest->wasDataReturned());
-	$reply->setValue("latest", $selectLatest->getRecords()[0]);
+	$reply->setValue("found", $selectLatest->rowCount() != 0);
+	$reply->setValue("latest", $selectLatest->fetch(PDO::FETCH_ASSOC));
 
 	echo $reply->toJson();
 ?>

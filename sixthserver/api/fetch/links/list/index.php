@@ -9,19 +9,14 @@
     die($reply->toJson());
   }
 
-	$validOnly = post("validOnly");
-	$selectLatest = "SELECT * FROM `links`";
+  $time = time();
 
-	if($validOnly != null) {
-		$time = time();
-		$selectLatest .= " WHERE `ExpiryDate` >= $time";
-	}
-
-	$selectLatest = DatabaseHandler::getInstance()->executeQuery($selectLatest);
+	$selectLatest = Database::get()->prepare("SELECT * FROM `links` WHERE `ExpiryDate` >= :expire");
+  $selectLatest->execute(["expire" => $time]);
 
 	$reply->setStatus(ReplyStatus::withData(200, "Success"));
-	$reply->setValue("found", $selectLatest->wasDataReturned());
-	$reply->setValue("records", $selectLatest->getRecords());
+	$reply->setValue("found", $selectLatest->rowCount() != 0);
+	$reply->setValue("records", $selectLatest->fetchAll(PDO::FETCH_ASSOC));
 
 	echo $reply->toJson();
 

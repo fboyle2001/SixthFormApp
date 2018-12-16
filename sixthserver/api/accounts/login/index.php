@@ -11,15 +11,15 @@
     die($reply->toJson());
   }
 
-  $accountQuery = "SELECT `Password` FROM `accounts` WHERE `Username` = '$username'";
-  $accountResult = DatabaseHandler::getInstance()->executeQuery($accountQuery);
+  $accountQuery = Database::get()->prepare("SELECT `Password` FROM `accounts` WHERE `Username` = :username");
+  $accountQuery->execute(["username" => $username]);
 
-  if($accountResult->wasDataReturned() == false) {
+  if($accountQuery->rowCount() == 0) {
 		$reply->setStatus(ReplyStatus::withData(400, "Invalid username"));
     die($reply->toJson());
   }
 
-  $passwordsMatch = password_verify($password, $accountResult->getRecords()[0]["Password"]);
+  $passwordsMatch = password_verify($password, $accountQuery->fetch()["Password"]);
 
   if($passwordsMatch == false) {
 		$reply->setStatus(ReplyStatus::withData(400, "Invalid password"));
@@ -28,18 +28,18 @@
 
   $secret = random_str(32);
 
-  $deleteApiKeys = "DELETE FROM `apikeys` WHERE `Username` = '$username'";
-  DatabaseHandler::getInstance()->executeQuery($deleteApiKeys);
+  $deleteApiKeys = Database::get()->prepare("DELETE FROM `apikeys` WHERE `Username` = :username");
+  $deleteApiKeys->execute(["username" => $username]);
 
-  $authQuery = "SELECT `IsAdmin`, `Reset` FROM `accounts` WHERE `Username` = '$username'";
-  $authResult = DatabaseHandler::getInstance()->executeQuery($authQuery);
+  $authQuery = Database::get()->prepare("SELECT `IsAdmin`, `Reset` FROM `accounts` WHERE `Username` = :username");
+  $authQuery->execute(["username" => $username]);
 
-  $authResult = $authResult->getRecords()[0];
+  $authResult = $authQuery->fetch(PDO::FETCH_ASSOC);
   $secret .= "." . $authResult["IsAdmin"];
 
   $expireTime = time() + 3600; #hour expire time
-  $createApiKey = "INSERT INTO `apikeys` (`Username`, `Secret`, `ExpireTime`) VALUES ('$username', '$secret', '$expireTime')";
-  DatabaseHandler::getInstance()->executeQuery($createApiKey);
+  $createApiKey = Database::get()->prepare("INSERT INTO `apikeys` (`Username`, `Secret`, `ExpireTime`) VALUES (:username, :secret, :expire)");
+  $createApiKey->execute(["username" => $username, "secret" => $secret, "expire" => $expireTime]);
 
   $json = '{"username":"' . $username . '","secret":"' . $secret . '"}';
 	$json = base64_encode($json);

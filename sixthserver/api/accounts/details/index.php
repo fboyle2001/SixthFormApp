@@ -13,9 +13,9 @@
   $username = get_username();
   $secret = get_secret();
 
-  $query = "SELECT `ExpireTime` FROM `apikeys` WHERE `Username` = '$username' AND `Secret` = '$secret'";
-  $result = DatabaseHandler::getInstance()->executeQuery($query);
-  $result = $result->getRecords()[0]["ExpireTime"];
+  $query = Database::get()->prepare("SELECT `ExpireTime` FROM `apikeys` WHERE `Username` = :username AND `Secret` = :secret");
+  $query->execute(["username" => $username, "secret" => $secret]);
+  $result = $query->fetch()["ExpireTime"];
 
   #no need to display if expired since they can't reach here if it has
 
