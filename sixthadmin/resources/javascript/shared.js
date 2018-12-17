@@ -1,6 +1,6 @@
 // Stores the content to be displayed in the dropdown navigation menus.
 var dropdownContent = {
-  'accounts': '<a href="/sixthadmin/accounts/"><li>View Accounts</li></a><a href="/sixthadmin/accounts/create.php"><li>Create Account</li></a><a href="/sixthadmin/accounts/control/index.php"><li>System Control</li></a>',
+  'accounts': '<a href="/sixthadmin/accounts/"><li>View Accounts</li></a><a href="/sixthadmin/accounts/create.php"><li>Create Account</li></a><a href="/sixthadmin/accounts/control/index.php"><li>System Control</li></a><a href="/sixthadmin/accounts/control/mass_import.php"><li>Import Students</li></a>',
   'announcements': '<a href="/sixthadmin/announcements/"><li>View Announcements</li></a><a href="/sixthadmin/announcements/make.php"><li>Make Announcement</li></a><a href="/sixthadmin/announcements/groups/index.php"><li>View Groups</li></a><a href="/sixthadmin/announcements/groups/create.php"><li>Create Group</li></a>',
   'files': '<a href="/sixthadmin/files/"><li>View Files</li></a><a href="/sixthadmin/files/upload.php"><li>Upload File</li></a>',
   'links': '<a href="/sixthadmin/links/"><li>View Links</li></a><a href="/sixthadmin/links/add.php"><li>Add Link</li></a>'

@@ -11,7 +11,7 @@
     $selectQuery = Database::get()->prepare("SELECT * FROM `links` WHERE `Name` LIKE '%' :name '%'");
 		$selectQuery->execute(["name" => $name]);
 	} else {
-    $selectQuery = Database::get()->execute("SELECT * FROM `links`");
+    $selectQuery = Database::get()->query("SELECT * FROM `links`");
   }
 
 	$reply->setValue("found", $selectQuery == true);
