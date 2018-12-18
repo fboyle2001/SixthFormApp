@@ -18,7 +18,7 @@
   				query("/fetch/files/notices/list/", {validOnly: true}, function(data) {
   					loadNotices(data);
   				}, function(data) {
-  					sendAlert("An unexpected error occurred.", "Error");
+  					sendAlert("An unexpected error occurred. Error Code: D01", "Error");
   				});
 				} else {
           loadNotices(JSON.parse(noticeContent));
@@ -28,7 +28,7 @@
   				query("/fetch/files/newsletters/list/", {validOnly: true}, function(data) {
   					loadNewsletters(data);
   				}, function(data) {
-  					sendAlert("An unexpected error occurred.", "Error");
+  					sendAlert("An unexpected error occurred. Error Code: D02", "Error");
   				});
         } else {
           loadNewsletters(JSON.parse(newsletterContent));
@@ -38,7 +38,7 @@
           query("/fetch/files/notices/latest/", {}, function(data) {
   					loadLatestNotice(data);
   				}, function(data) {
-  					sendAlert("An unexpected error occurred.", "Error");
+  					sendAlert("An unexpected error occurred. Error Code: D03", "Error");
   				});
         } else {
           loadLatestNotice(JSON.parse(latestNoticeContent));
@@ -48,7 +48,7 @@
           query("/fetch/files/newsletters/latest/", {}, function(data) {
             loadLatestNewsletter(data);
           }, function(data) {
-  					sendAlert("An unexpected error occurred.", "Error");
+  					sendAlert("An unexpected error occurred. Error Code: D04", "Error");
           });
         } else {
           loadLatestNewsletter(JSON.parse(latestNewsletterContent));
