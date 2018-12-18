@@ -29,8 +29,8 @@
 
         while(($data = fgetcsv($file)) !== false) {
           $username = strtolower(
-          preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $data[1])) . "." . strtolower(
-          preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $data[0]));
+          preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $data[0])) . "." . strtolower(
+          preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $data[1]));
           $year = $data[2];
 
           $selectQuery->execute(["username" => $username]);
@@ -70,7 +70,7 @@
 		?>
     <div>
       <h1>Import Student List</h1>
-      <p>The student list should be a .csv, .xls or .xlsx file with the column order being first name, last name then year group.</p>
+      <p>The student list should be a .csv, .xls or .xlsx file with the column order being last name, first name then year group.</p>
       <p>Each account will be created in the form <strong>[last name].[first name] all lowercase</strong> with the default password being <strong>Passw0rd</strong> (they will be <strong>forced to change this on their first login</strong> to the app)</p>
       <p><strong>Important Note: </strong>This process may take some time dependent on the size of the list <strong>do not exit the page whilst it is working</strong> , the screen may be white but it is working.</p>
       <br>
@@ -94,7 +94,7 @@
               echo '<table class="data-table"><thead><tr><th>First Name</th><th>Last Name</th><th>Year Group</th><th>Reason</th></tr></thead><tbody>';
 
               foreach($failedStudents as $record) {
-                echo '<tr><td>' . $record[0][0] . '</td><td>' . $record[0][1] . '</td><td>' . $record[0][2] . '</td><td>' . $record[1] . '</td></tr>';
+                echo '<tr><td>' . $record[0][1] . '</td><td>' . $record[0][0] . '</td><td>' . $record[0][2] . '</td><td>' . $record[1] . '</td></tr>';
               }
 
               echo '</tbody></table>';
