@@ -8,24 +8,7 @@
 		<script src="cordova.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
-			//caching is unnecessary on this page
 			function loadPage() {
-				query("/accounts/details/", {}, function (data) {
-					var type = data["content"]["authLevel"] == 1 ? "Admin" : "Student";
-					var time = data["content"]["timeRemaining"];
-					var seconds = time % 60;
-					var displayTime = ((time - seconds) / 60)	+ " minutes " + seconds + " seconds";
-
-					$("#time_left").text(displayTime);
-					$("#account_type").text(type);
-
-					if(type == "Admin") {
-						$("#account_type").after('<a href="javascript:refreshCache()"><p>Refresh Cache</p></a>');
-					}
-				}, function (data) {
-					sendAlert("An unexpected error occurred. Error Code S01", "Error");
-				});
-
 				$("#change_pwd").click(function (e) {
 					e.preventDefault();
 					changePassword();
@@ -61,12 +44,6 @@
 					sendAlert("An unexpected error occurred. Error Code S02", "Error");
 				});
 			}
-
-			function refreshCache() {
-				if(typeof(Storage) !== "undefined") {
-					localStorage.clear();
-				}
-			}
 		</script>
 	</head>
 	<body>
@@ -84,9 +61,6 @@
 			<h1 class="header">Settings</h1>
 			<br>
 			<h2>Account</h2>
-			<p>Session Time Remaining: <span id="time_left"></span></p>
-			<p>Account Type: <span id="account_type"></span></p>
-			<a id="refresh_cache"></a>
 			<a href="javascript:logout()"><p>Click to Logout</p></a>
 			<h3>Change Password</h3>
 			<form>

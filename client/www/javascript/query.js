@@ -23,8 +23,12 @@ function query(url, postData, callback, fatal) {
     success: function(data) {
       callback(data);
     },
-    error: function(data) {
-      fatal(data);
+    error: function(xhr, text, thrown) {
+      if(!xhr.getAllResponseHeaders()) {
+        return;
+      }
+
+      fatal(xhr);
     }
   });
 }
