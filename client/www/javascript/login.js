@@ -27,7 +27,6 @@ function performLogin(username, password, base, onerror, start) {
 
     Cookies.set("auth", auth, {expires: 1/24});
     Cookies.set("base", base, {expires: 1/24});
-    Cookies.set("resource_base", base.substr(0, base.lastIndexOf("/")), {expires: 1/24});
     Cookies.set("must_reset", data["content"]["reset"]);
   });
 

@@ -64,7 +64,7 @@
 				}
 
 				var latest = data["content"]["latest"];
-				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
+				var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth") + "')";
 				$("#latest_notice_link").attr("href", link);
 			}
 
@@ -89,7 +89,7 @@
 					var addedDate = new Date(item["AddedDate"] * 1000);
 					addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
 
-					var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
+					var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth") + "')";
 
 					$("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
 				});
@@ -105,7 +105,7 @@
 
 				var latest = data["content"]["latest"];
 				$("#latest_newsletter_name").text(latest["Name"]);
-				var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + latest["Link"] + "')";
+				var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth") + "')";
 				$("#latest_newsletter_link").attr("href", link);
 			}
 
@@ -130,7 +130,7 @@
 					var addedDate = new Date(item["AddedDate"] * 1000);
 					addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
 
-					var link = "javascript:openInBrowser('" + Cookies.get("resource_base") + item["Link"] + "')";
+					var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth") + "')";
 
 					$("#newsletter_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
 				});

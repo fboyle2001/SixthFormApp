@@ -34,7 +34,7 @@ function query(url, postData, callback, fatal) {
 }
 
 function openInBrowser(url) {
-  if(typeof cordova !== "undefined") {
+  if(typeof cordova !== "undefined" && typeof cordova.InAppBrowser !== "undefined") {
     cordova.InAppBrowser.open(url, "_system", "location=yes");
   } else {
     window.open(url, "_blank");
@@ -86,10 +86,6 @@ function isLoggedIn() {
     return false;
   }
 
-  if(Cookies.get("resource_base") === undefined) {
-    return false;
-  }
-
   return true;
 }
 
@@ -99,10 +95,6 @@ function verifyUser(start, fatal) {
   }
 
   if(Cookies.get("base") === undefined) {
-    return fatal("You are not logged in.");
-  }
-
-  if(Cookies.get("resource_base") === undefined) {
     return fatal("You are not logged in.");
   }
 

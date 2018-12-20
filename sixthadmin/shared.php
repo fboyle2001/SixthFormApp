@@ -104,10 +104,12 @@
 	  $selectQuery = Database::get()->prepare("SELECT * FROM `files` WHERE `ExpiryDate` < :expiry");
 	  $selectQuery->execute(["expiry" => $time]);
 
-	  if($selectQuery == true) {
+	  if($selectQuery->rowCount() > 0) {
 			while($record = $selectQuery->fetch(PDO::FETCH_ASSOC)) {
 				$id = $record["ID"];
-				$resourceLink = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $record["Link"];
+				$resourceLink = "../../../files/" . $record["Link"];
+				echo 'Path:';
+				echo realpath($resourceLink);
 				$result = unlink($resourceLink);
 
 				$deleteQuery = Database::get()->prepare("DELETE FROM `files` WHERE `ID` = :id");
@@ -118,7 +120,7 @@
 		$selectQuery = Database::get()->prepare("SELECT * FROM `links` WHERE `ExpiryDate` < :expiry");
 		$selectQuery->execute(["expiry" => $time]);
 
-		if($selectQuery == true) {
+		if($selectQuery->rowCount() > 0) {
 			while($record = $selectQuery->fetch(PDO::FETCH_ASSOC)) {
 				$id = $record["ID"];
 				$deleteQuery = Database::get()->prepare("DELETE FROM `links` WHERE `ID` = :id");
@@ -127,4 +129,15 @@
 		}
 
 	}
+
+	function random_str($length) {
+	  $keyspace = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; //len 62
+    $result = "";
+
+    for ($i = 0; $i < $length; ++$i) {
+      $result .= $keyspace[rand(0, 61)];
+    }
+
+    return $result;
+  }
 ?>
