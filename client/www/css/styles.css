@@ -65,7 +65,7 @@ nav > ul > a {
 
 nav > ul > a > li, nav > ul > li {
 	display: inline-block;
-	width: 21.22%; /* Precise enough to remove gap at the end hopefully */
+	width: 21%; /* Precise enough to remove gap at the end hopefully */
 	padding: 1.5%;
 	height: 100%;
 	text-align: center;

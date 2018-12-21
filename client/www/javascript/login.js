@@ -27,12 +27,11 @@ function performLogin(username, password, base, onerror, start) {
 
     Cookies.set("auth", auth, {expires: 1/24});
     Cookies.set("base", base, {expires: 1/24});
-    Cookies.set("resource_base", base.substr(0, base.lastIndexOf("/")), {expires: 1/24});
     Cookies.set("must_reset", data["content"]["reset"]);
   });
 
   $("#message").text("Logging in, please wait...");
-  waitForLoginCompletion(250, 16, 0, start); //max wait 4 seconds
+  waitForLoginCompletion(250, 24, 0, start); //max wait 6 seconds
 }
 
 function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
@@ -42,7 +41,6 @@ function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   }
 
   if(window.loggedIn !== null) {
-    //console.log(count * timePerPause);
     callback();
   } else {
     setTimeout(function () {

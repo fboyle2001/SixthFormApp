@@ -19,7 +19,8 @@
 			function logout() {
 				Cookies.remove("auth");
 				Cookies.remove("base");
-				Cookies.remove("resource_base");
+				Cookies.remove("expire");
+				Cookies.remove("must_reset");
 				window.location = "index.html";
 			}
 

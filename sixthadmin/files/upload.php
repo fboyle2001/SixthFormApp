@@ -21,16 +21,15 @@
 		} else if (!in_array($type, [1, 2])){
 			$message = "Type is invalid.";
 		} else {
-			$base = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver";
-			$randomName = time() . "_$type.pdf";
-			$baseStore = "/resources/files/$randomName";
-			$storageFile = $base . $baseStore;
+			$base = "../../../files/";
+			$randomName = random_str(16) . "_$type.pdf";
+			$storageFile = $base . $randomName;
 
 			if(file_exists($storageFile)) {
-				$message = "A file already exists called " . basename($_FILES["uploadedFile"]["name"]);
+				$message = "An issue occured with saving the file. Please try again.";
 			} else if($_FILES["uploadedFile"]["size"] > 15000000) {
 				$message = "File size is currently limited to 15mb, this file is too big.";
-			} else if(strtolower(pathinfo($storageFile, PATHINFO_EXTENSION)) != "pdf") {
+			} else if(strtolower(pathinfo($_FILES["uploadedFile"]["name"], PATHINFO_EXTENSION)) != "pdf") {
 				$message = "File must be a pdf.";
 			} else {
 				$result = move_uploaded_file($_FILES["uploadedFile"]["tmp_name"], $storageFile);
@@ -45,7 +44,7 @@
 					}
 
           $insertQuery = Database::get()->prepare("INSERT INTO `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) VALUES (:name, :added, :expiry, :type, :link)");
-          $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $baseStore]);
+          $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $randomName]);
 
 					if($insertQuery == true) {
 						$message = "Successfully uploaded file.";

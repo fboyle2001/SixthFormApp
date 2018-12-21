@@ -17,6 +17,22 @@
 	}
 
 	$username = get_username();
+
+  $currentPassword = Database::get()->prepare("SELECT `Password` FROM `accounts` WHERE `Username` = :username");
+  $currentPassword->execute(["username" => $username]);
+
+  if($currentPassword->rowCount() == 0) {
+  	$reply->setStatus(ReplyStatus::withData(500, "Unable to change password"));
+  	die($reply->toJson());
+  }
+
+  $currentPassword = $currentPassword->fetch()["Password"];
+
+  if(password_verify($password, $currentPassword)) {
+    $reply->setStatus(ReplyStatus::withData(400, "Password is already set to this"));
+    die($reply->toJson());
+  }
+
 	$hashedPassword = password_hash($password, PASSWORD_BCRYPT, ["cost" => 12]);
 
 	$changePassword = Database::get()->prepare("UPDATE `accounts` SET `Password` = :hashed, `Reset` = 0 WHERE `Username` = :username");

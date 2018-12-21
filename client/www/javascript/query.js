@@ -23,14 +23,18 @@ function query(url, postData, callback, fatal) {
     success: function(data) {
       callback(data);
     },
-    error: function(data) {
-      fatal(data);
+    error: function(xhr, text, thrown) {
+      if(!xhr.getAllResponseHeaders()) {
+        return;
+      }
+
+      fatal(xhr);
     }
   });
 }
 
 function openInBrowser(url) {
-  if(typeof cordova !== "undefined") {
+  if(typeof cordova !== "undefined" && typeof cordova.InAppBrowser !== "undefined") {
     cordova.InAppBrowser.open(url, "_system", "location=yes");
   } else {
     window.open(url, "_blank");
@@ -82,10 +86,6 @@ function isLoggedIn() {
     return false;
   }
 
-  if(Cookies.get("resource_base") === undefined) {
-    return false;
-  }
-
   return true;
 }
 
@@ -98,21 +98,30 @@ function verifyUser(start, fatal) {
     return fatal("You are not logged in.");
   }
 
-  if(Cookies.get("resource_base") === undefined) {
-    return fatal("You are not logged in.");
-  }
+  if(Cookies.get("expire") === undefined) {
+    query("/accounts/details/", {}, function (data) {
+      var code = data["status"]["code"];
+      var expireTime = data["content"]["expire"];
 
-  query("/accounts/details/", {}, function (data) {
-    var code = data["status"]["code"];
+      if(code == 200) {
+        Cookies.set("expire", expireTime, {expires: 1/24});
+        start();
+      } else {
+        fatal("Session has expired.");
+      }
+    }, function (data) {
+      fatal("Unable to locate server.");
+    });
+  } else {
+    var expireTime = Cookies.get("expire");
+    var currentTime = Math.floor(Date.now() / 1000);
 
-    if(code == 200) {
+    if(expireTime > currentTime) {
       start();
     } else {
       fatal("Session has expired.");
     }
-  }, function (data) {
-    fatal("Unable to locate server.");
-  });
+  }
 }
 
 function clearStorage() {

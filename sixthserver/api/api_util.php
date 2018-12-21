@@ -17,11 +17,8 @@
 
   }
 
-  #header('Content-Type: application/json');
-  #echo password_hash("test", PASSWORD_BCRYPT);
-
   function random_str($length) {
-	$keyspace = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; //len 62
+	  $keyspace = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; //len 62
     $result = "";
 
     for ($i = 0; $i < $length; ++$i) {
@@ -127,6 +124,45 @@
     }
 
     $decoded = json_decode(base64_decode($auth));
+
+    if(!isset($decoded->username) || !isset($decoded->secret)) {
+      return false;
+    }
+
+    $username = $decoded->username;
+    $secret = $decoded->secret;
+
+    $selectApi = Database::get()->prepare("SELECT * FROM `apikeys` WHERE `Username` = :username");
+    $selectApi->execute(["username" => $username]);
+
+    if($selectApi->rowCount() == 0) {
+      return false;
+    }
+
+    $result = $selectApi->fetch(PDO::FETCH_ASSOC);
+
+    if(time() > intval($result["ExpireTime"])) {
+      return false;
+    }
+
+    if($result["Secret"] != $secret) {
+      return false;
+    }
+
+    return true;
+  }
+
+  function non_header_auth_validate($auth) {
+    if($auth == null) {
+      return false;
+    }
+
+    $decoded = json_decode(base64_decode($auth));
+
+    if(!isset($decoded->username) || !isset($decoded->secret)) {
+      return false;
+    }
+
     $username = $decoded->username;
     $secret = $decoded->secret;
 

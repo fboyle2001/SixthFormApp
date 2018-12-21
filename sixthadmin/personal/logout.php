@@ -1,7 +1,6 @@
 <?php
-
   // Include the shared functions page
-	  require("../shared.php");
+	require("../shared.php");
 
 	// Logs a user out
 	function logout() {
