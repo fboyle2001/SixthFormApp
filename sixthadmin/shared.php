@@ -108,8 +108,6 @@
 			while($record = $selectQuery->fetch(PDO::FETCH_ASSOC)) {
 				$id = $record["ID"];
 				$resourceLink = "../../../files/" . $record["Link"];
-				echo 'Path:';
-				echo realpath($resourceLink);
 				$result = unlink($resourceLink);
 
 				$deleteQuery = Database::get()->prepare("DELETE FROM `files` WHERE `ID` = :id");
