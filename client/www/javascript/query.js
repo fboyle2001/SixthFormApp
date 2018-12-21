@@ -98,17 +98,30 @@ function verifyUser(start, fatal) {
     return fatal("You are not logged in.");
   }
 
-  query("/accounts/details/", {}, function (data) {
-    var code = data["status"]["code"];
+  if(Cookies.get("expire") === undefined) {
+    query("/accounts/details/", {}, function (data) {
+      var code = data["status"]["code"];
+      var expireTime = data["content"]["expire"];
 
-    if(code == 200) {
+      if(code == 200) {
+        Cookies.set("expire", expireTime, {expires: 1/24});
+        start();
+      } else {
+        fatal("Session has expired.");
+      }
+    }, function (data) {
+      fatal("Unable to locate server.");
+    });
+  } else {
+    var expireTime = Cookies.get("expire");
+    var currentTime = Math.floor(Date.now() / 1000);
+
+    if(expireTime > currentTime) {
       start();
     } else {
       fatal("Session has expired.");
     }
-  }, function (data) {
-    fatal("Unable to locate server.");
-  });
+  }
 }
 
 function clearStorage() {

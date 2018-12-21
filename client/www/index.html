@@ -12,10 +12,8 @@
 			$(document).ready(function() {
 				$("#login").click(function(e){
 					e.preventDefault();
-					//var address = $("#host").val() + "/sixthserver/api"; //This is only for testing
-					//var address = "http://mcasix.epizy.com/sixthserver/api";
-					//var address = "https://finlayboyle.me/sixthserver/api";
 					//var address = "http://localhost/sixthserver/api";
+					//var address = "http://10.0.0.17/sixthserver/api";
 					var address = "https://mcasixthfrom.000webhostapp.com/sixthserver/api";
 
 					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
@@ -33,11 +31,6 @@
 					});
 				});
 			});
-
-			//localhost
-			//172.20.10.2
-			//192.168.43.140
-			//10.0.0.17
 		</script>
 	</head>
 	<body>
@@ -46,7 +39,6 @@
 			<h1>Login</h1>
 			<form>
 				<table class="clear_input_table">
-					<!-- <tr><td>Test Host</td><td><input type="text" id="host"></td></tr> -->
 					<tr><td>Username</td><td><input type="text" id="username"></td></tr>
 					<tr><td>Password</td><td><input type="password" id="password"></td></tr>
 					<tr><td colspan="2"><button id="login">Login</button></td></tr>

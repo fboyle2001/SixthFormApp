@@ -22,6 +22,7 @@
   $timeRemaining = $result - time();
   $reply->setValue("timeRemaining", $timeRemaining);
   $reply->setValue("authLevel", get_level());
+  $reply->setValue("expire", $result);
 
   echo $reply->toJson();
 ?>

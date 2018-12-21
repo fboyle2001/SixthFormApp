@@ -31,7 +31,7 @@ function performLogin(username, password, base, onerror, start) {
   });
 
   $("#message").text("Logging in, please wait...");
-  waitForLoginCompletion(250, 16, 0, start); //max wait 4 seconds
+  waitForLoginCompletion(250, 24, 0, start); //max wait 6 seconds
 }
 
 function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
@@ -41,7 +41,6 @@ function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   }
 
   if(window.loggedIn !== null) {
-    //console.log(count * timePerPause);
     callback();
   } else {
     setTimeout(function () {
