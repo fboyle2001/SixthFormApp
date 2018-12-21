@@ -34,6 +34,15 @@
     die($reply->toJson());
   }
 
+  //in case a file has not yet been deleted, prevent access to it
+  $expiryTime = $selectFile->fetch()["ExpiryDate"];
+
+  if(time() > $expiryTime) {
+    $status = ReplyStatus::withData(410, "File has expired");
+    $reply = Reply::withStatus($status);
+    die($reply->toJson());
+  }
+
   //file does exist so now display it
   //files are kept outside of the public_html folder so jump back ../../../../../files/
 
