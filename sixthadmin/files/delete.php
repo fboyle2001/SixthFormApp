@@ -20,7 +20,7 @@
   }
 
   $link = $selectQuery->fetch(PDO::FETCH_ASSOC)["Link"];
-  $storedFile = $_SERVER["DOCUMENT_ROOT"] . "/sixthserver" . $link;
+  $storedFile = "../../../files/" . $link;
 
   $unlinkResult = unlink($storedFile);
 

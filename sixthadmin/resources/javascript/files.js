@@ -80,7 +80,7 @@ function processData(result) {
     var displayAddedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
     var type = types.resolve(item["Type"]);
 
-    $("#files_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Name"] + '</td><td>' + displayAddedDate + '</td><td>' + displayExpiryDate + '</td><td>' + type + '</td><td><a target="_blank" href="/sixthserver' + item["Link"] + '">Open</a></td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
+    $("#files_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Name"] + '</td><td>' + displayAddedDate + '</td><td>' + displayExpiryDate + '</td><td>' + type + '</td><td><a target="_blank" href="/sixthadmin/files/view.php?file=' + item["Link"] + '">Open</a></td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
   });
 
   $("#announcements_table").append("</tbody>");
