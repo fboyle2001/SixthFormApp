@@ -1,2 +1,3 @@
 /sixthserver/resources/files/*.pdf
 /client/www/cordova.js
+/sixthserver/examples/*
