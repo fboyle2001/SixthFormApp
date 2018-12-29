@@ -19,7 +19,7 @@
 
 					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
 						sendAlert(msg, "Error");
-						$(this).prop("disabled", false);
+						$("#login").prop("disabled", false);
 					}, function() {
 						if(typeof(Storage) !== "undefined") {
 							localStorage.clear();
