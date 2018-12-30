@@ -51,6 +51,11 @@ function processResult(data) {
 
 function deleteGroup(id) {
   var certain = confirm("Are you sure you want to delete this group?");
+
+  if(certain == false) {
+    return;
+  }
+
   $("#" + id + "_delete").removeAttr("href");
   $("#" + id + "_delete").text("Deleting...");
   $("#" + id + "_members").removeAttr("href");

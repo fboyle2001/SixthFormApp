@@ -24,7 +24,7 @@
     <div>
       <h1>Create A Group</h1>
       <br>
-      <p>Groups allow you to send announcements directly. You can send an announcement to an individual, a group or everybody.</p>
+      <p>Groups allow you to send announcements directly. You can send an announcement to an a group or everybody.</p>
       <br>
       <form method="POST">
         <label for="gname">Group Name: </label><input type="text" id="gname">
