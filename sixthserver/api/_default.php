@@ -1,4 +1,6 @@
 <?php
+  die("403"); //remove this when copying
+
   include($_SERVER["DOCUMENT_ROOT"] . "/sixthserver/api/api_util.php");
 
   if(!validate(0)) {

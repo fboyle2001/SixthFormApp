@@ -1,4 +1,7 @@
 <?php
+  if(!defined("AllowIncludes")) {
+    die("403");
+  }
 
   class ReplyStatus {
 

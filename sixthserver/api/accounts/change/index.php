@@ -1,4 +1,5 @@
 <?php
+  define("AllowIncludes", 1);
   include("../../api_util.php");
 
 	$reply = new Reply();
