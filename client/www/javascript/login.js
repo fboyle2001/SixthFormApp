@@ -31,12 +31,16 @@ function performLogin(username, password, base, onerror, start) {
   });
 
   $("#message").text("Logging in, please wait...");
+  $("#message").data("changed", 0);
   waitForLoginCompletion(250, 24, 0, start); //max wait 6 seconds
 }
 
 function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   if(count >= maxPauses) {
-    $("#message").text("Server timed out. Please try again.");
+    if($("#message").data("changed") == 0) {
+      $("#message").text("Server timed out. Please try again.");
+    }
+    
     return;
   }
 

@@ -19,6 +19,10 @@
 
 					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
 						sendAlert(msg, "Error");
+
+						$("#message").text(msg);
+					  $("#message").data("changed", 1);
+
 						$("#login").prop("disabled", false);
 					}, function() {
 						if(typeof(Storage) !== "undefined") {
@@ -36,7 +40,7 @@
 		</script>
 	</head>
 	<body>
-		<img class="horizontal_centred" src="images/MCA.png" height="175" width="350">
+		<a href="credits.html"><img class="horizontal_centred" src="images/MCA.png" height="175" width="350"></a>
 		<div class="centred">
 			<h1>Login</h1>
 			<form>

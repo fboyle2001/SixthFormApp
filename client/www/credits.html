@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="./css/styles.css" rel="stylesheet" type="text/css">
+		<script src="./javascript/jquery-3.2.1.min.js"></script>
+    <script>
+      $(document).ready(function() {
+        $("#back").click(function (e) {
+          e.preventDefault();
+          window.location = "index.html";
+        });
+      });
+    </script>
+	</head>
+	<body>
+		<img class="horizontal_centred" src="images/MCA.png" height="175" width="350">
+		<div class="centred">
+			<h1>Credits</h1>
+      <p>Created and designed by:</p>
+      <ul>
+        <li>Finlay Boyle</li>
+        <li>Callum Cash</li>
+        <li>Dan Arnold</li>
+        <li>Freddie Webb</li>
+        <li>Jake Bozward</li>
+      </ul>
+      <button id="back">Back</button>
+		</div>
+	</body>
+</html>
