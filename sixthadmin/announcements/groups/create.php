@@ -33,8 +33,16 @@
         <h3>Add Members</h3>
         <br>
         <label for="username">Username: </label><input type="text" id="username"><br>
+        <button id="search_member">Search</button>
+        <p id="search_err_msg"></p>
         <br>
-        <button id="add_member">Add Member</button>
+        <table class="data-table" id="possible_members">
+          <thead>
+            <tr><th>User Name</th><th>Add To Group</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
         <br>
         <br>
         <h3>Members</h3>
