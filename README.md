@@ -1,10 +1,8 @@
 # MCA6 App
 This repository contains the existing and latest version of the app, admin site and server endpoints.
 
-Google Play: https://play.google.com/store/apps/details?id=com.mcasix.app
+Google Play: https://play.google.com/store/apps/details?id=com.mcasix.app \
 App Store: Unreleased
-
-Client Build: 
 
 ## Branches
 - Master: This contains the latest published release. Not much changes on this branch except when a branch is merged to it.
