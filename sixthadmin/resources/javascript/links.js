@@ -41,7 +41,7 @@ function process(result) {
 		}
 
     var link = decodeURIComponent(item["Link"]);
-    $("#links_table").append('<tr><td>' + item["ID"] + '</td><td>' + item["Name"] + '</td><td>' + displayDate + '</td><td><a target="_blank" href="' + link + '">' + link + '</a></td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
+    $("#links_table").append('<tr><td>' + item["Name"] + '</td><td>' + displayDate + '</td><td><a target="_blank" href="' + link + '">' + link + '</a></td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
   });
 
   $("#links_table").append("</tbody>");
