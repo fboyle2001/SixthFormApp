@@ -54,6 +54,16 @@
       <h2>Change Name</h2>
       <p>To edit the group name, simply change it below and then click change name.</p>
       <input type="text" id="group_name" value="<?php echo $groupDetails["GroupName"] ?>"> <button id="change_group_name">Change Name</button> <span id="change_group_name_msg"></span>
+			<br>
+			<br>
+			<h2>Manage Members</h2>
+			<table class="data-table" id="member_table">
+				<thead>
+					<tr><th>Username</th><th>Remove</th><tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
     </div>
   </body>
 </html>

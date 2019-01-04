@@ -1,10 +1,10 @@
 <?php
-  require("../../shared.php");
+  require("../../../shared.php");
 
 	rejectGuest();
 
 	$reply = new Reply();
-	$id = get("id");
+	$id = post("id");
 
   // Can't do anything without the ID
   if($id == null) {
@@ -13,7 +13,7 @@
   }
 
   // Select all users who are in the group
-	$selectQuery = Database::get()->prepare("SELECT `accounts`.`Username` FROM `grouplink` INNER JOIN `accounts` ON `grouplink`.`AccountID` = `accounts`.`ID` WHERE `grouplink`.`GroupID` = :id");
+	$selectQuery = Database::get()->prepare("SELECT `accounts`.`ID`, `accounts`.`Username` FROM `grouplink` INNER JOIN `accounts` ON `grouplink`.`AccountID` = `accounts`.`ID` WHERE `grouplink`.`GroupID` = :id");
   $selectQuery->execute(["id" => $id]);
 
   // No members found
@@ -22,14 +22,8 @@
     die($reply->toJson());
   }
 
-  $usernames = [];
-
-  // Loop the usernames and push them to the list
-  while($record = $selectQuery->fetch(PDO::FETCH_ASSOC)) {
-    array_push($usernames, $record["Username"]);
-  }
-
+  // Return the records
   $reply->setStatus(ReplyStatus::withData(200, "Success"));
-	$reply->setValue("records", $usernames);
+	$reply->setValue("records", $selectQuery->fetchAll(PDO::FETCH_ASSOC));
   echo $reply->toJson();
 ?>

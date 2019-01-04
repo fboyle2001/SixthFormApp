@@ -30,8 +30,7 @@
         <label for="gname">Group Name: </label><input type="text" id="gname">
         <br>
         <br>
-        <h3>Add Members</h3>
-        <br>
+        <h2>Add Members</h2>
         <label for="username">Username: </label><input type="text" id="username"><br>
         <button id="search_member">Search</button>
         <p id="search_err_msg"></p>
@@ -45,7 +44,7 @@
         </table>
         <br>
         <br>
-        <h3>Members</h3>
+        <h2>Members</h2>
         <table class="data-table" id="members">
           <thead>
             <tr><th>User Name</th><th>Remove Member</th></tr>
