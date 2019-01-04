@@ -12,7 +12,7 @@
 
   // If none is set then send them back to group view page
   if($id == null) {
-    header("Location: index.php");
+    header("Location: ../index.php");
     die();
   }
 
@@ -57,9 +57,23 @@
 			<br>
 			<br>
 			<h2>Manage Members</h2>
+			<h3>Current Members</h3>
 			<table class="data-table" id="member_table">
 				<thead>
 					<tr><th>Username</th><th>Remove</th><tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
+			<br>
+			<h3>Add Members</h3>
+			<input type="text" id="user_search_value"> <button id="user_search">Search</button>
+			<span id="user_search_msg"></span>
+			<br>
+			<br>
+			<table class="data-table" id="add_member_table">
+				<thead>
+					<tr><th>Username</th><th>Add To Group</th><tr>
 				</thead>
 				<tbody>
 				</tbody>
