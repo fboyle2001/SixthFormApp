@@ -1,5 +1,5 @@
 function produceStyleElement() {
-  var stylesheet = "dark.css";
+  var stylesheet = "light.css";
 
   if(Cookies.get("stylesheet") !== undefined) {
     stylesheet = Cookies.get("stylesheet");
