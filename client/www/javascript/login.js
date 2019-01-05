@@ -1,4 +1,9 @@
 $(document).ready(function() {
+  if(Cookies.get("remember_username") !== "undefined") {
+    $("#username").val(Cookies.get("remember_username"));
+    $("#remember_me").prop("checked", true);
+  }
+
   $("#login").click(function(e){
     e.preventDefault();
     $(this).prop("disabled", true);
@@ -19,6 +24,13 @@ $(document).ready(function() {
       // Clear the cache
       if(typeof(Storage) !== "undefined") {
         localStorage.clear();
+      }
+
+      // Remember their username if they ticked the box
+      if($("#remember_me").is(":checked")) {
+        Cookies.set("remember_username", $("#username").val(), {expires: 365});
+      } else {
+        Cookies.remove("remember_username");
       }
 
       // If they are being forced to reset their password, redirect them
