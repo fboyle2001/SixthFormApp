@@ -14,7 +14,6 @@ function loadPage() {
     var currentTime = Math.floor(Date.now() / 1000);
 
     if(next === "undefined") {
-      console.log("first time");
       clearStorage();
       return;
     }
@@ -22,14 +21,11 @@ function loadPage() {
     console.log(next, currentTime, next > currentTime);
 
     if(next > currentTime) {
-      console.log("we bad");
       sendAlert("You can only clear the cache once every 2 minutes.");
       return;
     }
 
-    console.log("we good");
     Cookies.set("next_clear", currentTime + 120);
-    clearStorage();
     sendAlert("Cache cleared.");
   });
 }
