@@ -9,43 +9,7 @@
 		<script src="cordova.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
-			function loadPage() {
-				$("#change_pwd").click(function (e) {
-					e.preventDefault();
-					changePassword();
-				});
-			}
-
-			function logout() {
-				Cookies.remove("auth");
-				Cookies.remove("base");
-				Cookies.remove("expire");
-				Cookies.remove("must_reset");
-				window.location = "index.html";
-			}
-
-			function changePassword() {
-				var password = $("#new_pwd").val();
-				var check = $("#new_pwd_check").val();
-
-				if(password !== check) {
-					sendAlert("Your passwords do not match.");
-					return;
-				}
-
-				var standard = doesPasswordMeetStandard(password);
-
-        if(standard !== true) {
-          sendAlert(standard);
-          return;
-        }
-
-				query("/accounts/change/", {"password": password}, function (data) {
-					sendAlert("Successfully changed your password.");
-				}, function(data) {
-					sendAlert("An unexpected error occurred. Error Code S02", "Error");
-				});
-			}
+			
 		</script>
 	</head>
 	<body>

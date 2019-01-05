@@ -9,34 +9,7 @@
 		<script src="cordova.js"></script>
 		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 		<script>
-			$(document).ready(function() {
-				$("#login").click(function(e){
-					e.preventDefault();
-					$(this).prop("disabled", true);
-					//var address = "http://localhost/sixthserver/api";
-					//var address = "http://10.0.0.17/sixthserver/api";
-					var address = "https://mcasixthfrom.000webhostapp.com/sixthserver/api";
-
-					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
-						sendAlert(msg, "Error");
-
-						$("#message").text(msg);
-					  $("#message").data("changed", 1);
-
-						$("#login").prop("disabled", false);
-					}, function() {
-						if(typeof(Storage) !== "undefined") {
-							localStorage.clear();
-						}
-
-						if(Cookies.get("must_reset") == "false") {
-							window.location = "home.html";
-						} else {
-							window.location = "force_change.html";
-						}
-					});
-				});
-			});
+			
 		</script>
 	</head>
 	<body>
