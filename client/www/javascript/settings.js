@@ -2,6 +2,8 @@
 
 // Register the click handlers
 function loadPage() {
+  setStyleRadio();
+
   $("#change_pwd").click(function (e) {
     e.preventDefault();
     changePassword();
@@ -10,24 +12,49 @@ function loadPage() {
   $("#clear_cache").click(function(e) {
     e.preventDefault();
 
+    // Get the next time they can clear the cache and the current time
     var next = Cookies.get("next_clear");
     var currentTime = Math.floor(Date.now() / 1000);
 
-    if(next === "undefined") {
+    // If it's the first time let them do it
+    if(next === undefined) {
       clearStorage();
       return;
     }
 
-    console.log(next, currentTime, next > currentTime);
-
+    // If they still have time remaining tell them
     if(next > currentTime) {
       sendAlert("You can only clear the cache once every 2 minutes.");
       return;
     }
 
+    // Clear the cache
     Cookies.set("next_clear", currentTime + 120);
+    clearStorage();
     sendAlert("Cache cleared.");
   });
+
+  $("#logout").click(function (e) {
+    e.preventDefault();
+    logout();
+  });
+
+  $("input[name=stylesheet_select]").change(function() {
+    var value = $("input[name=stylesheet_select]:checked").val();
+    Cookies.set("stylesheet", value, {expires: 365});
+    window.location = "settings.html";
+  });
+}
+
+// Set the default radio button based on what the user already has selected
+function setStyleRadio() {
+  var currentStyle = Cookies.get("stylesheet");
+
+  if(currentStyle === undefined) {
+    currentStyle = "light.css";
+  }
+
+  $("input[name=stylesheet_select][value='" + currentStyle + "']").prop("checked", true);
 }
 
 // If the user wants to log out, remove all of the cookies and redirect to the login
@@ -36,6 +63,7 @@ function logout() {
   Cookies.remove("base");
   Cookies.remove("expire");
   Cookies.remove("must_reset");
+  Cookies.remove("last_clear");
   window.location = "index.html";
 }
 

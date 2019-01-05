@@ -5,10 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/settings_loader.js"></script>
 		<script src="./javascript/query.js"></script>
 		<script src="./javascript/settings.js"></script>
 		<script src="cordova.js"></script>
-		<link href="./css/styles.css" rel="stylesheet" type="text/css">
 	</head>
 	<body>
 		<div class="menu">
@@ -27,7 +27,9 @@
 		<br>
 		<div class="content">
 			<h2>Account</h2>
-			<a href="javascript:logout()"><p>Click to Logout</p></a>
+			<button id="logout">Logout</button>
+			<br>
+			<br>
 			<h3>Change Password</h3>
 			<form>
 				<table>
@@ -41,7 +43,10 @@
 		<div class="content">
 			<h2>App Preferences</h2>
 			<h3>Style</h3>
-			<p>(Coming in next update)</p>
+			<table>
+				<tr><td>Light</td><td><input type="radio" name="stylesheet_select" value="light.css"></td></tr>
+				<tr><td>Dark</td><td><input type="radio" name="stylesheet_select" value="dark.css"></td></tr>
+			</table>
 			<br>
 			<h3>Cache</h3>
 			<button id="clear_cache">Clear Cache</button>

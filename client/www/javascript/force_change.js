@@ -7,15 +7,6 @@ function loadPage() {
   });
 }
 
-// Logout the user by removing all the cookies
-function logout() {
-  Cookies.remove("auth");
-  Cookies.remove("base");
-  Cookies.remove("expire");
-  Cookies.remove("must_reset");
-  window.location = "index.html";
-}
-
 function changePassword() {
   var password = $("#new_pwd").val();
   var check = $("#new_pwd_check").val();
