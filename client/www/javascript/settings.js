@@ -1,10 +1,36 @@
 // Same as force_change.js with variations as to what happens on success
 
-// Register the click handler
+// Register the click handlers
 function loadPage() {
   $("#change_pwd").click(function (e) {
     e.preventDefault();
     changePassword();
+  });
+
+  $("#clear_cache").click(function(e) {
+    e.preventDefault();
+
+    var next = Cookies.get("next_clear");
+    var currentTime = Math.floor(Date.now() / 1000);
+
+    if(next === "undefined") {
+      console.log("first time");
+      clearStorage();
+      return;
+    }
+
+    console.log(next, currentTime, next > currentTime);
+
+    if(next > currentTime) {
+      console.log("we bad");
+      sendAlert("You can only clear the cache once every 2 minutes.");
+      return;
+    }
+
+    console.log("we good");
+    Cookies.set("next_clear", currentTime + 120);
+    clearStorage();
+    sendAlert("Cache cleared.");
   });
 }
 
