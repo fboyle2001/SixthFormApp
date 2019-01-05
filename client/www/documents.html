@@ -1,141 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/settings_loader.js"></script>
 		<script src="./javascript/query.js"></script>
+		<script src="./javascript/documents.js"></script>
 		<script src="cordova.js"></script>
-		<link href="./css/styles.css" rel="stylesheet" type="text/css">
-		<script>
-			function loadPage() {
-        var noticeContent = retrieveContent("sixth-notice-list");
-        var newsletterContent = retrieveContent("sixth-nwsl-list");
-        var latestNoticeContent = retrieveContent("sixth-notice-late");
-        var latestNewsletterContent = retrieveContent("sixth-nwsl-late");
-
-        if(noticeContent == false || noticeContent == null) {
-  				query("/fetch/files/notices/list/", {validOnly: true}, function(data) {
-  					loadNotices(data);
-  				}, function(data) {
-  					sendAlert("An unexpected error occurred. Error Code: D01", "Error");
-  				});
-				} else {
-          loadNotices(JSON.parse(noticeContent));
-        }
-
-        if(newsletterContent == false || newsletterContent == null) {
-  				query("/fetch/files/newsletters/list/", {validOnly: true}, function(data) {
-  					loadNewsletters(data);
-  				}, function(data) {
-  					sendAlert("An unexpected error occurred. Error Code: D02", "Error");
-  				});
-        } else {
-          loadNewsletters(JSON.parse(newsletterContent));
-        }
-
-        if(latestNoticeContent == false || latestNoticeContent == null) {
-          query("/fetch/files/notices/latest/", {}, function(data) {
-  					loadLatestNotice(data);
-  				}, function(data) {
-  					sendAlert("An unexpected error occurred. Error Code: D03", "Error");
-  				});
-        } else {
-          loadLatestNotice(JSON.parse(latestNoticeContent));
-        }
-
-        if(latestNewsletterContent == false || latestNewsletterContent == null) {
-          query("/fetch/files/newsletters/latest/", {}, function(data) {
-            loadLatestNewsletter(data);
-          }, function(data) {
-  					sendAlert("An unexpected error occurred. Error Code: D04", "Error");
-          });
-        } else {
-          loadLatestNewsletter(JSON.parse(latestNewsletterContent));
-        }
-      }
-
-			function loadLatestNotice(data) {
-        cacheContent("sixth-notice-late", JSON.stringify(data));
-
-				if(data["content"]["found"] == false) {
-					$("#latest_notice_name").text("(None Available)");
-					return;
-				}
-
-				var latest = data["content"]["latest"];
-				var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth") + "')";
-				$("#latest_notice_link").attr("href", link);
-			}
-
-			function loadNotices(data) {
-        cacheContent("sixth-notice-list", JSON.stringify(data));
-
-				if(data["content"]["found"] == false) {
-					$("#older_notices_error").text("No notices found.");
-					return;
-				}
-
-				$.each(data["content"]["records"], function(index, item){
-					var expiryDate = item["ExpiryDate"];
-
-					if(expiryDate == 2147483647) {
-						expiryDate = "Never";
-					} else {
-						expiryDate = new Date(expiryDate * 1000);
-						expiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
-					}
-
-					var addedDate = new Date(item["AddedDate"] * 1000);
-					addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
-
-					var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth") + "')";
-
-					$("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
-				});
-      }
-
-      function loadLatestNewsletter(data) {
-        cacheContent("sixth-nwsl-late", JSON.stringify(data));
-
-				if(data["content"]["found"] == false) {
-					$("#latest_newsletter_name").text("None Available");
-					return;
-				}
-
-				var latest = data["content"]["latest"];
-				$("#latest_newsletter_name").text(latest["Name"]);
-				var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth") + "')";
-				$("#latest_newsletter_link").attr("href", link);
-			}
-
-			function loadNewsletters(data) {
-        cacheContent("sixth-nwsl-list", JSON.stringify(data));
-
-				if(data["content"]["found"] == false) {
-					$("#older_newsletters_error").text("No newsletters found.");
-					return;
-				}
-
-				$.each(data["content"]["records"], function(index, item){
-					var expiryDate = item["ExpiryDate"];
-
-					if(expiryDate == 2147483647) {
-						expiryDate = "Never";
-					} else {
-						expiryDate = new Date(expiryDate * 1000);
-						expiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
-					}
-
-					var addedDate = new Date(item["AddedDate"] * 1000);
-					addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
-
-					var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth") + "')";
-
-					$("#newsletter_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
-				});
-			}
-		</script>
 	</head>
 	<body>
 		<div class="menu">
@@ -152,7 +25,7 @@
 			<h1 class="header">Notices and Newsletters</h1>
 			<strong><a style="font-size: 18px; text-align: center" id="latest_notice_link"><p>View Latest Notices <span id="latest_notice_name"></span></p></a></strong>
 			<strong><a style="font-size: 18px; text-align: center" id="latest_newsletter_link"><p>View Latest Newsletter (<span id="latest_newsletter_name"></span>)</p></a></strong>
-			<h2>Older Notices</h2>
+			<h2>Notices</h2>
 			<p id="older_notices_error"></p>
 			<table id="notices_table" class="data-table">
 				<thead>
@@ -162,7 +35,7 @@
 				</tbody>
 			</table>
       <br>
-      <h2>Older Newsletters</h2>
+      <h2>Newsletters</h2>
 			<p id="older_newsletters_error"></p>
 			<table id="newsletter_table" class="data-table">
 				<thead>

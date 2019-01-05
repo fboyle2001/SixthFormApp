@@ -24,20 +24,27 @@
     <div>
       <h1>Create A Group</h1>
       <br>
-      <p>Groups allow you to send announcements directly. You can send an announcement to an individual, a group or everybody.</p>
+      <p>Groups allow you to send announcements directly. You can send an announcement to an a group or everybody.</p>
       <br>
       <form method="POST">
         <label for="gname">Group Name: </label><input type="text" id="gname">
         <br>
         <br>
-        <h3>Add Members</h3>
-        <br>
+        <h2>Add Members</h2>
         <label for="username">Username: </label><input type="text" id="username"><br>
+        <button id="search_member">Search</button>
+        <p id="search_err_msg"></p>
         <br>
-        <button id="add_member">Add Member</button>
+        <table class="data-table" id="possible_members">
+          <thead>
+            <tr><th>User Name</th><th>Add To Group</th></tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
         <br>
         <br>
-        <h3>Members</h3>
+        <h2>Members</h2>
         <table class="data-table" id="members">
           <thead>
             <tr><th>User Name</th><th>Remove Member</th></tr>

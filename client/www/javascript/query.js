@@ -1,4 +1,5 @@
 function query(url, postData, callback, fatal) {
+  // Don't allow queries if not logged in
   if(!isLoggedIn()) {
     var response = {
       "status": {
@@ -12,6 +13,7 @@ function query(url, postData, callback, fatal) {
     return;
   }
 
+  // Query the page with the necessary auth token
   $.ajax({
     url: Cookies.get("base") + url,
     type: "post",
@@ -24,6 +26,7 @@ function query(url, postData, callback, fatal) {
       callback(data);
     },
     error: function(xhr, text, thrown) {
+      // Check if user changed page before it loaded
       if(!xhr.getAllResponseHeaders()) {
         return;
       }
@@ -33,6 +36,7 @@ function query(url, postData, callback, fatal) {
   });
 }
 
+// Opens a link in the browser
 function openInBrowser(url) {
   if(typeof cordova !== "undefined" && typeof cordova.InAppBrowser !== "undefined") {
     cordova.InAppBrowser.open(url, "_system", "location=yes");
@@ -41,6 +45,7 @@ function openInBrowser(url) {
   }
 }
 
+// Send alerts to the user's device as pop ups
 function sendAlert(message, title = "Alert", button = "OK") {
 	if(typeof navigator.notification !== "undefined") {
 		navigator.notification.alert(message, null, title, button);
@@ -49,6 +54,7 @@ function sendAlert(message, title = "Alert", button = "OK") {
 	}
 }
 
+// Checks password meets minimum standard
 function doesPasswordMeetStandard(password) {
   if(password == null) {
     return "You must enter a password.";
@@ -77,6 +83,7 @@ function doesPasswordMeetStandard(password) {
   return true;
 }
 
+// Checks if user is logged in
 function isLoggedIn() {
   if(Cookies.get("auth") === undefined) {
     return false;
@@ -89,6 +96,7 @@ function isLoggedIn() {
   return true;
 }
 
+// Verifies the user's accounts
 function verifyUser(start, fatal) {
   if(Cookies.get("auth") === undefined) {
     return fatal("You are not logged in.");
@@ -144,6 +152,7 @@ function cacheContent(key, content) {
   }
 }
 
+// When the device has loaded this is run
 function onDeviceReady() {
   $(document).ready(function () {
     verifyUser(function () {
@@ -154,6 +163,7 @@ function onDeviceReady() {
   });
 }
 
+// When the app has been reloaded this is run
 function onResume() {
   verifyUser(function () {
     return;
@@ -162,5 +172,6 @@ function onResume() {
   });
 }
 
+// Cordova event listeners
 document.addEventListener("resume", onResume, false);
 document.addEventListener("deviceready", onDeviceReady, false);

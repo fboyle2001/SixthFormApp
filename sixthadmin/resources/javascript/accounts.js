@@ -29,7 +29,7 @@ function process(result) {
 
 	$("#account_table").append("<tbody>");
 	$.each(result["content"]["records"], function (index, item) {
-		$("#account_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
+		$("#account_table > tbody").append('<tr><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
 	});
 	$("#account_table").append("</tbody>");
 }

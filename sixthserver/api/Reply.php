@@ -1,4 +1,8 @@
 <?php
+  if(!defined("AllowIncludes")) {
+    die("403");
+  }
+
   include("ReplyStatus.php");
 
   class Reply {
@@ -20,7 +24,7 @@
 		public function setStatus($status) {
 			$this->status = $status;
 		}
-		
+
     public function setValue($key, $value) {
       $this->content[$key] = $value;
     }

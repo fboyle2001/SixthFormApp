@@ -1,51 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/settings_loader.js"></script>
 		<script src="./javascript/query.js"></script>
+		<script src="./javascript/settings.js"></script>
 		<script src="cordova.js"></script>
-		<link href="./css/styles.css" rel="stylesheet" type="text/css">
-		<script>
-			function loadPage() {
-				$("#change_pwd").click(function (e) {
-					e.preventDefault();
-					changePassword();
-				});
-			}
-
-			function logout() {
-				Cookies.remove("auth");
-				Cookies.remove("base");
-				Cookies.remove("expire");
-				Cookies.remove("must_reset");
-				window.location = "index.html";
-			}
-
-			function changePassword() {
-				var password = $("#new_pwd").val();
-				var check = $("#new_pwd_check").val();
-
-				if(password !== check) {
-					sendAlert("Your passwords do not match.");
-					return;
-				}
-
-				var standard = doesPasswordMeetStandard(password);
-
-        if(standard !== true) {
-          sendAlert(standard);
-          return;
-        }
-
-				query("/accounts/change/", {"password": password}, function (data) {
-					sendAlert("Successfully changed your password.");
-				}, function(data) {
-					sendAlert("An unexpected error occurred. Error Code S02", "Error");
-				});
-			}
-		</script>
 	</head>
 	<body>
 		<div class="menu">
@@ -60,9 +23,13 @@
 		</div>
 		<div class="content">
 			<h1 class="header">Settings</h1>
-			<br>
+		</div>
+		<br>
+		<div class="content">
 			<h2>Account</h2>
-			<a href="javascript:logout()"><p>Click to Logout</p></a>
+			<button id="logout">Logout</button>
+			<br>
+			<br>
 			<h3>Change Password</h3>
 			<form>
 				<table>
@@ -71,6 +38,18 @@
 					<tr><td colspan="2"><button id="change_pwd">Change Password</button></td></tr>
 				</table>
 			</form>
+		</div>
+		<br>
+		<div class="content">
+			<h2>App Preferences</h2>
+			<h3>Style</h3>
+			<table>
+				<tr><td>Light</td><td><input type="radio" name="stylesheet_select" value="light.css"></td></tr>
+				<tr><td>Dark</td><td><input type="radio" name="stylesheet_select" value="dark.css"></td></tr>
+			</table>
+			<br>
+			<h3>Cache</h3>
+			<button id="clear_cache">Clear Cache</button>
 		</div>
 	</body>
 </html>

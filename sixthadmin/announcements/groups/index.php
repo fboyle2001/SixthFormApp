@@ -32,7 +32,7 @@
       <br>
       <table class="data-table" id="groups">
         <thead>
-          <tr><th>Group Name</th><th>Members</th><th>Delete</th></tr>
+          <tr><th>Group Name</th><th>Members</th><th>Delete</th><th>Edit</th></tr>
         </thead>
         <tbody>
         </tbody>

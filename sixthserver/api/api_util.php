@@ -1,4 +1,8 @@
 <?php
+  if(!defined("AllowIncludes")) {
+    die("403");
+  }
+  
   require("Reply.php");
 	require("Database.php");
 

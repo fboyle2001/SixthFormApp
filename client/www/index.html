@@ -5,42 +5,19 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/settings_loader.js"></script>
 		<script src="./javascript/login.js"></script>
 		<script src="cordova.js"></script>
-		<link href="./css/styles.css" rel="stylesheet" type="text/css">
-		<script>
-			$(document).ready(function() {
-				$("#login").click(function(e){
-					e.preventDefault();
-					//var address = "http://localhost/sixthserver/api";
-					//var address = "http://10.0.0.17/sixthserver/api";
-					var address = "https://mcasixthfrom.000webhostapp.com/sixthserver/api";
-
-					performLogin($("#username").val(), $("#password").val(), address, function(code, msg) {
-						sendAlert(msg, "Error");
-					}, function() {
-						if(typeof(Storage) !== "undefined") {
-							localStorage.clear();
-						}
-
-						if(Cookies.get("must_reset") == "false") {
-							window.location = "home.html";
-						} else {
-							window.location = "force_change.html";
-						}
-					});
-				});
-			});
-		</script>
 	</head>
 	<body>
-		<img class="horizontal_centred" src="images/MCA.png" height="175" width="350">
+		<a href="credits.html"><img class="horizontal_centred" src="images/MCA.png" height="175" width="350"></a>
 		<div class="centred">
 			<h1>Login</h1>
 			<form>
 				<table class="clear_input_table">
 					<tr><td>Username</td><td><input type="text" id="username"></td></tr>
 					<tr><td>Password</td><td><input type="password" id="password"></td></tr>
+					<tr><td>Remember</td><td><input type="checkbox" id="remember_me"></td></tr>
 					<tr><td colspan="2"><button id="login">Login</button></td></tr>
 					<tr><td colspan="2"><span id="message"></span></td></tr>
 				</table>

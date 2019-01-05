@@ -1,57 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/settings_loader.js"></script>
 		<script src="./javascript/query.js"></script>
+		<script src="./javascript/force_change.js"></script>
 		<script src="cordova.js"></script>
-		<link href="./css/styles.css" rel="stylesheet" type="text/css">
-		<script>
-			//caching is unnecessary on this page
-			function loadPage() {
-				$("#change_pwd").click(function (e) {
-					e.preventDefault();
-					changePassword();
-				});
-			}
-
-			function logout() {
-				Cookies.remove("auth");
-				Cookies.remove("base");
-				Cookies.remove("expire");
-				Cookies.remove("must_reset");
-				window.location = "index.html";
-			}
-
-			function changePassword() {
-				var password = $("#new_pwd").val();
-				var check = $("#new_pwd_check").val();
-
-				if(password !== check) {
-					sendAlert("Your passwords do not match.");
-					return;
-				}
-
-        var result = doesPasswordMeetStandard(password);
-
-        if(result !== true) {
-          sendAlert(result);
-          return;
-        }
-
-				query("/accounts/change/", {"password": password}, function (data) {
-          if(data["status"]["code"] == 200) {
-  					sendAlert("Successfully changed your password.");
-            window.location = "home.html";
-          } else {
-            sendAlert(data["status"]["description"], "Error");
-          }
-				}, function(data) {
-					sendAlert("An unexpected error occurred. Error Code FC01", "Error");
-				});
-			}
-		</script>
 	</head>
 	<body>
 		<div class="content centred" style="width: 70%;">

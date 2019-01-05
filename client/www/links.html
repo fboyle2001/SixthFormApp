@@ -1,47 +1,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval'">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
+		<script src="./javascript/settings_loader.js"></script>
 		<script src="./javascript/query.js"></script>
+		<script src="./javascript/links.js"></script>
 		<script src="cordova.js"></script>
-		<link href="./css/styles.css" rel="stylesheet" type="text/css">
-		<script>
-			function loadPage() {
-				var content = retrieveContent("sixth-links");
-
-				if(content == false || content == null) {
-					query("/fetch/links/list/", {"validOnly": true}, function(data) {
-						loadLinks(data);
-					}, function(data) {
-  					sendAlert("An unexpected error occurred. Error Code L01", "Error");
-					});
-
-					return;
-				}
-
-				loadLinks(JSON.parse(content));
-			}
-
-			function loadLinks(data) {
-				cacheContent("sixth-links", JSON.stringify(data));
-				$("#ltl").empty();
-				$("#perm").empty();
-				$.each(data["content"]["records"], function(index, item){
-					var storedDate = item["ExpiryDate"];
-					var link = "javascript:openInBrowser('" + item["Link"] + "')";
-
-					if(storedDate == 2147483647) {
-						$("#perm").append('<p><a href="' + link + '">' + item["Name"] + '</a></p>');
-					} else {
-						var date = new Date(storedDate * 1000);
-				    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
-						$("#ltl").append('<p><a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ')</p>');
-					}
-				});
-			}
-		</script>
 	</head>
 	<body>
 		<div class="menu">

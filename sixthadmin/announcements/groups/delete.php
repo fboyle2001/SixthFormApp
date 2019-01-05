@@ -27,6 +27,6 @@
     die($reply->toJson());
   }
 
-  $reply->setStatus(ReplyStatus::withData(200, "Successfully deleted group"));
+  $reply->setStatus(ReplyStatus::withData(200, "Deleted"));
   echo $reply->toJson();
 ?>

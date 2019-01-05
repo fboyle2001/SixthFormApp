@@ -39,7 +39,7 @@
 	    <h2>Manage Files</h2>
 	    <table id="files_table" class="data-table">
 	      <thead>
-	        <tr><th>ID</th><th>Name</th><th>Date Added</th><th>Expiry Date</th><th>Type</th><th>Download</th><th>Delete</th></tr>
+	        <tr><th>Name</th><th>Date Added</th><th>Expiry Date</th><th>Type</th><th>Download</th><th>Delete</th></tr>
 	      </thead>
 	      <tbody></tbody>
 	    </table>

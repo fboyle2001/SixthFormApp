@@ -32,7 +32,7 @@
       <h2>Manage Links</h2>
       <table id="links_table" class="data-table">
         <thead>
-          <tr><th>ID</th><th>Name</th><th>Expiry Date</th><th>Link</th><th>Delete</th></tr>
+          <tr><th>Name</th><th>Expiry Date</th><th>Link</th><th>Delete</th></tr>
         </thead>
         <tbody></tbody>
       </table>
