@@ -39,10 +39,19 @@ function query(url, postData, callback, fatal) {
 // Opens a link in the browser
 function openInBrowser(url) {
   if(typeof cordova !== "undefined" && typeof cordova.InAppBrowser !== "undefined") {
-    cordova.InAppBrowser.open(url, "_system", "location=yes");
+    cordova.InAppBrowser.open(url, "_system");
   } else {
     window.open(url, "_blank");
   }
+}
+
+// Handles Android problem with PDFs whilst leaving iOS alone
+function openFileInBrowser(url) {
+  if(window.cordova.platformId === "android") {
+    url = "https://docs.google.com/viewerng/viewer?url=" + url.replace("&", "%26");
+  }
+
+  openInBrowser(url);
 }
 
 // Send alerts to the user's device as pop ups

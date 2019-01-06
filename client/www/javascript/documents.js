@@ -59,7 +59,10 @@ function loadLatestNotice(data) {
 
   // Display it with a link to the file
   var latest = data["content"]["latest"];
-  var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth") + "')";
+
+      var url = Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth");
+      var link = "javascript:openFileInBrowser('" + url + "')";
+
   $("#latest_notice_link").attr("href", link);
 }
 
@@ -86,7 +89,8 @@ function loadNotices(data) {
     var addedDate = new Date(item["AddedDate"] * 1000);
     addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
 
-    var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth") + "')";
+        var url = Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth");
+        var link = "javascript:openFileInBrowser('" + url + "')";
 
     $("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
   });
@@ -105,7 +109,10 @@ function loadLatestNewsletter(data) {
 
   var latest = data["content"]["latest"];
   $("#latest_newsletter_name").text(latest["Name"]);
-  var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth") + "')";
+
+      var url = Cookies.get("base") + "/view/file/?file=" + latest["Link"] + "&auth=" + Cookies.get("auth");
+      var link = "javascript:openFileInBrowser('" + url + "')";
+
   $("#latest_newsletter_link").attr("href", link);
 }
 
@@ -132,7 +139,8 @@ function loadNewsletters(data) {
     var addedDate = new Date(item["AddedDate"] * 1000);
     addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
 
-    var link = "javascript:openInBrowser('" + Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth") + "')";
+    var url = Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth");
+    var link = "javascript:openFileInBrowser('" + url + "')";
 
     $("#newsletter_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
   });
