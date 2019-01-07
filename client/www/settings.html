@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https: http: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src * ; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
-		<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
 		<script src="cordova.js"></script>
@@ -42,7 +41,7 @@
 		<br>
 		<div class="content">
 			<h2>App Preferences</h2>
-			<h3>Style</h3>
+			<h3>Themes</h3>
 			<table>
 				<tr><td>Light</td><td><input type="radio" name="stylesheet_select" value="light.css"></td></tr>
 				<tr><td>Dark</td><td><input type="radio" name="stylesheet_select" value="dark.css"></td></tr>
@@ -50,6 +49,10 @@
 			<br>
 			<h3>Cache</h3>
 			<button id="clear_cache">Clear Cache</button>
+			<br>
+			<br>
+			<h3>Zoom</h3>
+			<span>Zoom Enabled: </span><input type="checkbox" name="zoom_enabled">
 		</div>
 	</body>
 </html>

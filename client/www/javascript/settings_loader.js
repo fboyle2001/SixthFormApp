@@ -9,4 +9,16 @@ function produceStyleElement() {
   return link;
 }
 
+function produceViewportElement() {
+  var scalable = "no";
+
+  if(Cookies.get("zoom") !== undefined) {
+    scalable = Cookies.get("zoom");
+  }
+
+  var tag = '<meta name="viewport" content="user-scalable=' + scalable + ', initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi"/>';
+  return tag;
+}
+
 $("head").append(produceStyleElement());
+$("head").append(produceViewportElement());

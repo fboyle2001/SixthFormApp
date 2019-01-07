@@ -2,7 +2,8 @@
 
 // Register the click handlers
 function loadPage() {
-  setStyleRadio();
+  setThemeRadio();
+  setZoomCheck();
 
   $("#change_pwd").click(function (e) {
     e.preventDefault();
@@ -44,10 +45,23 @@ function loadPage() {
     Cookies.set("stylesheet", value, {expires: 365});
     window.location = "settings.html";
   });
+
+  $("input[name=zoom_enabled]").change(function () {
+    var value = this.checked;
+
+    if(value == "true" || value === true) {
+      value = "yes";
+    } else {
+      value = "no";
+    }
+
+    Cookies.set("zoom", value, {expires: 365});
+    window.location = "settings.html";
+  })
 }
 
 // Set the default radio button based on what the user already has selected
-function setStyleRadio() {
+function setThemeRadio() {
   var currentStyle = Cookies.get("stylesheet");
 
   if(currentStyle === undefined) {
@@ -55,6 +69,19 @@ function setStyleRadio() {
   }
 
   $("input[name=stylesheet_select][value='" + currentStyle + "']").prop("checked", true);
+}
+
+// Set the default zoom checkbox value based on user's current selection
+function setZoomCheck() {
+  var zoom = Cookies.get("zoom");
+
+  if(zoom === undefined) {
+    zoom = true;
+  }
+
+  if(zoom == "yes") {
+    $("input[name=zoom_enabled]").prop("checked", true);
+  }
 }
 
 // If the user wants to log out, remove all of the cookies and redirect to the login
