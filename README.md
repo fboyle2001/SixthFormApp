@@ -10,7 +10,7 @@ App Store: Unreleased
 
 ## Projects
 The current major project is **v0.7.0-beta** and corresponds to the branch *v0.7.0-beta*. \
-The current minor project is **v0.6.1-beta** and corresponds to the branch *v0.6.1-beta*.
+The current minor project is **v0.6.2-beta** and corresponds to the branch *v0.6.2-beta*.
 
 ## Contributing
 There are two main ways to contribute:
