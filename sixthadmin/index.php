@@ -7,6 +7,7 @@
 	// Guests will be redirect to the login page
 	rejectGuest();
 
+	// Just send them to the accounts page as there is not much here
   header("Location: /sixthadmin/accounts/");
   die();
 ?>

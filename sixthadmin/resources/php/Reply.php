@@ -1,6 +1,7 @@
 <?php
   include("ReplyStatus.php");
 
+  // Standard reply used to reply to AJAX requests
   class Reply {
 
     public $status;
@@ -20,7 +21,7 @@
 		public function setStatus($status) {
 			$this->status = $status;
 		}
-		
+
     public function setValue($key, $value) {
       $this->content[$key] = $value;
     }

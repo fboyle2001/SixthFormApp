@@ -68,6 +68,7 @@
 		return $_SESSION["admin"] === true;
 	}
 
+	// Checks if an argument exists
   function has_arg($method , $name) {
 		if(strtoupper($method) == "GET") {
 		  return isset($_GET[$name]);
@@ -78,6 +79,7 @@
 		return false;
   }
 
+  // Gets an argument
   function get_arg($method, $name) {
 		if(!has_arg($method, $name)) {
 		  return null;
@@ -90,14 +92,17 @@
 		}
   }
 
+  // Gets an argument from the GET method
   function get($name) {
 		return get_arg("GET", $name);
   }
 
+  // Gets an argument from the POST method
   function post($name) {
 		return get_arg("POST", $name);
   }
 
+	// Deletes old files from the database and system
 	function deleteOld() {
 		$time = time();
 
@@ -128,6 +133,7 @@
 
 	}
 
+	// Generates a random string using alphanumeric characters
 	function random_str($length) {
 	  $keyspace = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"; //len 62
     $result = "";

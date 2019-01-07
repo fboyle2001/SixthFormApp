@@ -11,6 +11,7 @@
     die($reply->toJson());
   }
 
+  // Make sure the file exists
   $selectQuery = Database::get()->prepare("SELECT * FROM `files` WHERE `ID` = :id");
   $selectQuery->execute(["id" => $id]);
 
@@ -19,6 +20,7 @@
     die($reply->toJson());
   }
 
+  // Remove it from the system storage
   $link = $selectQuery->fetch(PDO::FETCH_ASSOC)["Link"];
   $storedFile = "../../../files/" . $link;
 
@@ -29,6 +31,8 @@
     die($reply->toJson());
   }
 
+  // Remove it from the database
+  // Maybe consider rearranging these?
   $deleteQuery = Database::get()->prepare("DELETE FROM `files` WHERE `ID` = :id");
   $deleteQuery->execute(["id" => $id]);
 

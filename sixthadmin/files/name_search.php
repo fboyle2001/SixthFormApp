@@ -7,6 +7,7 @@
 	$name = get("name");
 	$selectQuery = null;
 
+  // Use the name given otherwise display them all
 	if($name != null) {
     $selectQuery = Database::get()->prepare("SELECT * FROM `files` WHERE `Name` LIKE '%' :name '%'");
     $selectQuery->execute(["name" => $name]);

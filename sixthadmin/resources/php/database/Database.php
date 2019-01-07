@@ -1,5 +1,6 @@
 <?php
 
+  // Database wrapper. Uses PDO as framework.
   class Database {
 
     private static $instance;

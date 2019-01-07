@@ -12,18 +12,20 @@
     die();
   }
 
+	// GET as it will have to be provided in a link
   $file = get("file");
 
-  //check if the file exists
+  // Check if the file exists
   $selectFile = Database::get()->prepare("SELECT * FROM `files` WHERE `Link` = :link");
   $selectFile->execute(["link" => $file]);
 
+	// Redirect if it does not
   if($selectFile->rowCount() != 1) {
     header("Location: /sixthadmin/files/");
     die();
   }
 
-  //in case a file has not yet been deleted, prevent access to it
+  // In case a file has not yet been deleted, prevent access to it
   $expiryTime = $selectFile->fetch()["ExpiryDate"];
 
   if(time() > $expiryTime) {
@@ -31,11 +33,12 @@
     die();
   }
 
-  //file does exist so now display it
-  //files are kept outside of the public_html folder so jump back ../../../../../files/
+  // File does exist so now display it
+  // Files are kept outside of the public_html folder so jump back ../../../../../files/
 
   $filePath = "../../../files/$file";
 
+	// No erroring and provide a few headers to help
   header("Content-type: application/pdf");
   header("Content-Disposition: inline; filename=$filePath");
   @readfile($filePath);
