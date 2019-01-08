@@ -22,6 +22,10 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Login Page */
 
+#login_logo {
+	top: 5%;
+}
+
 .centred {
   position: absolute;
   top: 50%;
