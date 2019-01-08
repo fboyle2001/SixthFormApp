@@ -40,48 +40,37 @@ function loadPage() {
     logout();
   });
 
-  $("input[name=stylesheet_select]").change(function() {
-    var value = $("input[name=stylesheet_select]:checked").val();
-    Cookies.set("stylesheet", value, {expires: 365});
+  $("input[name=theme_select]").change(function() {
+    var value = $("input[name=theme_select]:checked").val();
+
+    var currentSettings = getUserSettings();
+    currentSettings.theme = value;
+    Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
+
     window.location = "settings.html";
   });
 
   $("input[name=zoom_enabled]").change(function () {
     var value = this.checked;
 
-    if(value == "true" || value === true) {
-      value = "yes";
-    } else {
-      value = "no";
-    }
+    var currentSettings = getUserSettings();
+    currentSettings.scalable = value;
+    Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
 
-    Cookies.set("zoom", value, {expires: 365});
     window.location = "settings.html";
   })
 }
 
 // Set the default radio button based on what the user already has selected
 function setThemeRadio() {
-  var currentStyle = Cookies.get("stylesheet");
-
-  if(currentStyle === undefined) {
-    currentStyle = "light.css";
-  }
-
-  $("input[name=stylesheet_select][value='" + currentStyle + "']").prop("checked", true);
+  var theme = getUserSettings().theme;
+  $("input[name=theme_select][value='" + theme + "']").prop("checked", true);
 }
 
 // Set the default zoom checkbox value based on user's current selection
 function setZoomCheck() {
-  var zoom = Cookies.get("zoom");
-
-  if(zoom === undefined) {
-    zoom = true;
-  }
-
-  if(zoom == "yes") {
-    $("input[name=zoom_enabled]").prop("checked", true);
-  }
+  var zoom = getUserSettings().scalable;
+  $("input[name=zoom_enabled]").prop("checked", zoom);
 }
 
 // If the user wants to log out, remove all of the cookies and redirect to the login
@@ -91,6 +80,7 @@ function logout() {
   Cookies.remove("expire");
   Cookies.remove("must_reset");
   Cookies.remove("last_clear");
+
   window.location = "index.html";
 }
 
