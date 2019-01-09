@@ -13,14 +13,14 @@
 		<div class="menu">
 			<nav>
 				<ul>
-					<a href="home.html"><li>Home</li></a>
-					<li class="current">Documents</li>
-					<a href="links.html"><li>Links</li></a>
-					<a href="settings.html"><li>Settings</li></a>
+					<a href="home.html"><li id="nav_home">Home</li></a>
+					<li class="current" id="nav_documents">Documents</li>
+					<a href="links.html"><li id="nav_links">Links</li></a>
+					<a href="settings.html"><li id="nav_settings">Settings</li></a>
 				</ul>
 			</nav>
 		</div>
-		<div class="content">
+		<div class="content horizontal_centred">
 			<h1 class="header">Notices and Newsletters</h1>
 			<strong><a style="font-size: 18px; text-align: center" id="latest_notice_link"><p>View Latest Notices <span id="latest_notice_name"></span></p></a></strong>
 			<strong><a style="font-size: 18px; text-align: center" id="latest_newsletter_link"><p>View Latest Newsletter (<span id="latest_newsletter_name"></span>)</p></a></strong>
@@ -36,7 +36,7 @@
       <br>
       <h2>Newsletters</h2>
 			<p id="older_newsletters_error"></p>
-			<table id="newsletter_table" class="data-table">
+			<table id="newsletter_table" class="data-table horizontally_centred">
 				<thead>
 					<tr><th>Name</th><th>Added</th><th>Expires</th><th>View</th></tr>
 				</thead>

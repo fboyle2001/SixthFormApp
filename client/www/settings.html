@@ -13,18 +13,16 @@
 		<div class="menu">
 			<nav>
 				<ul>
-					<a href="home.html"><li>Home</li></a>
-					<a href="documents.html"><li>Documents</li></a>
-					<a href="links.html"><li>Links</li></a>
-					<li class="current">Settings</li>
+					<a href="home.html"><li id="nav_home">Home</li></a>
+					<a href="documents.html"><li id="nav_documents">Documents</li></a>
+					<a href="links.html"><li id="nav_links">Links</li></a>
+					<li class="current" id="nav_settings">Settings</li>
 				</ul>
 			</nav>
 		</div>
-		<div class="content">
+		<div class="content horizontal_centred">
 			<h1 class="header">Settings</h1>
-		</div>
-		<br>
-		<div class="content">
+			<br>
 			<h2>Account</h2>
 			<button id="logout">Logout</button>
 			<br>
@@ -37,14 +35,14 @@
 					<tr><td colspan="2"><button id="change_pwd">Change Password</button></td></tr>
 				</table>
 			</form>
-		</div>
-		<br>
-		<div class="content">
+			<br>
 			<h2>App Preferences</h2>
 			<h3>Themes</h3>
+			<p>Note that themes are being actively developed and they are not perfect. Please report any issues using the form provided in the links page.</p>
 			<table>
 				<tr><td>Light</td><td><input type="radio" name="theme_select" value="light"></td></tr>
 				<tr><td>Dark</td><td><input type="radio" name="theme_select" value="dark"></td></tr>
+				<tr><td>Sidebar Light (experimental)</td><td><input type="radio" name="theme_select" value="sidebar_light"></td></tr>
 			</table>
 			<br>
 			<h3>Cache</h3>

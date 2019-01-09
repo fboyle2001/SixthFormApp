@@ -19,6 +19,13 @@ var __themes = {
     images: {
       login_logo: "dark_mca.png"
     }
+  },
+  sidebar_light: {
+    name: "sidebar_light",
+    stylesheet: "sidebar_light.css",
+    images: {
+      login_logo: "light_mca.png"
+    }
   }
 }
 
@@ -78,6 +85,42 @@ function loadElements() {
     // Element exists on this page
     if(document.getElementById(key) != null) {
       $("#" + key).attr("src", "./images/" + images[key]);
+    }
+  }
+
+  if(theme.name == "sidebar_light") {
+    // Load the images
+
+    $("#nav_home").text("");
+
+    if($("#nav_home").hasClass("current")) {
+      $("#nav_home").append('<img width="32" height="32" src="./images/nav_home_clicked.png">');
+    } else {
+      $("#nav_home").append('<img width="32" height="32" src="./images/nav_home.png">');
+    }
+
+    $("#nav_documents").text("");
+
+    if($("#nav_documents").hasClass("current")) {
+      $("#nav_documents").append('<img width="32" height="32" src="./images/nav_documents_clicked.png">');
+    } else {
+      $("#nav_documents").append('<img width="32" height="32" src="./images/nav_documents.png">');
+    }
+
+    $("#nav_links").text("");
+
+    if($("#nav_links").hasClass("current")) {
+      $("#nav_links").append('<img width="32" height="32" src="./images/nav_links_clicked.png">');
+    } else {
+      $("#nav_links").append('<img width="32" height="32" src="./images/nav_links.png">');
+    }
+
+    $("#nav_settings").text("");
+
+    if($("#nav_settings").hasClass("current")) {
+      $("#nav_settings").append('<img width="32" height="32" src="./images/nav_settings_clicked.png">');
+    } else {
+      $("#nav_settings").append('<img width="32" height="32" src="./images/nav_settings.png">');
     }
   }
 }
