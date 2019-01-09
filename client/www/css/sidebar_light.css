@@ -43,16 +43,18 @@ h1, h2, h3, h4, h5, h6 {
 	color: #080D0D;
 	box-sizing: border-box;
 	padding: 2%;
-	padding-left: 50px;
+	padding-left: 13%;
   float: right;
 	width: 100%;
+	overflow-x: hidden;
+	word-wrap: break-word;
 }
 
 .menu {
 	background-color: #080D0D;
 	box-sizing: border-box;
 	margin-bottom: 3%;
-  width: 40px;
+  width: 11%;
   position: fixed;
 	height: 100%;
 	z-index: 1000;
@@ -72,16 +74,16 @@ nav > ul > a {
 }
 
 nav > ul > a > li > img, nav > ul > li > img {
-  vertical-align: middle;
+	transform: translateY(50%);
 }
 
 nav > ul > a > li, nav > ul > li {
 	display: block;
-  height: 40px;
+  height: 10%;
 	padding: 1.5%;
-  padding-bottom: 20px;
+  margin-bottom: 3%;
 	text-align: center;
-  line-height: 54px;
+  line-height: 100%;
 }
 
 .header {
