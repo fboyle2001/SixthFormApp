@@ -1,6 +1,10 @@
 $(document).ready(function() {
-  if(Cookies.get("remember_username") !== "undefined") {
-    $("#username").val(Cookies.get("remember_username"));
+  Cookies.remove("remember_me");
+  Cookies.remove("stylesheet");
+  Cookies.remove("zoom");
+
+  if(getUserSettings().remember.enabled === true) {
+    $("#username").val(getUserSettings().remember.username);
     $("#remember_me").prop("checked", true);
   }
 
@@ -28,9 +32,15 @@ $(document).ready(function() {
 
       // Remember their username if they ticked the box
       if($("#remember_me").is(":checked")) {
-        Cookies.set("remember_username", $("#username").val(), {expires: 365});
+        var currentSettings = getUserSettings();
+        currentSettings.remember.enabled = true;
+        currentSettings.remember.username = $("#username").val();
+        Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
       } else {
-        Cookies.remove("remember_username");
+        var currentSettings = getUserSettings();
+        currentSettings.remember.enabled = false;
+        currentSettings.remember.username = "";
+        Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
       }
 
       // If they are being forced to reset their password, redirect them
@@ -81,7 +91,7 @@ function performLogin(username, password, base, onerror, start) {
 
   $("#message").text("Logging in, please wait...");
   $("#message").data("changed", 0);
-  waitForLoginCompletion(250, 24, 0, start); //max wait 6 seconds
+  waitForLoginCompletion(250, 32, 0, start); //max wait 8 seconds
 }
 
 // Waits for a response from the server by timing out the process
@@ -89,6 +99,7 @@ function waitForLoginCompletion(timePerPause, maxPauses, count, callback) {
   if(count >= maxPauses) {
     if($("#message").data("changed") == 0) {
       $("#message").text("Server timed out. Please try again.");
+      $("#login").prop("disabled", false);
     }
 
     return;

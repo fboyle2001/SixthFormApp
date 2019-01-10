@@ -55,7 +55,11 @@ function loadSettings() {
 
     saved = JSON.stringify({
       theme: "light",
-      scalable: false
+      scalable: false,
+      remember: {
+        enabled: false,
+        username: ""
+      }
     });
 
     // Should last for their entire duration at sixth form (4 years to account
