@@ -32,6 +32,13 @@ function loadPage() {
     sendAlert("Cache cleared.");
   });
 
+  $("#reset_settings").click(function (e) {
+    e.preventDefault();
+    Cookies.remove("settings");
+    alert("Reset settings.");
+    window.location = "settings.html";
+  })
+
   $("#logout").click(function (e) {
     e.preventDefault();
     logout();
