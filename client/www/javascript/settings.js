@@ -17,16 +17,13 @@ function loadPage() {
     var next = Cookies.get("next_clear");
     var currentTime = Math.floor(Date.now() / 1000);
 
-    // If it's the first time let them do it
-    if(next === undefined) {
-      clearStorage();
-      return;
-    }
-
-    // If they still have time remaining tell them
-    if(next > currentTime) {
-      sendAlert("You can only clear the cache once every 2 minutes.");
-      return;
+    // If it's the first time let them do it regardless
+    if(next !== undefined) {
+      // If they still have time remaining tell them
+      if(next > currentTime) {
+        sendAlert("You can only clear the cache once every 2 minutes.");
+        return;
+      }
     }
 
     // Clear the cache
