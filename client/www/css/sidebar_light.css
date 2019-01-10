@@ -113,6 +113,7 @@ nav > ul > a > li, nav > ul > li {
 table.data-table {
 	border: 1px #b4b6b6 solid;
 	border-collapse: collapse;
+	width: 100%;
 }
 
 table.data-table > tbody > tr > td, table.data-table > thead > tr > th {

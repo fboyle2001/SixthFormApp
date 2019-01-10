@@ -9,6 +9,7 @@ var __themes = {
   light: {
     name: "light",
     stylesheet: "light.css",
+    icons: false,
     images: {
       login_logo: "light_mca.png"
     }
@@ -16,6 +17,7 @@ var __themes = {
   dark: {
     name: "dark",
     stylesheet: "dark.css",
+    icons: false,
     images: {
       login_logo: "dark_mca.png"
     }
@@ -23,6 +25,7 @@ var __themes = {
   sidebar_light: {
     name: "sidebar_light",
     stylesheet: "sidebar_light.css",
+    icons: true,
     images: {
       login_logo: "light_mca.png"
     }
@@ -88,7 +91,7 @@ function loadElements() {
     }
   }
 
-  if(theme.name == "sidebar_light") {
+  if(theme.icons == true) {
     // Load the images
 
     $("#nav_home").text("");
@@ -122,6 +125,16 @@ function loadElements() {
     } else {
       $("#nav_settings").append('<img width="32" height="32" src="./images/nav_settings.png">');
     }
+
+    $("#nav_calendar").text("");
+
+    if($("#nav_calendar").hasClass("current")) {
+      $("#nav_calendar").append('<img width="32" height="32" src="./images/nav_calendar_clicked.png">');
+    } else {
+      $("#nav_calendar").append('<img width="32" height="32" src="./images/nav_calendar.png">');
+    }
+  } else {
+    $("#experimental_calendar").remove();
   }
 }
 
