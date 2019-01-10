@@ -51,7 +51,7 @@ function processData(result) {
     var date = new Date(item["DateAdded"] * 1000);
     var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
 
-    $("#announcements_table > tbody").append('<tr><td>' + item["ID"] + '</td><td>' + item["Title"] + '</td><td>' + item["Content"] + '</td><td>' + item["GroupName"] + '</td><td>' + displayDate + '</td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
+    $("#announcements_table > tbody").append('<tr><td>' + item["Title"] + '</td><td>' + item["Content"] + '</td><td>' + item["GroupName"] + '</td><td>' + displayDate + '</td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
   });
 
   $("#announcements_table").append("</tbody>");

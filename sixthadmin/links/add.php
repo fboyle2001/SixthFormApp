@@ -7,7 +7,9 @@
 
   $message = "";
 
+  // User has submitted POST data
   if($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get the posted variables 
     $name = post("link_name");
     $expiryDate = post("expirydate");
     $url = post("url");
@@ -18,11 +20,14 @@
       $message = "The URL must be set.";
     } else {
       if($expiryDate == null) {
-        $expiryDate = 2147483647; //large date
+        // Max date runs out in about 2038
+        $expiryDate = 2147483647;
       } else {
-        $expiryDate = strtotime($expiryDate) + 60 * 60 * 2; //account for timezone issues
+        // Add a few hours just in case probably be removed now though
+        $expiryDate = strtotime($expiryDate) + 60 * 60 * 2;
       }
 
+      // Put the link in the database
       $insertQuery = Database::get()->prepare("INSERT INTO `links` (`Name`, `ExpiryDate`, `Link`) VALUES (:name, :expiry, :url)");
       $insertQuery->execute(["name" => $name, "expiry" => $expiryDate, "url" => $url]);
 

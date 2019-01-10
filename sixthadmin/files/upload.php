@@ -7,7 +7,9 @@
 
 	$message = "";
 
+  // User submits data
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Get submitted information
 		$displayName = post("displayName");
 		$type = post("type");
 		$expiryDate = post("expiryDate");
@@ -21,34 +23,45 @@
 		} else if (!in_array($type, [1, 2])){
 			$message = "Type is invalid.";
 		} else {
+      // Jump back to outside public_html
 			$base = "../../../files/";
+      // Generate a random name though may be unnecessary to prevent access to
+      // other files
 			$randomName = random_str(16) . "_$type.pdf";
 			$storageFile = $base . $randomName;
 
+      // Happened to collide but very unlikely as 62^16 file names
 			if(file_exists($storageFile)) {
 				$message = "An issue occured with saving the file. Please try again.";
 			} else if($_FILES["uploadedFile"]["size"] > 15000000) {
+        // 15 mb should be okay for now
 				$message = "File size is currently limited to 15mb, this file is too big.";
 			} else if(strtolower(pathinfo($_FILES["uploadedFile"]["name"], PATHINFO_EXTENSION)) != "pdf") {
+        // Only accepting pdfs at the moment
 				$message = "File must be a pdf.";
 			} else {
+        // Move the file
 				$result = move_uploaded_file($_FILES["uploadedFile"]["tmp_name"], $storageFile);
 
+        // Was successful?
 				if($result == true) {
 					$addedDate = time();
 
 					if($expiryDate == null) {
+            // Max date for 32 bit integer, runs out in 2038.
 						$expiryDate = 2147483647;
 					} else {
 			      $expiryDate = strtotime($expiryDate) + 60 * 60 * 2; //account for timezone issues (CHECK??)
 					}
 
+          // Put a reference to it in the database
           $insertQuery = Database::get()->prepare("INSERT INTO `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) VALUES (:name, :added, :expiry, :type, :link)");
           $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $randomName]);
 
 					if($insertQuery == true) {
 						$message = "Successfully uploaded file.";
 					} else {
+            // Probably means database is down
 						$message = "File uploaded but unable to add database. This shouldn't happen.";
 					}
 				} else {

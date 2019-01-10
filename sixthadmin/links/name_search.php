@@ -7,6 +7,7 @@
 	$name = get("name");
 	$selectQuery = "SELECT * FROM `links`";
 
+  // If they have set a name parameter use it. Otherwise list them all.
 	if($name != null) {
     $selectQuery = Database::get()->prepare("SELECT * FROM `links` WHERE `Name` LIKE '%' :name '%'");
 		$selectQuery->execute(["name" => $name]);

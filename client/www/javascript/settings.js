@@ -2,7 +2,8 @@
 
 // Register the click handlers
 function loadPage() {
-  setStyleRadio();
+  setThemeRadio();
+  setZoomCheck();
 
   $("#change_pwd").click(function (e) {
     e.preventDefault();
@@ -16,16 +17,13 @@ function loadPage() {
     var next = Cookies.get("next_clear");
     var currentTime = Math.floor(Date.now() / 1000);
 
-    // If it's the first time let them do it
-    if(next === undefined) {
-      clearStorage();
-      return;
-    }
-
-    // If they still have time remaining tell them
-    if(next > currentTime) {
-      sendAlert("You can only clear the cache once every 2 minutes.");
-      return;
+    // If it's the first time let them do it regardless
+    if(next !== undefined) {
+      // If they still have time remaining tell them
+      if(next > currentTime) {
+        sendAlert("You can only clear the cache once every 2 minutes.");
+        return;
+      }
     }
 
     // Clear the cache
@@ -34,27 +32,49 @@ function loadPage() {
     sendAlert("Cache cleared.");
   });
 
+  $("#reset_settings").click(function (e) {
+    e.preventDefault();
+    Cookies.remove("settings");
+    alert("Reset settings.");
+    window.location = "settings.html";
+  })
+
   $("#logout").click(function (e) {
     e.preventDefault();
     logout();
   });
 
-  $("input[name=stylesheet_select]").change(function() {
-    var value = $("input[name=stylesheet_select]:checked").val();
-    Cookies.set("stylesheet", value, {expires: 365});
+  $("input[name=theme_select]").change(function() {
+    var value = $("input[name=theme_select]:checked").val();
+
+    var currentSettings = getUserSettings();
+    currentSettings.theme = value;
+    Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
+
     window.location = "settings.html";
   });
+
+  $("input[name=zoom_enabled]").change(function () {
+    var value = this.checked;
+
+    var currentSettings = getUserSettings();
+    currentSettings.scalable = value;
+    Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
+
+    window.location = "settings.html";
+  })
 }
 
 // Set the default radio button based on what the user already has selected
-function setStyleRadio() {
-  var currentStyle = Cookies.get("stylesheet");
+function setThemeRadio() {
+  var theme = getUserSettings().theme;
+  $("input[name=theme_select][value='" + theme + "']").prop("checked", true);
+}
 
-  if(currentStyle === undefined) {
-    currentStyle = "light.css";
-  }
-
-  $("input[name=stylesheet_select][value='" + currentStyle + "']").prop("checked", true);
+// Set the default zoom checkbox value based on user's current selection
+function setZoomCheck() {
+  var zoom = getUserSettings().scalable;
+  $("input[name=zoom_enabled]").prop("checked", zoom);
 }
 
 // If the user wants to log out, remove all of the cookies and redirect to the login
@@ -64,6 +84,7 @@ function logout() {
   Cookies.remove("expire");
   Cookies.remove("must_reset");
   Cookies.remove("last_clear");
+
   window.location = "index.html";
 }
 

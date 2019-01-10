@@ -72,6 +72,7 @@ function loadNotices(data) {
 
   if(data["content"]["found"] == false) {
     $("#older_notices_error").text("No notices found.");
+    $("#notices_table").hide();
     return;
   }
 
@@ -122,6 +123,7 @@ function loadNewsletters(data) {
 
   if(data["content"]["found"] == false) {
     $("#older_newsletters_error").text("No newsletters found.");
+    $("#newsletter_table").hide();
     return;
   }
 

@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https: http: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src * ; script-src 'self' 'unsafe-inline' 'unsafe-eval';">
-		<meta name="viewport" content="user-scalable=yes, initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
 		<script src="./javascript/jquery-3.2.1.min.js"></script>
 		<script src="./javascript/js.cookie.js"></script>
 		<script src="cordova.js"></script>
@@ -14,18 +13,17 @@
 		<div class="menu">
 			<nav>
 				<ul>
-					<a href="home.html"><li>Home</li></a>
-					<a href="documents.html"><li>Documents</li></a>
-					<a href="links.html"><li>Links</li></a>
-					<li class="current">Settings</li>
+					<a href="home.html"><li id="nav_home">Home</li></a>
+					<a href="documents.html"><li id="nav_documents">Documents</li></a>
+					<a href="links.html"><li id="nav_links">Links</li></a>
+					<a href="calendar.html" id="experimental_calendar"><li id="nav_calendar"></li></a>
+					<li class="current" id="nav_settings">Settings</li>
 				</ul>
 			</nav>
 		</div>
-		<div class="content">
+		<div class="content horizontal_centred">
 			<h1 class="header">Settings</h1>
-		</div>
-		<br>
-		<div class="content">
+			<br>
 			<h2>Account</h2>
 			<button id="logout">Logout</button>
 			<br>
@@ -38,18 +36,28 @@
 					<tr><td colspan="2"><button id="change_pwd">Change Password</button></td></tr>
 				</table>
 			</form>
-		</div>
-		<br>
-		<div class="content">
+			<br>
 			<h2>App Preferences</h2>
-			<h3>Style</h3>
+			<h3>Themes</h3>
+			<p>Note that themes are incomplete. Please send any feedbacks or ideas using the form on the links page.</p>
+			<p>The sidebar theme is experimental and adds a new tab to the navigation</p>
 			<table>
-				<tr><td>Light</td><td><input type="radio" name="stylesheet_select" value="light.css"></td></tr>
-				<tr><td>Dark</td><td><input type="radio" name="stylesheet_select" value="dark.css"></td></tr>
+				<tr><td>Light</td><td><input type="radio" name="theme_select" value="light"></td></tr>
+				<tr><td>Dark</td><td><input type="radio" name="theme_select" value="dark"></td></tr>
+				<tr><td>Sidebar Light (experimental)</td><td><input type="radio" name="theme_select" value="sidebar_light"></td></tr>
 			</table>
 			<br>
 			<h3>Cache</h3>
 			<button id="clear_cache">Clear Cache</button>
+			<br>
+			<br>
+			<h3>Zoom</h3>
+			<span>Zoom Enabled: </span><input type="checkbox" name="zoom_enabled">
+			<br>
+			<br>
+			<h3>Reset Settings</h3>
+			<p>Note, this will reset your selected theme, remember me preference, zoom preference etc.</p>
+			<button id="reset_settings">Reset Settings</button>
 		</div>
 	</body>
 </html>

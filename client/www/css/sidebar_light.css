@@ -43,14 +43,21 @@ h1, h2, h3, h4, h5, h6 {
 	color: #080D0D;
 	box-sizing: border-box;
 	padding: 2%;
-	padding-top: 0%;
+	padding-left: 13%;
+  float: right;
 	width: 100%;
+	overflow-x: hidden;
+	word-wrap: break-word;
 }
 
 .menu {
 	background-color: #080D0D;
 	box-sizing: border-box;
 	margin-bottom: 3%;
+  width: 11%;
+  position: fixed;
+	height: 100%;
+	z-index: 1000;
 }
 
 nav, nav > ul {
@@ -63,16 +70,20 @@ nav > ul > a {
 	color: #F8F8FF;
 	margin: 0;
 	padding: 0;
-	height: 100%;
 	text-decoration: none;
 }
 
+nav > ul > a > li > img, nav > ul > li > img {
+	transform: translateY(50%);
+}
+
 nav > ul > a > li, nav > ul > li {
-	display: inline-block;
-	width: 21%; /* Precise enough to remove gap at the end hopefully */
+	display: block;
+  height: 10%;
 	padding: 1.5%;
-	height: 100%;
+  margin-bottom: 3%;
 	text-align: center;
+  line-height: 100%;
 }
 
 .header {
@@ -102,6 +113,7 @@ nav > ul > a > li, nav > ul > li {
 table.data-table {
 	border: 1px #b4b6b6 solid;
 	border-collapse: collapse;
+	width: 100%;
 }
 
 table.data-table > tbody > tr > td, table.data-table > thead > tr > th {
@@ -118,6 +130,7 @@ table.data-table > thead > tr > th {
 table.data-table > tbody > tr > td {
 	border-color #6a6d6d;
 }
+
 
 table.data-table > tbody > tr:nth-child(even) {
 	background-color: #6a6d6d;

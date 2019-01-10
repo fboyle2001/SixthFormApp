@@ -5,6 +5,7 @@
 
   include("ReplyStatus.php");
 
+  // Used to form a standard format for the response to queries
   class Reply {
 
     public $status;

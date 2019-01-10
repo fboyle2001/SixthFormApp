@@ -3,6 +3,7 @@
     die("403");
   }
 
+  // Defines the status object in the JSON consists of a code and description
   class ReplyStatus {
 
     public $code;

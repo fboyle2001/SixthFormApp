@@ -3,6 +3,7 @@
     die("403");
   }
 
+  // Database access class. Uses PDO as the underlying framework.
   class Database {
 
     private static $instance;

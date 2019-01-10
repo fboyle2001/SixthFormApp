@@ -11,6 +11,7 @@
     die($reply->toJson());
   }
 
+  // Check the ID exists first
   $selectQuery = Database::get()->prepare("SELECT * FROM `links` WHERE `ID` = :id");
   $selectQuery->execute(["id" => $id]);
 
@@ -19,6 +20,7 @@
     die($reply->toJson());
   }
 
+  // Delete only that specific ID
   $deleteQuery = Database::get()->prepare("DELETE FROM `links` WHERE `ID` = :id");
   $deleteQuery->execute(["id" => $id]);
 

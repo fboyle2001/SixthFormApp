@@ -9,6 +9,7 @@
 
 	$message = "";
 
+	// If the user has submitted POST data process it
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		if(!has_arg("POST", "password")) {
 			$message = "No password set";
@@ -19,9 +20,11 @@
 				$password = post("password");
 				$confirmation = post("confirmation");
 
+				// Confirm passwords match
 				if($password !== $confirmation) {
 					$message = "Passwords do not match";
 				} else {
+					// Hash and store the password
 					$hashedPassword = password_hash($password, PASSWORD_BCRYPT, ["cost" => $cost]);
 
 					$update = Database::get()->prepare("UPDATE `accounts` SET `Password` = :password WHERE `Username` = :username");
