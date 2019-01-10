@@ -32,6 +32,15 @@ var __themes = {
   }
 }
 
+var __defaultSettings = {
+  theme: "light",
+  scalable: false,
+  remember: {
+    enabled: false,
+    username: ""
+  }
+};
+
 // Store them as they will be used by other functions
 // try to hide them though as global variables in this could cause major issues
 // as this file is always called
@@ -45,6 +54,30 @@ function getUserTheme() {
   return __themes[getUserSettings().theme];
 }
 
+function amendSettings(settings) {
+  var amended = false;
+
+  if(settings.theme === undefined) {
+    amended = true;
+    settings.theme = "light";
+  }
+
+  if(settings.scalable === undefined) {
+    amended = true;
+    settings.scalable = false;
+  }
+
+  if(settings.remember === undefined) {
+    amended = true;
+    settings.remember = {
+      enabled: false,
+      username: ""
+    };
+  }
+
+  return [settings, amended];
+}
+
 // Load the user's settings
 function loadSettings() {
   var saved = Cookies.get("settings");
@@ -52,19 +85,18 @@ function loadSettings() {
   if(saved == undefined) {
     // Default settings
     // Must stringify otherwise will error on first try
-
-    saved = JSON.stringify({
-      theme: "light",
-      scalable: false,
-      remember: {
-        enabled: false,
-        username: ""
-      }
-    });
+    saved = JSON.stringify(__defaultSettings);
 
     // Should last for their entire duration at sixth form (4 years to account
     // for issues caused by leap days)
     Cookies.set("settings", saved, {expires: 1460});
+  } else {
+    result = amendSettings(JSON.parse(saved));
+
+    if(result[1] == true) {
+      saved = result[0];
+      Cookies.set("settings", saved, {expires: 1460});
+    }
   }
 
   return JSON.parse(saved);
