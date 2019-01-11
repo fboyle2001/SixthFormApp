@@ -18,16 +18,15 @@
     $reply->setStatus(ReplyStatus::withData(400, "Invalid ID"));
     die($reply->toJson());
   }
-	
-  $validationQuery = Database::get()->query("SELECT `Year` FROM `accounts` WHERE `ID` = $id");
+
+  $validationQuery = Database::get()->prepare("SELECT `Year` FROM `accounts` WHERE `ID` = :id");
+  $validationQuery->execute(["id" => $id]);
   $data = $validationQuery->fetch(PDO::FETCH_OBJ);
-  
+
   if($data->Year == 12) {
 	 $Year = 0;
-  }
-  else{
+  } else {
 	 $Year = 1;
-	
   }
 
   $resetQuery = Database::get()->prepare("UPDATE `accounts` SET `Year` = `Year` - $Year WHERE `ID` = :id");
@@ -38,6 +37,6 @@
     die($reply->toJson());
   }
 
-  $reply->setStatus(ReplyStatus::withData(200, "Successfully rolledback"));
+  $reply->setStatus(ReplyStatus::withData(200, "Successfully rolled back"));
   echo $reply->toJson();
 ?>

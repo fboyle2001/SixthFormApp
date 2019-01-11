@@ -29,7 +29,14 @@ function process(result) {
 
 	$("#account_table").append("<tbody>");
 	$.each(result["content"]["records"], function (index, item) {
-		$("#account_table > tbody").append('<tr><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td><td id="rollback_' + item["ID"] + '"><a href="javascript:rollback(' + item["ID"] + ')">Rollback</a></td></tr>');
+		var year = item["IsAdmin"] == 0 ? item["Year"] : "Admin";
+		var rollback = "N/A";
+
+		if(item["IsAdmin"] == 0 && item["Year"] == 13) {
+			rollback = '<a href="javascript:rollback(' + item["ID"] + ')">Rollback</a>';
+		}
+
+		$("#account_table > tbody").append('<tr><td>' + item["Username"] + '</td><td id="year_group_' + item["ID"] + '">' + year + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td><td id="rollback_' + item["ID"] + '">' + rollback + '</td></tr>');
 	});
 	$("#account_table").append("</tbody>");
 }
@@ -97,9 +104,6 @@ function processResetResult(data, id) {
 	$("#reset_" + id).text(status["description"]);
 }
 
-
-
-
 function rollback(id) {
   var certain = confirm("Are you sure you want to rollback a year for this account?");
 
@@ -129,5 +133,10 @@ function rollback(id) {
 function processRollbackResult(data, id) {
 	var status = data["status"];
 	var code = status["code"];
+
+	if(code == 200) {
+		$("#year_group_" + id).text("12");
+	}
+
 	$("#rollback_" + id).text(status["description"]);
 }
