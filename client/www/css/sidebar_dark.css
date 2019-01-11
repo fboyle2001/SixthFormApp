@@ -11,6 +11,8 @@ body {
   overflow-x: hidden;
 	margin: 0;
 	padding: 0;
+  color: #F8F8FF;
+	background-color: #080D0D;
 	padding-top: env(safe-area-inset-top);
 }
 
@@ -41,7 +43,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Home Page */
 
 .content {
-	color: #080D0D;
+	color: #F8F8FF;
 	box-sizing: border-box;
 	padding: 2%;
 	padding-left: 13%;
@@ -104,8 +106,8 @@ nav > ul > a > li, nav > ul > li {
 }
 
 .current {
-	background-color: white;
-	color: #080D0D;
+	background-color: #b4b6b6;
+	color: #F8F8FF;
 	border: 0px;
 }
 

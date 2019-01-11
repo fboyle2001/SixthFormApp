@@ -9,7 +9,7 @@ var __themes = {
   light: {
     name: "light",
     stylesheet: "light.css",
-    icons: false,
+    icons: true,
     images: {
       login_logo: "light_mca.png"
     }
@@ -17,7 +17,7 @@ var __themes = {
   dark: {
     name: "dark",
     stylesheet: "dark.css",
-    icons: false,
+    icons: true,
     images: {
       login_logo: "dark_mca.png"
     }
@@ -29,8 +29,16 @@ var __themes = {
     images: {
       login_logo: "light_mca.png"
     }
+  },
+  sidebar_dark: {
+    name: "sidebar_dark",
+    stylesheet: "sidebar_dark.css",
+    icons: true,
+    images: {
+      login_logo: "dark_mca.png"
+    }
   }
-}
+};
 
 var __defaultSettings = {
   theme: "light",
@@ -39,7 +47,7 @@ var __defaultSettings = {
     enabled: false,
     username: ""
   }
-};
+}
 
 // Store them as they will be used by other functions
 // try to hide them though as global variables in this could cause major issues

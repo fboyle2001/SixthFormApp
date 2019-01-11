@@ -11,7 +11,7 @@ body {
   overflow-x: hidden;
 	margin: 0;
 	padding: 0;
-	padding-top: env(safe-area-inset-top); 
+	padding-top: env(safe-area-inset-top);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -68,9 +68,13 @@ nav > ul > a {
 	text-decoration: none;
 }
 
+nav > ul > a > li > img, nav > ul > li > img {
+	transform: translateY(5%);
+}
+
 nav > ul > a > li, nav > ul > li {
 	display: inline-block;
-	width: 21%; /* Precise enough to remove gap at the end hopefully */
+	width: 16.25%; /* Precise enough to remove gap at the end hopefully */
 	padding: 1.5%;
 	height: 100%;
 	text-align: center;

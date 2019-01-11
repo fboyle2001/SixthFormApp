@@ -32,7 +32,7 @@ function process(result) {
 		var year = item["IsAdmin"] == 0 ? item["Year"] : "Admin";
 		var rollback = "N/A";
 
-		if(item["IsAdmin"] == 0 && item["Year"] == 13) {
+		if(item["IsAdmin"] == 0 && item["Year"] == 13 || item["IsAdmin"] == 0 && item["Year"] == 14) {
 			rollback = '<a href="javascript:rollback(' + item["ID"] + ')">Rollback</a>';
 		}
 
