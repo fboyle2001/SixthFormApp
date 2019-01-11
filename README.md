@@ -9,8 +9,7 @@ App Store: Unreleased
 - vX.Y.Z-type: Contains the latest changes and typically corresponds to a project. This branch will eventually be merged to the master branch when it is ready.
 
 ## Projects
-The current major project is **v0.7.0-beta** and corresponds to the branch *v0.7.0-beta*. \
-The current minor project is **v0.6.2-beta** and corresponds to the branch *v0.6.2-beta*.
+The current major project is **v0.7.0-beta** and corresponds to the branch *v0.7.0-beta*. 
 
 ## Contributing
 There are two main ways to contribute:
