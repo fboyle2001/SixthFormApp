@@ -13,6 +13,7 @@ body {
 	padding: 0;
 	color: #F8F8FF;
 	background-color: #080D0D;
+	padding-top: env(safe-area-inset-top); 
 }
 
 h1, h2, h3, h4, h5, h6 {
