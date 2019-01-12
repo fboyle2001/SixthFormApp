@@ -146,7 +146,7 @@ function loadElements() {
 
   // Set status bar colour
   // Only do it once to stop flickering
-  if(Cookies.get("status_bar_changed") !== true) {
+  if(Cookies.get("status_bar_changed") !== "true") {
     StatusBar.overlaysWebView(false);
     StatusBar.backgroundColorByHexString(theme.statusbar.background);
     StatusBar.show();
