@@ -135,7 +135,7 @@ function processRollbackResult(data, id) {
 	var code = status["code"];
 
 	if(code == 200) {
-		$("#year_group_" + id).text("12");
+		$("#year_group_" + id).text(data["content"]["new_year"]);
 	}
 
 	$("#rollback_" + id).text(status["description"]);

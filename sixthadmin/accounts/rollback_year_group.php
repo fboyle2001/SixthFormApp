@@ -38,5 +38,6 @@
   }
 
   $reply->setStatus(ReplyStatus::withData(200, "Successfully rolled back"));
+  $reply->setValue("new_year", $data->Year - $Year);
   echo $reply->toJson();
 ?>
