@@ -36,6 +36,10 @@
 
       if($insertQuery == true) {
         $message = "Made announcement with title $title.";
+        $trimmedTitle = strlen($title) > 97 ? substr($title, 0, 97) . '...' : $title;
+
+        // Made an announcement so push it
+        sendNotification("Announcement", $trimmedTitle);
       } else {
         $message = "Unable to make announcement at this time, please try again later.";
       }

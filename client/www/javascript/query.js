@@ -164,7 +164,7 @@ function cacheContent(key, content) {
 // When the device has loaded this is run
 function onDeviceReady() {
   window.plugins.OneSignal.startInit('a9171e05-26dd-49d2-9a57-c4ab6c423dcc').handleNotificationOpened(function(data) {
-    sendAlert(data);
+    // Do nothing yet
   }).endInit();
 
   $(document).ready(function () {

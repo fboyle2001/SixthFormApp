@@ -11,6 +11,7 @@
   // Includes the database connection
 	require(__DIR__ . "/resources/php/database/Database.php");
 	require(__DIR__ . "/resources/php/Reply.php");
+	require(__DIR__ . "/resources/php/keys.php");
 
   // Starts the session
 	session_start();
@@ -144,4 +145,42 @@
 
     return $result;
   }
+
+	// Sends
+	function sendNotification($heading, $description) {
+		$contents = ["en" => $description];
+		$headings = ["en" => $heading];
+
+		$payload = [
+			"app_id" => "a9171e05-26dd-49d2-9a57-c4ab6c423dcc",
+			"included_segments" => ["All"],
+			"contents" => $contents,
+			"headings" => $headings,
+			"ios_badgeType" => "Increase",
+			"ios_badgeCount" => 1
+		];
+
+		$url = "https://onesignal.com/api/v1/notifications/";
+
+		$headers = [
+			"Content-Type: application/json; charset=utf-8",
+			"Authorization: Basic " . ONESIGNAL_API_KEY
+		];
+
+		$payload = json_encode($payload);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return $response;
+	}
 ?>
