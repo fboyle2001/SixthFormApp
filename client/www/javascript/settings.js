@@ -50,6 +50,7 @@ function loadPage() {
     var currentSettings = getUserSettings();
     currentSettings.theme = value;
     Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
+    Cookies.remove("status_bar_changed");
 
     window.location = "settings.html";
   });

@@ -13,6 +13,9 @@ var __themes = {
     icons: true,
     images: {
       login_logo: "light_mca.png"
+    },
+    statusbar: {
+      background: "#FFFFFF"
     }
   },
   dark: {
@@ -22,6 +25,9 @@ var __themes = {
     icons: true,
     images: {
       login_logo: "dark_mca.png"
+    },
+    statusbar: {
+      background: "#303030"
     }
   },
   sidebar_light: {
@@ -31,6 +37,9 @@ var __themes = {
     icons: true,
     images: {
       login_logo: "light_mca.png"
+    },
+    statusbar: {
+      background: "#FFFFFF"
     }
   },
   sidebar_dark: {
@@ -40,6 +49,9 @@ var __themes = {
     icons: true,
     images: {
       login_logo: "dark_mca.png"
+    },
+    statusbar: {
+      background: "#303030"
     }
   }
 };
@@ -132,6 +144,22 @@ function loadElements() {
   var theme = getUserTheme();
   var images = theme.images;
 
+  // Set status bar colour
+  // Only do it once to stop flickering
+  if(Cookies.get("status_bar_changed") !== true) {
+    StatusBar.overlaysWebView(false);
+    StatusBar.backgroundColorByHexString(theme.statusbar.background);
+    StatusBar.show();
+
+    if(theme.dark == true) {
+      StatusBar.styleBlackOpaque();
+    } else {
+      StatusBar.styleDefault();
+    }
+
+    Cookies.set("status_bar_changed", true);
+  }
+
   for(var key in images) {
     // Element exists on this page
     if(document.getElementById(key) != null) {
@@ -187,6 +215,6 @@ function loadElements() {
 $("head").append(produceStyleElement());
 $("head").append(produceViewportElement());
 
-$(document).ready(function() {
+document.addEventListener("deviceready", function() {
   loadElements();
-});
+}, false);
