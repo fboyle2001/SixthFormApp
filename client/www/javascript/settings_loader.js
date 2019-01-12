@@ -62,7 +62,8 @@ var __defaultSettings = {
   remember: {
     enabled: false,
     username: ""
-  }
+  },
+  pushId: ""
 }
 
 // Store them as they will be used by other functions
@@ -98,6 +99,10 @@ function amendSettings(settings) {
       username: ""
     };
   }
+  if(settings.pushId == undefined) {
+    amended = true;
+    settings.pushId = "";
+  }
 
   return [settings, amended];
 }
@@ -115,7 +120,7 @@ function loadSettings() {
     // for issues caused by leap days)
     Cookies.set("settings", saved, {expires: 1460});
   } else {
-    result = amendSettings(JSON.parse(saved));
+    result = JSON.stringify(amendSettings(JSON.parse(saved)));
 
     if(result[1] == true) {
       saved = result[0];
@@ -145,20 +150,16 @@ function loadElements() {
   var images = theme.images;
 
   // Set status bar colour
-  // Only do it once to stop flickering
-  if(Cookies.get("status_bar_changed") !== "true") {
-    StatusBar.overlaysWebView(false);
-    StatusBar.backgroundColorByHexString(theme.statusbar.background);
-    StatusBar.show();
+  StatusBar.overlaysWebView(false);
+  StatusBar.backgroundColorByHexString(theme.statusbar.background);
 
-    if(theme.dark == true) {
-      StatusBar.styleBlackOpaque();
-    } else {
-      StatusBar.styleDefault();
-    }
-
-    Cookies.set("status_bar_changed", true);
+  if(theme.dark == true) {
+    StatusBar.styleBlackOpaque();
+  } else {
+    StatusBar.styleDefault();
   }
+
+  StatusBar.show();
 
   for(var key in images) {
     // Element exists on this page
