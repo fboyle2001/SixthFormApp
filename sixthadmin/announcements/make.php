@@ -20,6 +20,7 @@
     $title = post("title");
     $content = post("content");
 		$group = post("group");
+    $push = post("push");
 
     if($title == null) {
       $message = "Title cannot be empty.";
@@ -36,32 +37,36 @@
 
       if($insertQuery == true) {
         $message = "Made announcement with title $title.";
-        $trimmedTitle = strlen($title) > 97 ? substr($title, 0, 97) . '...' : $title;
 
-        // Made an announcement so push it
+        // Only push if requested
+        if($push == true) {
+          $trimmedTitle = strlen($title) > 97 ? substr($title, 0, 97) . '...' : $title;
 
-        if($group == -999) {
-          // All
-          sendNotificationToAll("Announcement to All", $trimmedTitle);
-        } else if ($group == -998) {
-          // Year 12
-          sendNotificationToYear("Announcement to Year 12", $trimmedTitle, 12);
-        } else if ($group == -997) {
-          // Year 13
-          sendNotificationToYear("Announcement to Year 13", $trimmedTitle, 13);
-        } else if ($group == -996) {
-          sendNotificationToAdmins("Announcement to Admins", $trimmedTitle);
-        } else {
-          $groupNameQuery = Database::get()->prepare("SELECT `GroupName` FROM `groups` WHERE `ID` = :groupId");
-          $groupNameQuery->execute(["groupId" => $group]);
+          // Made an announcement so push it
 
-          $groupName = "";
+          if($group == -999) {
+            // All
+            sendNotificationToAll("Announcement to All", $trimmedTitle);
+          } else if ($group == -998) {
+            // Year 12
+            sendNotificationToYear("Announcement to Year 12", $trimmedTitle, 12);
+          } else if ($group == -997) {
+            // Year 13
+            sendNotificationToYear("Announcement to Year 13", $trimmedTitle, 13);
+          } else if ($group == -996) {
+            sendNotificationToAdmins("Announcement to Admins", $trimmedTitle);
+          } else {
+            $groupNameQuery = Database::get()->prepare("SELECT `GroupName` FROM `groups` WHERE `ID` = :groupId");
+            $groupNameQuery->execute(["groupId" => $group]);
 
-          if($groupNameQuery->rowCount() == 1) {
-            $groupName = " to " . $groupNameQuery->fetch(PDO::FETCH_ASSOC)["GroupName"];
+            $groupName = "";
+
+            if($groupNameQuery->rowCount() == 1) {
+              $groupName = " to " . $groupNameQuery->fetch(PDO::FETCH_ASSOC)["GroupName"];
+            }
+
+            sendNotificationToGroup("Announcement" . $groupName, $trimmedTitle, $group);
           }
-
-          sendNotificationToGroup("Announcement" . $groupName, $trimmedTitle, $group);
         }
       } else {
         $message = "Unable to make announcement at this time, please try again later.";
@@ -101,6 +106,7 @@
 								</select>
 							</td>
 						</tr>
+            <tr><td>Push Notification:</td><td><input type="checkbox" name="push" checked></td></tr>
             <tr><td colspan="2"><input type="submit" value="Make Announcement"></td></tr>
           </table>
       </form>
