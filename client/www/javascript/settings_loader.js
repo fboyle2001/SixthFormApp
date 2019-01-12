@@ -9,6 +9,7 @@ var __themes = {
   light: {
     name: "light",
     stylesheet: "light.css",
+    dark: false,
     icons: true,
     images: {
       login_logo: "light_mca.png"
@@ -17,6 +18,7 @@ var __themes = {
   dark: {
     name: "dark",
     stylesheet: "dark.css",
+    dark: true,
     icons: true,
     images: {
       login_logo: "dark_mca.png"
@@ -25,6 +27,7 @@ var __themes = {
   sidebar_light: {
     name: "sidebar_light",
     stylesheet: "sidebar_light.css",
+    dark: false,
     icons: true,
     images: {
       login_logo: "light_mca.png"
@@ -33,6 +36,7 @@ var __themes = {
   sidebar_dark: {
     name: "sidebar_dark",
     stylesheet: "sidebar_dark.css",
+    dark: true,
     icons: true,
     images: {
       login_logo: "dark_mca.png"
@@ -140,7 +144,7 @@ function loadElements() {
 
     $("#nav_home").text("");
 
-    if($("#nav_home").hasClass("current")) {
+    if($("#nav_home").hasClass("current") && theme.dark == false) {
       $("#nav_home").append('<img width="32" height="32" src="./images/nav_home_clicked.png">');
     } else {
       $("#nav_home").append('<img width="32" height="32" src="./images/nav_home.png">');
@@ -148,7 +152,7 @@ function loadElements() {
 
     $("#nav_documents").text("");
 
-    if($("#nav_documents").hasClass("current")) {
+    if($("#nav_documents").hasClass("current") && theme.dark == false) {
       $("#nav_documents").append('<img width="32" height="32" src="./images/nav_documents_clicked.png">');
     } else {
       $("#nav_documents").append('<img width="32" height="32" src="./images/nav_documents.png">');
@@ -156,7 +160,7 @@ function loadElements() {
 
     $("#nav_links").text("");
 
-    if($("#nav_links").hasClass("current")) {
+    if($("#nav_links").hasClass("current") && theme.dark == false) {
       $("#nav_links").append('<img width="32" height="32" src="./images/nav_links_clicked.png">');
     } else {
       $("#nav_links").append('<img width="32" height="32" src="./images/nav_links.png">');
@@ -164,15 +168,13 @@ function loadElements() {
 
     $("#nav_settings").text("");
 
-    if($("#nav_settings").hasClass("current")) {
+    if($("#nav_settings").hasClass("current") && theme.dark == false) {
       $("#nav_settings").append('<img width="32" height="32" src="./images/nav_settings_clicked.png">');
     } else {
       $("#nav_settings").append('<img width="32" height="32" src="./images/nav_settings.png">');
     }
 
-    $("#nav_calendar").text("");
-
-    if($("#nav_calendar").hasClass("current")) {
+    if($("#nav_calendar").hasClass("current") && theme.dark == false) {
       $("#nav_calendar").append('<img width="32" height="32" src="./images/nav_calendar_clicked.png">');
     } else {
       $("#nav_calendar").append('<img width="32" height="32" src="./images/nav_calendar.png">');

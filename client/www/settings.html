@@ -24,41 +24,46 @@
 		<div class="content horizontal_centred">
 			<h1 class="header">Settings</h1>
 			<br>
-			<h2>Account</h2>
-			<button id="logout">Logout</button>
+			<div class="segment">
+				<h2>Account</h2>
+				<button id="logout">Logout</button>
+				<br>
+				<br>
+				<h3>Change Password</h3>
+				<form>
+					<table>
+						<tr><td>New Password</td><td><input type="password" id="new_pwd"></td></tr>
+						<tr><td>Confirm Password</td><td><input type="password" id="new_pwd_check"></td></tr>
+						<tr><td colspan="2"><button id="change_pwd">Change Password</button></td></tr>
+					</table>
+				</form>
+				<br>
+			</div>
 			<br>
-			<br>
-			<h3>Change Password</h3>
-			<form>
+			<div class="segment">
+				<h2>App Preferences</h2>
+				<h3>Themes</h3>
+				<p>Note that themes are incomplete. Please send any feedbacks or ideas using the form on the links page.</p>
+				<p>The sidebar theme is experimental and adds a new tab to the navigation</p>
 				<table>
-					<tr><td>New Password</td><td><input type="password" id="new_pwd"></td></tr>
-					<tr><td>Confirm Password</td><td><input type="password" id="new_pwd_check"></td></tr>
-					<tr><td colspan="2"><button id="change_pwd">Change Password</button></td></tr>
+					<tr><td>Light</td><td><input type="radio" name="theme_select" value="light"></td></tr>
+					<tr><td>Dark</td><td><input type="radio" name="theme_select" value="dark"></td></tr>
+					<tr><td>Sidebar Light (experimental)</td><td><input type="radio" name="theme_select" value="sidebar_light"></td></tr>
+					<tr><td>Sidebar Dark (experimental)</td><td><input type="radio" name="theme_select" value="sidebar_dark"></td></tr>
 				</table>
-			</form>
-			<br>
-			<h2>App Preferences</h2>
-			<h3>Themes</h3>
-			<p>Note that themes are incomplete. Please send any feedbacks or ideas using the form on the links page.</p>
-			<p>The sidebar theme is experimental and adds a new tab to the navigation</p>
-			<table>
-				<tr><td>Light</td><td><input type="radio" name="theme_select" value="light"></td></tr>
-				<tr><td>Dark</td><td><input type="radio" name="theme_select" value="dark"></td></tr>
-				<tr><td>Sidebar Light (experimental)</td><td><input type="radio" name="theme_select" value="sidebar_light"></td></tr>
-				<tr><td>Sidebar Dark (experimental)</td><td><input type="radio" name="theme_select" value="sidebar_dark"></td></tr>
-			</table>
-			<br>
-			<h3>Cache</h3>
-			<button id="clear_cache">Clear Cache</button>
-			<br>
-			<br>
-			<h3>Zoom</h3>
-			<span>Zoom Enabled: </span><input type="checkbox" name="zoom_enabled">
-			<br>
-			<br>
-			<h3>Reset Settings</h3>
-			<p>Note, this will reset your selected theme, remember me preference, zoom preference etc.</p>
-			<button id="reset_settings">Reset Settings</button>
+				<br>
+				<h3>Cache</h3>
+				<button id="clear_cache">Clear Cache</button>
+				<br>
+				<br>
+				<h3>Zoom</h3>
+				<span>Zoom Enabled: </span><input type="checkbox" name="zoom_enabled">
+				<br>
+				<br>
+				<h3>Reset Settings</h3>
+				<p>Note, this will reset your selected theme, remember me preference, zoom preference etc.</p>
+				<button id="reset_settings">Reset Settings</button>
+			<div>
 		</div>
 	</body>
 </html>

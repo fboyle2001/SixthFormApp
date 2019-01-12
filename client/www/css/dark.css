@@ -1,6 +1,6 @@
 @charset "utf-8";
-/* CSS Document */
 
+/* Shared Page CSS */
 body {
 	font-family: sans-serif;
 	font-size: 15px;
@@ -8,11 +8,10 @@ body {
   height: 100%;
 	width: 100%;
 	margin-top: 0;
-  overflow-x: hidden;
 	margin: 0;
 	padding: 0;
 	color: #F8F8FF;
-	background-color: #080D0D;
+	background-color: #303030;
 	padding-top: env(safe-area-inset-top);
 }
 
@@ -21,10 +20,8 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 }
 
-/* Login Page */
-
-#login_logo {
-	top: 5%;
+a {
+	color: #F8F8FF;
 }
 
 .centred {
@@ -40,30 +37,42 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate(-50%, 0%);
 }
 
-/* Home Page */
-
 .content {
-	color: #F8F8FF;
 	box-sizing: border-box;
 	padding: 2%;
 	padding-top: 0%;
 	width: 100%;
 }
 
-.menu {
-	background-color: #080D0D;
-	box-sizing: border-box;
-	margin-bottom: 3%;
+.header {
+	text-align: center;
+	margin-bottom: 0;
+	padding-bottom: 0;
 }
 
-nav, nav > ul {
+.segment {
+	background-color: #424242;
+	padding: 2%;
+	border: 1px #212121 solid;
+}
+
+.subtitle {
+	font-size: 80%;
+}
+
+/* Navigation */
+nav {
+	margin-bottom: 1%;
+}
+
+nav > ul {
 	margin: 0;
 	padding: 0;
 	height: 100%;
+	background-color: #212121;
 }
 
 nav > ul > a {
-	color: #F8F8FF;
 	margin: 0;
 	padding: 0;
 	height: 100%;
@@ -76,36 +85,25 @@ nav > ul > a > li > img, nav > ul > li > img {
 
 nav > ul > a > li, nav > ul > li {
 	display: inline-block;
-	width: 16.25%; /* Precise enough to remove gap at the end hopefully */
+	width: 16%;
 	padding: 1.5%;
 	height: 100%;
 	text-align: center;
-}
-
-.header {
-	text-align: center;
-	margin-bottom: 0;
-	padding-bottom: 0;
-}
-
-.announcement {
-	border: 1px solid #080D0D;
-	border-radius: 0.5%;
-	padding: 2%;
-}
-
-.added {
-	font-size: 80%;
+	background-color: #212121;
 }
 
 .current {
-	background-color: #b4b6b6;
-	color: #F8F8FF;
+	background-color: #303030;
 	border: 0px;
 }
 
-/* Temporary data table */
+/* Login Page */
 
+#login_logo {
+	top: 5%;
+}
+
+/* Data Table */
 table.data-table {
 	border: 1px #b4b6b6 solid;
 	border-collapse: collapse;
@@ -117,29 +115,39 @@ table.data-table > tbody > tr > td, table.data-table > thead > tr > th {
 }
 
 table.data-table > thead > tr > th {
-	background-color: #080D0D;
-	color: white;
+	background-color: #212121;
 	font-weight: normal;
-}
-
-table.data-table > tbody > tr > td {
-	border-color #6a6d6d;
-}
-
-table.data-table > tbody > tr:nth-child(even) {
-	background-color: #6a6d6d;
-	color: white;
-}
-
-table.data-table > tbody > tr:nth-child(odd) > td {
 	border-right: 1px #6a6d6d solid;
 }
 
-table.data-table > tbody > tr:nth-child(odd) > td:last-child {
+table.data-table > thead > tr > th:last-child {
+	border: none;
+}
+
+table.data-table > tbody > tr > td {
+	border-color: #6a6d6d;
+}
+
+table.data-table > tbody > tr:nth-child(even) {
+	background-color: #292929;
+}
+
+table.data-table > tbody > tr > td {
+	border-right: 1px #6a6d6d solid;
+}
+
+table.data-table > tbody > tr > td:last-child {
 	border: none;
 }
 
 table.data-table > tbody > tr > td > a {
 	text-decoration: underline;
 	color: inherit;
+}
+
+/* Calendar */
+#google_calendar {
+	border-width: 0;
+	width: 95%;
+	height: 600px;
 }

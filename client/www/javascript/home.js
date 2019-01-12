@@ -45,6 +45,6 @@ function loadAnnouncements(data) {
     var date = new Date(item["DateAdded"] * 1000);
     var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
 
-    $("#announcements").append('<div class="announcement"><h2 class="title">' + item["Title"] + '</h2><p class="added">Added ' + displayDate + '. Sent to ' + item["GroupName"] + '.</p><p>' + item["Content"] + '</p></div><br>');
+    $("#announcements").append('<div class="segment"><h2 class="title">' + item["Title"] + '</h2><p class="subtitle">Added ' + displayDate + '. Sent to ' + item["GroupName"] + '.</p><p>' + item["Content"] + '</p></div><br>');
   });
 }
