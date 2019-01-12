@@ -30,7 +30,7 @@
 
   // Check if push ID is already in database
 
-  $selectPush = Database::get()->prepare("SELECT `UserID` FROM `push` WHERE `PushID` = :pushId");
+  $selectPush = Database::get()->prepare("SELECT `AccountID` FROM `push` WHERE `PushID` = :pushId");
   $selectPush->execute(["pushId" => $pushId]);
 
   if($selectPush->rowCount() != 0) {
@@ -40,7 +40,7 @@
 
   $id = $selectId->fetch(PDO::FETCH_ASSOC)["ID"];
 
-  $submitId = Database::get()->prepare("INSERT INTO `push` (`PushID`, `UserID`) VALUES (:pushId, :userId)");
+  $submitId = Database::get()->prepare("INSERT INTO `push` (`PushID`, `AccountID`) VALUES (:pushId, :userId)");
   $success = $submitId->execute(["pushId" => $pushId, "userId" => $id]);
 
   if($success !== true) {

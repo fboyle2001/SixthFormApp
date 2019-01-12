@@ -39,7 +39,30 @@
         $trimmedTitle = strlen($title) > 97 ? substr($title, 0, 97) . '...' : $title;
 
         // Made an announcement so push it
-        sendNotification("Announcement", $trimmedTitle);
+
+        if($group == -999) {
+          // All
+          sendNotificationToAll("Announcement to All", $trimmedTitle);
+        } else if ($group == -998) {
+          // Year 12
+          sendNotificationToYear("Announcement to Year 12", $trimmedTitle, 12);
+        } else if ($group == -997) {
+          // Year 13
+          sendNotificationToYear("Announcement to Year 13", $trimmedTitle, 13);
+        } else if ($group == -996) {
+          sendNotificationToAdmins("Announcement to Admins", $trimmedTitle);
+        } else {
+          $groupNameQuery = Database::get()->prepare("SELECT `GroupName` FROM `groups` WHERE `ID` = :groupId");
+          $groupNameQuery->execute(["groupId" => $group]);
+
+          $groupName = "";
+
+          if($groupNameQuery->rowCount() == 1) {
+            $groupName = " to " . $groupNameQuery->fetch(PDO::FETCH_ASSOC)["GroupName"];
+          }
+
+          sendNotificationToGroup("Announcement" . $groupName, $trimmedTitle, $group);
+        }
       } else {
         $message = "Unable to make announcement at this time, please try again later.";
       }
