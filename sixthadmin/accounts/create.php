@@ -9,6 +9,7 @@
 
 	$message = "";
 
+	// Form submitted
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		$username = post("username");
 		$admin = post("admin");
@@ -23,6 +24,7 @@
 				if($admin == null && ($year < 12 || $year > 13)) {
 					$message = "The year group must be either 12 or 13.";
 				} else {
+					// Check the username doesn't exist
 					$existsQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Username` = :username");
 					$existsQuery->execute(["username" => $username]);
 
@@ -36,8 +38,10 @@
 							$admin = 0;
 						}
 
+						// Hash the default password
 						$password = password_hash("Passw0rd", PASSWORD_BCRYPT, ["cost" => $cost]);
 
+						// Put them in the database
 						$insertQuery = Database::get()->prepare("INSERT INTO `accounts` (`Username`, `Password`, `Year`, `IsAdmin`) VALUES (:username, :password, :year, :admin)");
 						$insertQuery->execute(["username" => $username, "password" => $password, "year" => $year, "admin" => $admin]);
 

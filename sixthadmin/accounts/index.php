@@ -33,7 +33,7 @@
 		<br>
 		<table id="account_table" class="data-table">
 			<thead>
-				<tr><th>Username</th><th>Admin</th><th>Reset Password</th><th>Delete Account</th><th>Rollback Year Group</th></tr>
+				<tr><th>Username</th><th>Year</th><th>Reset Password</th><th>Delete Account</th><th>Rollback Year Group</th></tr>
 			</thead>
 			<tbody></tbody>
 		</table>

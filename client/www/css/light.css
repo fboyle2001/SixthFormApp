@@ -1,6 +1,6 @@
 @charset "utf-8";
-/* CSS Document */
 
+/* Shared Page CSS */
 body {
 	font-family: sans-serif;
 	font-size: 15px;
@@ -8,9 +8,9 @@ body {
   height: 100%;
 	width: 100%;
 	margin-top: 0;
-  overflow-x: hidden;
 	margin: 0;
 	padding: 0;
+	padding-top: env(safe-area-inset-top);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -18,10 +18,9 @@ h1, h2, h3, h4, h5, h6 {
 	margin: 0;
 }
 
-/* Login Page */
-
-#login_logo {
-	top: 5%;
+pre#debug_info {
+	white-space: pre-wrap;
+	word-wrap: break-word;
 }
 
 .centred {
@@ -37,23 +36,36 @@ h1, h2, h3, h4, h5, h6 {
   transform: translate(-50%, 0%);
 }
 
-/* Home Page */
-
 .content {
-	color: #080D0D;
 	box-sizing: border-box;
 	padding: 2%;
 	padding-top: 0%;
 	width: 100%;
 }
 
-.menu {
-	background-color: #080D0D;
-	box-sizing: border-box;
-	margin-bottom: 3%;
+.header {
+	text-align: center;
+	margin-bottom: 0;
+	padding-bottom: 0;
 }
 
-nav, nav > ul {
+.segment {
+	border: 1px solid #080D0D;
+	padding: 2%;
+}
+
+.subtitle {
+	font-size: 80%;
+}
+
+/* Navigation */
+nav {
+	background-color: #080D0D;
+	box-sizing: border-box;
+	margin-bottom: 1%;
+}
+
+nav > ul {
 	margin: 0;
 	padding: 0;
 	height: 100%;
@@ -67,28 +79,16 @@ nav > ul > a {
 	text-decoration: none;
 }
 
+nav > ul > a > li > img, nav > ul > li > img {
+	transform: translateY(5%);
+}
+
 nav > ul > a > li, nav > ul > li {
 	display: inline-block;
-	width: 21%; /* Precise enough to remove gap at the end hopefully */
+	width: 16%;
 	padding: 1.5%;
 	height: 100%;
 	text-align: center;
-}
-
-.header {
-	text-align: center;
-	margin-bottom: 0;
-	padding-bottom: 0;
-}
-
-.announcement {
-	border: 1px solid #080D0D;
-	border-radius: 0.5%;
-	padding: 2%;
-}
-
-.added {
-	font-size: 80%;
 }
 
 .current {
@@ -97,8 +97,13 @@ nav > ul > a > li, nav > ul > li {
 	border: 0px;
 }
 
-/* Temporary data table */
+/* Login Page */
 
+#login_logo {
+	top: 5%;
+}
+
+/* Data Table */
 table.data-table {
 	border: 1px #b4b6b6 solid;
 	border-collapse: collapse;
@@ -135,4 +140,21 @@ table.data-table > tbody > tr:nth-child(odd) > td:last-child {
 table.data-table > tbody > tr > td > a {
 	text-decoration: underline;
 	color: inherit;
+}
+
+/* Calendar */
+/* https://thomas.vanhoutte.be/miniblog/make-google-calendar-iframe-responsive/ */
+#google_calendar {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+#google_calendar_enclosure {
+	position: relative;
+	padding-bottom: 75%;
+	height: 0;
+	overflow: hidden;
 }

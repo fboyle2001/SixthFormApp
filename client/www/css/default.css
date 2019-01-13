@@ -1,0 +1,93 @@
+@charset "utf-8";
+
+/* Shared Page CSS */
+body {
+}
+
+h1, h2, h3, h4, h5, h6 {
+}
+
+pre#debug_info {
+	white-space: pre-wrap;
+	word-wrap: break-word;
+}
+
+a {
+}
+
+.centred {
+}
+
+.horizontal_centred {
+}
+
+.content {
+}
+
+.header {
+}
+
+.segment {
+}
+
+.subtitle {
+}
+
+/* Navigation */
+nav {
+}
+
+nav > ul {
+}
+
+nav > ul > a {
+}
+
+nav > ul > a > li > img, nav > ul > li > img {
+}
+
+nav > ul > a > li, nav > ul > li {
+}
+
+.current {
+}
+
+/* Login Page */
+
+#login_logo {
+}
+
+/* Data Table */
+table.data-table {
+}
+
+table.data-table > tbody > tr > td, table.data-table > thead > tr > th {
+}
+
+table.data-table > thead > tr > th {
+}
+
+table.data-table > thead > tr > th:last-child {
+}
+
+table.data-table > tbody > tr > td {
+}
+
+table.data-table > tbody > tr:nth-child(even) {
+}
+
+table.data-table > tbody > tr > td {
+}
+
+table.data-table > tbody > tr > td:last-child {
+}
+
+table.data-table > tbody > tr > td > a {
+}
+
+/* Calendar */
+#google_calendar {
+	border-width: 0;
+	width: 95%;
+	height: 600px;
+}

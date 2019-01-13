@@ -68,9 +68,10 @@
 	if($_SERVER["REQUEST_METHOD"] == "POST") {
 		// Get the username if it exists
 		$username = empty($_POST["username"]) ? "" : $_POST["username"];
+		$password = empty($_POST["password"]) ? "" : $_POST["password"];
 
 		// Attempt to the log the user in
-		$message = login($_POST["username"], $_POST["password"]);
+		$message = login($username, $password);
 	}
 
 	// If the user is logged in, redirect them to the home page

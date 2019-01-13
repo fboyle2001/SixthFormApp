@@ -11,6 +11,7 @@
   // Includes the database connection
 	require(__DIR__ . "/resources/php/database/Database.php");
 	require(__DIR__ . "/resources/php/Reply.php");
+	require(__DIR__ . "/resources/php/keys.php");
 
   // Starts the session
 	session_start();
@@ -144,4 +145,133 @@
 
     return $result;
   }
+
+	// Send a notification to a group of users
+	function sendNotificationToGroup($heading, $description, $groupId) {
+		// Get user's push IDs
+		$selectPush = Database::get()->prepare("SELECT `PushID` FROM `push` INNER JOIN `grouplink` ON `grouplink`.`AccountID` = `push`.`AccountID` WHERE `grouplink`.`GroupID` = :groupId");
+		$selectPush->execute(["groupId" => $groupId]);
+
+		if($selectPush->rowCount() == 0) {
+			return false;
+		}
+
+		$pushIds = [];
+
+		foreach($selectPush->fetchAll(PDO::FETCH_ASSOC) as $row) {
+			array_push($pushIds, $row["PushID"]);
+		}
+
+		return sendNotificationToIDs($heading, $description, $pushIds);
+	}
+
+	function sendNotificationToAdmins($heading, $description) {
+		$selectPush = Database::get()->prepare("SELECT `PushID` FROM `push` INNER JOIN `accounts` ON `accounts`.`ID` = `push`.`AccountID` WHERE `accounts`.`IsAdmin` = 1");
+		$selectPush->execute();
+
+		if($selectPush->rowCount() == 0) {
+			return false;
+		}
+
+		$pushIds = [];
+
+		foreach($selectPush->fetchAll(PDO::FETCH_ASSOC) as $row) {
+			array_push($pushIds, $row["PushID"]);
+		}
+
+		return sendNotificationToIDs($heading, $description, $pushIds);
+	}
+
+	function sendNotificationToYear($heading, $description, $year) {
+		$selectPush = Database::get()->prepare("SELECT `PushID` FROM `push` INNER JOIN `accounts` ON `accounts`.`ID` = `push`.`AccountID` WHERE `accounts`.`Year` = :year");
+		$selectPush->execute(["year" => $year]);
+
+		if($selectPush->rowCount() == 0) {
+			return false;
+		}
+
+		$pushIds = [];
+
+		foreach($selectPush->fetchAll(PDO::FETCH_ASSOC) as $row) {
+			array_push($pushIds, $row["PushID"]);
+		}
+
+		return sendNotificationToIDs($heading, $description, $pushIds);
+	}
+
+	// Send a notification to a list of IDs
+	function sendNotificationToIDs($heading, $description, $ids) {
+		$contents = ["en" => $description];
+		$headings = ["en" => $heading];
+
+		$payload = [
+			"app_id" => "a9171e05-26dd-49d2-9a57-c4ab6c423dcc",
+			"include_player_ids" => $ids,
+			"contents" => $contents,
+			"headings" => $headings,
+			"ios_badgeType" => "Increase",
+			"ios_badgeCount" => 1
+		];
+
+		$url = "https://onesignal.com/api/v1/notifications/";
+
+		$headers = [
+			"Content-Type: application/json; charset=utf-8",
+			"Authorization: Basic " . ONESIGNAL_API_KEY
+		];
+
+		$payload = json_encode($payload);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return $response;
+	}
+
+	// Sends notification to all users
+	function sendNotificationToAll($heading, $description) {
+		$contents = ["en" => $description];
+		$headings = ["en" => $heading];
+
+		$payload = [
+			"app_id" => "a9171e05-26dd-49d2-9a57-c4ab6c423dcc",
+			"included_segments" => ["All"],
+			"contents" => $contents,
+			"headings" => $headings,
+			"ios_badgeType" => "Increase",
+			"ios_badgeCount" => 1
+		];
+
+		$url = "https://onesignal.com/api/v1/notifications/";
+
+		$headers = [
+			"Content-Type: application/json; charset=utf-8",
+			"Authorization: Basic " . ONESIGNAL_API_KEY
+		];
+
+		$payload = json_encode($payload);
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+    curl_setopt($ch, CURLOPT_HEADER, FALSE);
+    curl_setopt($ch, CURLOPT_POST, TRUE);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+
+    $response = curl_exec($ch);
+    curl_close($ch);
+
+    return $response;
+	}
 ?>

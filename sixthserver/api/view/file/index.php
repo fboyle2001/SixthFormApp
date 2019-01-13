@@ -6,7 +6,8 @@
   if(!has_arg("GET", "auth")) {
     $status = ReplyStatus::withData(400, "Missing auth key");
     $reply = Reply::withStatus($status);
-    die($reply->toJson());
+    header("Location: ../../error/expired.html");
+    die();
   }
 
   $authKey = get("auth");
@@ -15,14 +16,16 @@
   if(!non_header_auth_validate($authKey)) {
     $status = ReplyStatus::withData(403, "Invalid auth key");
     $reply = Reply::withStatus($status);
-    die($reply->toJson());
+    header("Location: ../../error/expired.html");
+    die();
   }
 
   // Check if they have requested a file
   if(!has_arg("GET", "file")) {
     $status = ReplyStatus::withData(400, "No file requested");
     $reply = Reply::withStatus($status);
-    die($reply->toJson());
+    header("Location: ../../error/file.html");
+    die();
   }
 
   // Consists of name and extension
@@ -36,7 +39,8 @@
   if($selectFile->rowCount() != 1) {
     $status = ReplyStatus::withData(400, "Invalid file request");
     $reply = Reply::withStatus($status);
-    die($reply->toJson());
+    header("Location: ../../error/file.html");
+    die();
   }
 
   // In case a file has not yet been deleted, prevent access to it
@@ -45,7 +49,8 @@
   if(time() > $expiryTime) {
     $status = ReplyStatus::withData(410, "File has expired");
     $reply = Reply::withStatus($status);
-    die($reply->toJson());
+    header("Location: ../../error/file.html");
+    die();
   }
 
   // File does exist so now display it

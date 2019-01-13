@@ -7,6 +7,7 @@
   $actionId = post("actionId");
   $adminId = $_SESSION["userId"];
 
+  // Check they have submitted the data
   if($adminId == null) {
     $reply->setStatus(ReplyStatus::withData(403, "Must be an admin"));
     die($reply->toJson());
@@ -17,6 +18,7 @@
     die($reply->toJson());
   }
 
+  // Log the action
   $adminQuery = Database::get()->prepare("INSERT INTO `adminactions` (`AdminID`, `Action`) VALUES (:adminId, :actionId)");
   $adminQuery->execute(["adminId" => $adminId, "actionId" => $actionId]);
 
@@ -26,6 +28,7 @@
   }
 
   if($actionId == 1) {
+    // Make users change their password on login
     $updateQuery = Database::get()->exec("UPDATE `accounts` SET `Reset` = 1 WHERE 1 = 1");
 
     if($updateQuery == 0) {
@@ -34,6 +37,7 @@
       $reply->setStatus(ReplyStatus::withData(200, "Successfully forced password change on app login for all users."));
     }
   } else if ($actionId == 2) {
+    // Increment year group
     $updateQuery = Database::get()->exec("UPDATE `accounts` SET `Year` = `Year` + 1 WHERE `Year` <> 0");
 
     if($updateQuery == 0) {
@@ -42,6 +46,7 @@
       $reply->setStatus(ReplyStatus::withData(200, "Successfully incremented year group for all students."));
     }
   } else if ($actionId == 3) {
+    // Delete all old students
     $deleteQuery = Database::get()->exec("DELETE FROM `accounts` WHERE `Year` >= 14");
 
     if($deleteQuery == 0) {

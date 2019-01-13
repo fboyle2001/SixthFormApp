@@ -1,3 +1,4 @@
+// Checks if a password meets the minimum standard
 function doesPasswordMeetStandard(password) {
   if(password == null) {
     return "You must enter a password.";
@@ -26,6 +27,7 @@ function doesPasswordMeetStandard(password) {
   return true;
 }
 
+// Check if passwords match
 function doPasswordsMatch(first, second) {
   var password = $("#" + first).val();
   var check = $("#" + second).val();
@@ -34,10 +36,11 @@ function doPasswordsMatch(first, second) {
 }
 
 $(document).ready(function() {
-
+  // When the user types
   $("#password").on("change keyup", function() {
     var reached = doesPasswordMeetStandard($(this).val());
 
+    // Does the password meet the standard
     if(reached === true) {
       $("#password_standard").text("Password meets standard");
     } else {
@@ -47,10 +50,12 @@ $(document).ready(function() {
 
     var match = doPasswordsMatch("password", "confirmation");
 
+    // Does the password match the confirmation
     if(match === true) {
       $("#confirm_status").text("Passwords match");
 
-      if(doesPasswordMeetStandard($(this).val()) === true) {
+      // If both true then let them submit it
+      if(reached === true) {
         $("#submission").show();
       }
     } else {
@@ -59,6 +64,7 @@ $(document).ready(function() {
     }
   });
 
+  // Similar to above but with the confirmation field
   $("#confirmation").on("change keyup", function() {
     var match = doPasswordsMatch("password", "confirmation");
 

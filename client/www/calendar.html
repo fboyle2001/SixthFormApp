@@ -10,7 +10,6 @@
 		<script src="./javascript/calendar.js"></script>
 	</head>
 	<body>
-		<div class="menu">
 			<nav>
 				<ul>
 					<a href="home.html"><li id="nav_home">Home</li></a>
@@ -20,10 +19,12 @@
 					<a href="settings.html"><li id="nav_settings">Settings</li></a>
 				</ul>
 			</nav>
-		</div>
 		<div class="content">
 			<h1 class="header">Calendar</h1>
-			<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=milcollegeoftech%40gmail.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" style="border-width:0; width:100%; height: 600px;"></iframe>
+			<br>
+			<div id="google_calendar_enclosure">
+				<iframe src="https://calendar.google.com/calendar/embed?showTitle=0&amp;showPrint=0&amp;height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=milcollegeoftech%40gmail.com&amp;color=%23691426&amp;ctz=Europe%2FLondon" width="800" height="600" frameborder="0" id="google_calendar" ></iframe>
+			</div>
 		</div>
 	</body>
 </html>

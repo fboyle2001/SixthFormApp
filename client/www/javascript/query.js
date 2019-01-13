@@ -161,6 +161,23 @@ function cacheContent(key, content) {
   }
 }
 
+function registerPush() {
+  if(getUserSettings().pushId !== "" && getUserSettings().pushId !== undefined && getUserSettings().pushId !== "undefined") {
+    // Already been registered
+    return;
+  }
+
+  window.plugins.OneSignal.getIds(function (ids) {
+    query("/push/register/", {pushId: ids.userId}, function (data) {
+      var currentSettings = getUserSettings();
+      currentSettings.pushId = ids.userId;
+      Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
+    }, function (data) {
+
+    });
+  });
+}
+
 // When the device has loaded this is run
 function onDeviceReady() {
   $(document).ready(function () {
@@ -170,6 +187,12 @@ function onDeviceReady() {
       window.location = "index.html";
     });
   });
+
+  window.plugins.OneSignal.startInit('a9171e05-26dd-49d2-9a57-c4ab6c423dcc').handleNotificationOpened(function(data) {
+    // Do nothing yet
+  }).endInit();
+
+  registerPush();
 }
 
 // When the app has been reloaded this is run

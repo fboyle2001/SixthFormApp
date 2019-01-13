@@ -7,6 +7,7 @@ $(document).ready(function () {
 	});
 });
 
+// Perform a search using the specified username
 function search(username) {
 	var queryUrl = "/sixthadmin/accounts/username_search.php?username=" + username;
 	$.getJSON(queryUrl, function(data) {
@@ -15,6 +16,7 @@ function search(username) {
 }
 
 function process(result) {
+	// Clear the table
 	$("#account_table > tbody").remove();
 
 	if(result["status"]["code"] != 200) {
@@ -27,13 +29,24 @@ function process(result) {
 		return;
 	}
 
+	// Rebuild the table
 	$("#account_table").append("<tbody>");
 	$.each(result["content"]["records"], function (index, item) {
-		$("#account_table > tbody").append('<tr><td>' + item["Username"] + '</td><td>' + (item["IsAdmin"] == 0 ? "No" : "Yes") + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td><td id="rollback_' + item["ID"] + '"><a href="javascript:rollback(' + item["ID"] + ')">Rollback</a></td></tr>');
+		// Display their year
+		var year = item["IsAdmin"] == 0 ? item["Year"] : "Admin";
+		var rollback = "N/A";
+
+		// Only allow rollbacks if year > 12 and are students
+		if(item["IsAdmin"] == 0 && item["Year"] == 13 || item["IsAdmin"] == 0 && item["Year"] == 14) {
+			rollback = '<a href="javascript:rollback(' + item["ID"] + ')">Rollback</a>';
+		}
+
+		$("#account_table > tbody").append('<tr><td>' + item["Username"] + '</td><td id="year_group_' + item["ID"] + '">' + year + '</td><td id="reset_' + item["ID"] + '"><a id="reset_link_' + item["ID"] + '" href="javascript:reset(' + item["ID"] + ')">Reset</a></td><td id="delete_' + item["ID"] + '"><a href="javascript:remove(' + item["ID"] + ')">Delete</a></td><td id="rollback_' + item["ID"] + '">' + rollback + '</td></tr>');
 	});
 	$("#account_table").append("</tbody>");
 }
 
+// Remove an account
 function remove(id) {
   var certain = confirm("Are you sure you want to delete this account?");
 
@@ -65,6 +78,7 @@ function processRemoveResult(data, id) {
 	$("#delete_" + id).text(status["description"]);
 }
 
+// Resets the password for an account
 function reset(id) {
   var certain = confirm("Are you sure you want to reset the password for this account?");
 
@@ -97,9 +111,7 @@ function processResetResult(data, id) {
 	$("#reset_" + id).text(status["description"]);
 }
 
-
-
-
+// Rollbacks a student's year group (e.g. resitting)
 function rollback(id) {
   var certain = confirm("Are you sure you want to rollback a year for this account?");
 
@@ -129,5 +141,10 @@ function rollback(id) {
 function processRollbackResult(data, id) {
 	var status = data["status"];
 	var code = status["code"];
+
+	if(code == 200) {
+		$("#year_group_" + id).text(data["content"]["new_year"]);
+	}
+
 	$("#rollback_" + id).text(status["description"]);
 }

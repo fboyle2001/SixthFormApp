@@ -1,4 +1,5 @@
 $(document).ready(function () {
+  // Search to populate the table
   titleSearch("");
 
 	$("#search_by_title").click(function (e) {
@@ -10,11 +11,11 @@ $(document).ready(function () {
   $("#search_by_content").click(function (e) {
     e.preventDefault();
     var contentTerm = $("#contentsearch").val();
-    console.log("content: " + contentTerm);
     contentSearch(contentTerm);
   });
 });
 
+// Search by content
 function contentSearch(content) {
   var queryUrl = "/sixthadmin/announcements/content_search.php?content=" + content;
 
@@ -24,6 +25,7 @@ function contentSearch(content) {
   });
 }
 
+// Search by title
 function titleSearch(title) {
   var queryUrl = "/sixthadmin/announcements/title_search.php?title=" + title;
 
@@ -33,6 +35,7 @@ function titleSearch(title) {
 }
 
 function processData(result) {
+  // Clear the table
   $("#announcements_table > tbody").remove();
 
   if(result["status"]["code"] != 200) {
@@ -45,9 +48,11 @@ function processData(result) {
 		return;
 	}
 
+  // Rebuild the table
   $("#announcements_table").append("<tbody>");
 
   $.each(result["content"]["records"], function(index, item) {
+    // Convert unix timestamp to readable timestamp
     var date = new Date(item["DateAdded"] * 1000);
     var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
 
@@ -57,6 +62,7 @@ function processData(result) {
   $("#announcements_table").append("</tbody>");
 }
 
+// Delete an announcement
 function remove(id) {
   var certain = confirm("Are you sure you want to delete this announcement?");
 

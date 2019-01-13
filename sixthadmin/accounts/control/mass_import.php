@@ -17,17 +17,22 @@
     if(!is_uploaded_file($_FILES["listFile"]["tmp_name"])) {
       $message = "You must upload a file.";
     } else {
+			// Check the file is csv (or similar) and < 15MB
       if($_FILES["listFile"]["size"] > 15000000) {
   			$message = "File size is currently limited to 15mb, this file is too big.";
       } else if(in_array(strtolower(pathinfo($_FILES["listFile"]["tmp_name"], PATHINFO_EXTENSION)), ["csv", "xls", "xlsx"])) {
   			$message = "File type must be csv, xls or xlsx.";
   		} else {
+				// Read the file
         $file = fopen($_FILES["listFile"]["tmp_name"], "r");
 
+				// Prepare the queries and then just inject the data
         $selectQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Username` = :username");
         $insertQuery = Database::get()->prepare("INSERT INTO `accounts` (`Username`, `Password`, `Year`, `IsAdmin`, `Reset`) VALUES (:username, :password, :year, 0, 1)");
 
+				// For each row
         while(($data = fgetcsv($file)) !== false) {
+					// Fix UTF-8 issues
           $username = strtolower(
           preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $data[0])) . "." . strtolower(
           preg_replace('/[\x00-\x1F\x80-\xFF]/', '', $data[1]));
@@ -35,11 +40,13 @@
 
           $selectQuery->execute(["username" => $username]);
 
+					// Account exists. Log it so they can sort it out manually.
           if($selectQuery->rowCount() != 0) {
             array_push($failedStudents, [$data, "Account already exists with user name $username"]);
             continue;
           }
 
+					// Default password
           $password = password_hash("Passw0rd", PASSWORD_BCRYPT, ["cost" => $cost]);
           $success = $insertQuery->execute(["username" => $username, "password" => $password, "year" => $year]);
 
