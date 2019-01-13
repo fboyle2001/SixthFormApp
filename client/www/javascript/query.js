@@ -162,7 +162,7 @@ function cacheContent(key, content) {
 }
 
 function registerPush() {
-  if(getUserSettings().pushId !== "" && getUserSettings().pushId !== undefined && getUserSettings().pushId !== "undefined") {
+  if(getUserSettings().hasOwnProperty("pushId")) {
     // Already been registered
     return;
   }
@@ -172,9 +172,7 @@ function registerPush() {
       var currentSettings = getUserSettings();
       currentSettings.pushId = ids.userId;
       Cookies.set("settings", JSON.stringify(currentSettings), {expires: 1460});
-    }, function (data) {
-
-    });
+    }, function (data) {});
   });
 }
 

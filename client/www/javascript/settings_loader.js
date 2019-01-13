@@ -82,24 +82,24 @@ function getUserTheme() {
 function amendSettings(settings) {
   var amended = false;
 
-  if(settings.theme === undefined) {
+  if(settings.theme == false) {
     amended = true;
     settings.theme = "light";
   }
 
-  if(settings.scalable === undefined) {
+  if(settings.scalable == false) {
     amended = true;
     settings.scalable = false;
   }
 
-  if(settings.remember === undefined) {
+  if(settings.remember == false) {
     amended = true;
     settings.remember = {
       enabled: false,
       username: ""
     };
   }
-  if(settings.pushId == undefined) {
+  if(settings.pushId == false) {
     amended = true;
     settings.pushId = "";
   }
