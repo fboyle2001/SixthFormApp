@@ -36,6 +36,7 @@ $(document).ready(function () {
 
 });
 
+// Removes an element from an array based on it's value
 function removeElementFromArray(array, element) {
   var index = array.indexOf(element);
 

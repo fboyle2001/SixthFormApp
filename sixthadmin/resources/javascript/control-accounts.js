@@ -1,3 +1,4 @@
+// Force all users to change their password
 function forceChange() {
   var certain = confirm("Are you certain you want to force all users to change their passwords?");
 
@@ -24,6 +25,7 @@ function forceChange() {
   });
 }
 
+// Increment all student's year groups
 function incrementYears() {
   var certain = confirm("Are you certain you want to increment the year group of all students?");
 
@@ -50,6 +52,7 @@ function incrementYears() {
   });
 }
 
+// Delete all old students (e.g. year 14)
 function deleteOld() {
   var certain = confirm("Are you certain you want to delete old students?");
 

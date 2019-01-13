@@ -1,3 +1,4 @@
+// Hides the year if they are admins
 $(document).ready(function () {
 	$("#admin").change(function () {
 		if($("#admin").is(":checked")) {
