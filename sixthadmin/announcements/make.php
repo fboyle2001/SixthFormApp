@@ -5,9 +5,11 @@
 	// Guests will be redirect to the login page
 	rejectGuest();
 
+  // Select all groups
 	$selectGroups = Database::get()->query("SELECT * FROM `groups`");
 	$options = "";
 
+  // Put them as an option in the dropdown
 	if($selectGroups == true) {
 		while($record = $selectGroups->fetch(PDO::FETCH_ASSOC)) {
 			$options .= '<option value="' . $record["ID"] . '">' . $record["GroupName"] . '</option>';
@@ -16,25 +18,30 @@
 
   $message = "";
 
+  // User submitted data
   if($_SERVER["REQUEST_METHOD"] == "POST") {
     $title = post("title");
     $content = post("content");
 		$group = post("group");
     $push = post("push");
 
+    // Check the data is valid
     if($title == null) {
       $message = "Title cannot be empty.";
     } else if ($content == null) {
       $message = "Content cannot be empty.";
     } else {
+      // No group then send to all
 			if($group == null) {
 				$group = -999;
 			}
 
+      // Get the timestamp and put it in the database
       $date = time();
       $insertQuery = Database::get()->prepare("INSERT INTO `announcements` (`Title`, `Content`, `DateAdded`, `GroupID`) VALUES (:title, :content, :dateAdded, :group)");
       $insertQuery->execute(["title" => $title, "content" => $content, "dateAdded" => $date, "group" => $group]);
 
+      // Success
       if($insertQuery == true) {
         $message = "Made announcement with title $title.";
 
@@ -43,7 +50,6 @@
           $trimmedTitle = strlen($title) > 97 ? substr($title, 0, 97) . '...' : $title;
 
           // Made an announcement so push it
-
           if($group == -999) {
             // All
             sendNotificationToAll("Announcement to All", $trimmedTitle);
@@ -56,11 +62,13 @@
           } else if ($group == -996) {
             sendNotificationToAdmins("Announcement to Admins", $trimmedTitle);
           } else {
+            // Get the group name from the ID for the notification
             $groupNameQuery = Database::get()->prepare("SELECT `GroupName` FROM `groups` WHERE `ID` = :groupId");
             $groupNameQuery->execute(["groupId" => $group]);
 
             $groupName = "";
 
+            // Make the title of the announcement 'Announcement to <group name>'
             if($groupNameQuery->rowCount() == 1) {
               $groupName = " to " . $groupNameQuery->fetch(PDO::FETCH_ASSOC)["GroupName"];
             }

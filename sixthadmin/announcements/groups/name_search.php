@@ -8,6 +8,7 @@
 
   $selectQuery = "SELECT * FROM `groups`";
 
+  // Search by name or display them all
   if($name != null) {
     $selectQuery = Database::get()->prepare("SELECT * FROM `groups` WHERE `GroupName` LIKE '%' :name '%'");
     $selectQuery->execute(["name" => $name]);
@@ -20,6 +21,7 @@
     die($reply->toJson());
   }
 
+  // Send all the data back
   $reply->setStatus(ReplyStatus::withData(200, "Data found"));
   $reply->setValue("records", $selectQuery->fetchAll(PDO::FETCH_ASSOC));
   $reply->setValue("found", $selectQuery == true);

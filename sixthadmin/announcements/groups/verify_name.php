@@ -6,11 +6,13 @@
   $reply = new Reply();
   $name = get("name");
 
+  // Check a name is set
   if($name == null) {
     $reply->setStatus(ReplyStatus::withData(400, "No group name set"));
     die($reply->toJson());
   }
 
+  // Check the group name does not exist already
   $selectQuery = Database::get()->prepare("SELECT * FROM `groups` WHERE `GroupName` = :name");
   $selectQuery->execute(["name" => $name]);
 

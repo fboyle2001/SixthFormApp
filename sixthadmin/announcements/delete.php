@@ -6,11 +6,13 @@
   $reply = new Reply();
   $id = post("id");
 
+  // Make sure an ID is set
   if($id == null) {
     $reply->setStatus(ReplyStatus::withData(400, "No ID set"));
     die($reply->toJson());
   }
 
+  // Check it was valid
   $selectQuery = Database::get()->prepare("SELECT * FROM `announcements` WHERE `ID` = :id");
   $selectQuery->execute(["id" => $id]);
 
@@ -19,6 +21,7 @@
     die($reply->toJson());
   }
 
+  // Remove it from the database
   $deleteQuery = Database::get()->prepare("DELETE FROM `announcements` WHERE `ID` = :id");
   $deleteQuery->execute(["id" => $id]);
 
