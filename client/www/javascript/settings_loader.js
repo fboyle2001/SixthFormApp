@@ -141,7 +141,7 @@ function produceStyleElement() {
 function produceViewportElement() {
   var scalableValue = getUserSettings().scalable ? "yes" : "no";
 
-  var tag = '<meta name="viewport" content="user-scalable=' + scalableValue + ', initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi", viewport-fit=cover/>';
+  var tag = '<meta name="viewport" content="user-scalable=' + scalableValue + ', initial-scale=1, maximum-scale=2, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi, viewport-fit=cover"/>';
   return tag;
 }
 
