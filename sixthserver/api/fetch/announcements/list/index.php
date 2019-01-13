@@ -91,10 +91,10 @@
   // Execute the query based on whether or not the user sets a contains
   // parameter. Ignores limit at the moment.
   if($contains != null) {
-    $selectLatest = Database::get()->prepare("SELECT `announcements`.`ID`, `announcements`.`Title`, `announcements`.`Content`, `announcements`.`DateAdded`, `announcements`.`GroupID`, `groups`.`GroupName` FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` WHERE `Title` LIKE '%' :contains '%' OR `Content` LIKE '%' :contains '%' AND `GroupID` IN ($sqlList) ORDER BY `announcements`.`ID` DESC LIMIT 10");
+    $selectLatest = Database::get()->prepare("SELECT `announcements`.`ID`, `announcements`.`Title`, `announcements`.`Content`, `announcements`.`DateAdded`, `announcements`.`GroupID`, `groups`.`GroupName` FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` WHERE `Title` LIKE '%' :contains '%' OR `Content` LIKE '%' :contains '%' AND `GroupID` IN ($sqlList) ORDER BY `announcements`.`ID` DESC LIMIT 15");
     $selectLatest->execute(["contains" => $contains]);
   } else {
-    $selectLatest = Database::get()->prepare("SELECT `announcements`.`ID`, `announcements`.`Title`, `announcements`.`Content`, `announcements`.`DateAdded`, `announcements`.`GroupID`, `groups`.`GroupName` FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` WHERE `announcements`.`GroupID` IN ($sqlList) ORDER BY `announcements`.`ID` DESC LIMIT 10");
+    $selectLatest = Database::get()->prepare("SELECT `announcements`.`ID`, `announcements`.`Title`, `announcements`.`Content`, `announcements`.`DateAdded`, `announcements`.`GroupID`, `groups`.`GroupName` FROM `announcements` INNER JOIN `groups` ON `groups`.`ID` = `announcements`.`GroupID` WHERE `announcements`.`GroupID` IN ($sqlList) ORDER BY `announcements`.`ID` DESC LIMIT 15");
     $selectLatest->execute();
   }
 
