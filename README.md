@@ -9,7 +9,7 @@ App Store: Unreleased
 - vX.Y.Z-type: Contains the latest changes and typically corresponds to a project. This branch will eventually be merged to the master branch when it is ready.
 
 ## Projects
-There are none at the moment.
+The current project is **v1.0.0**.
 
 ## Contributing
 There are two main ways to contribute:
