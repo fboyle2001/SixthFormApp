@@ -84,14 +84,14 @@ function loadNotices(data) {
       expiryDate = "Never";
     } else {
       expiryDate = new Date(expiryDate * 1000);
-      expiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
+      expiryDate = prependZero(expiryDate.getDate()) + "/" + prependZero(expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
     }
 
     var addedDate = new Date(item["AddedDate"] * 1000);
-    addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
+    addedDate = prependZero(addedDate.getDate()) + "/" + prependZero(addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
 
-        var url = Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth");
-        var link = "javascript:openFileInBrowser('" + url + "')";
+    var url = Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth");
+    var link = "javascript:openFileInBrowser('" + url + "')";
 
     $("#notices_table > tbody").append('<tr><td>' + item["Name"] + '</td><td>' + addedDate + '</td><td>' + expiryDate + '</td><td><a href="' + link + '"><button>Open</button></a></td></tr>');
   });
@@ -135,11 +135,11 @@ function loadNewsletters(data) {
       expiryDate = "Never";
     } else {
       expiryDate = new Date(expiryDate * 1000);
-      expiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
+      expiryDate = prependZero(expiryDate.getDate()) + "/" + prependZero(expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
     }
 
     var addedDate = new Date(item["AddedDate"] * 1000);
-    addedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
+    addedDate = prependZero(addedDate.getDate()) + "/" + prependZero(addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
 
     var url = Cookies.get("base") + "/view/file/?file=" + item["Link"] + "&auth=" + Cookies.get("auth");
     var link = "javascript:openFileInBrowser('" + url + "')";

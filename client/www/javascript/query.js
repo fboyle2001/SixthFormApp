@@ -36,6 +36,11 @@ function query(url, postData, callback, fatal) {
   });
 }
 
+// Prepend a zero e.g. 07:08 am
+function prependZero(value) {
+  return value < 10 ? "0" + value : value;
+}
+
 // Opens a link in the browser
 function openInBrowser(url) {
   if(typeof cordova !== "undefined" && typeof cordova.InAppBrowser !== "undefined") {

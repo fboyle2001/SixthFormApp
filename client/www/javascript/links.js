@@ -30,7 +30,7 @@ function loadLinks(data) {
     } else {
       // Convert the unix timestamp to a date
       var date = new Date(storedDate * 1000);
-      var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
+      var displayDate = prependZero(date.getDate()) + "/" + prependZero(date.getMonth() + 1) + "/" + (date.getYear() + 1900);
       $("#ltl").append('<p><a href="' + link + '">' + item["Name"] + '</a> (expires on ' + displayDate + ')</p>');
     }
   });
