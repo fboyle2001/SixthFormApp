@@ -47,20 +47,21 @@
 
         // Only push if requested
         if($push == true) {
-          $trimmedTitle = strlen($title) > 97 ? substr($title, 0, 97) . '...' : $title;
+          $trimmedTitle = strlen($title) > 60 ? substr($title, 0, 57) . '...' : $title;
+          $trimmedContent = strlen($content) > 120 ? substr($content, 0, 117) . '...' : $content;
 
           // Made an announcement so push it
           if($group == -999) {
             // All
-            sendNotificationToAll("Announcement to All", $trimmedTitle);
+            sendNotificationToAll($trimmedTitle, $trimmedContent);
           } else if ($group == -998) {
             // Year 12
-            sendNotificationToYear("Announcement to Year 12", $trimmedTitle, 12);
+            sendNotificationToYear($trimmedTitle, $trimmedContent, 12);
           } else if ($group == -997) {
             // Year 13
-            sendNotificationToYear("Announcement to Year 13", $trimmedTitle, 13);
+            sendNotificationToYear($trimmedTitle, $trimmedContent, 13);
           } else if ($group == -996) {
-            sendNotificationToAdmins("Announcement to Admins", $trimmedTitle);
+            sendNotificationToAdmins($trimmedTitle, $trimmedContent);
           } else {
             // Get the group name from the ID for the notification
             $groupNameQuery = Database::get()->prepare("SELECT `GroupName` FROM `groups` WHERE `ID` = :groupId");
@@ -73,7 +74,7 @@
               $groupName = " to " . $groupNameQuery->fetch(PDO::FETCH_ASSOC)["GroupName"];
             }
 
-            sendNotificationToGroup("Announcement" . $groupName, $trimmedTitle, $group);
+            sendNotificationToGroup($trimmedTitle, $trimmedContent, $group);
           }
         }
       } else {

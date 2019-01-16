@@ -61,6 +61,10 @@
 
 					if($insertQuery == true) {
 						$message = "Successfully uploaded file.";
+
+            if($type == 2) {
+              sendNotification("Daily Notices", "Today's daily notices have been uploaded");
+            }
 					} else {
             // Probably means database is down
 						$message = "File uploaded but unable to add database. This shouldn't happen.";
