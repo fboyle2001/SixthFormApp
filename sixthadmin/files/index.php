@@ -13,6 +13,11 @@
   		// It also includes jQuery in the page
   		require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/head.php");
 	  ?>
+    <script>
+      // Declares a global variable with the auth token
+      var serverAuthToken = "<?= $_SESSION["serverAuthToken"] ?>";
+      alert(serverAuthToken);
+    </script>
     <script src="/sixthadmin/resources/javascript/files.js"></script>
 		<title>View Files</title>
   </head>

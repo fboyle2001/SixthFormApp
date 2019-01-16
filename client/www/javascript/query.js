@@ -51,11 +51,9 @@ function openInBrowser(url) {
 }
 
 // Handles Android problem with PDFs whilst leaving iOS alone
+// Since v1.0.0 this is now used for all because of .docx needing to be displayed
 function openFileInBrowser(url) {
-  if(window.cordova.platformId === "android") {
-    url = "https://docs.google.com/viewerng/viewer?url=" + url.replace("&", "%26");
-  }
-
+  url = "https://docs.google.com/viewerng/viewer?url=" + url.replace("&", "%26");
   openInBrowser(url);
 }
 

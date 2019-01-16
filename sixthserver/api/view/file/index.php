@@ -4,9 +4,8 @@
 
   // Must have an auth key
   if(!has_arg("GET", "auth")) {
-    $status = ReplyStatus::withData(400, "Missing auth key");
-    $reply = Reply::withStatus($status);
-    header("Location: ../../error/expired.html");
+    header("Content-type: application/pdf");
+    header("Location: ../../error/expired.pdf");
     die();
   }
 
@@ -14,17 +13,15 @@
 
   // Validate the auth key without headers
   if(!non_header_auth_validate($authKey)) {
-    $status = ReplyStatus::withData(403, "Invalid auth key");
-    $reply = Reply::withStatus($status);
-    header("Location: ../../error/expired.html");
+    header("Content-type: application/pdf");
+    header("Location: ../../error/expired.pdf");
     die();
   }
 
   // Check if they have requested a file
   if(!has_arg("GET", "file")) {
-    $status = ReplyStatus::withData(400, "No file requested");
-    $reply = Reply::withStatus($status);
-    header("Location: ../../error/file.html");
+    header("Content-type: application/pdf");
+    header("Location: ../../error/file.pdf");
     die();
   }
 
@@ -37,9 +34,8 @@
 
   // Only one row or there will be a problem
   if($selectFile->rowCount() != 1) {
-    $status = ReplyStatus::withData(400, "Invalid file request");
-    $reply = Reply::withStatus($status);
-    header("Location: ../../error/file.html");
+    header("Content-type: application/pdf");
+    header("Location: ../../error/file.pdf");
     die();
   }
 
@@ -47,9 +43,26 @@
   $expiryTime = $selectFile->fetch()["ExpiryDate"];
 
   if(time() > $expiryTime) {
-    $status = ReplyStatus::withData(410, "File has expired");
-    $reply = Reply::withStatus($status);
-    header("Location: ../../error/file.html");
+    header("Content-type: application/pdf");
+    header("Location: ../../error/file.pdf");
+    die();
+  }
+
+  $splitDot = explode(".", $file);
+
+  if(sizeof($splitDot) == 1) {
+    // Something weird happened. No extension.
+    header("Content-type: application/pdf");
+    header("Location: ../../error/file.pdf");
+    die();
+  }
+
+  $extension = $splitDot[sizeof($splitDot) - 1];
+
+  if(!in_array($extension, ["pdf", "doc", "docx"])) {
+    // Invalid extension
+    header("Content-type: application/pdf");
+    header("Location: ../../error/file.pdf");
     die();
   }
 
@@ -60,7 +73,12 @@
 
   // Don't display errors and set some headers to help the browser
 
-  header("Content-type: application/pdf");
+  if($extension == "pdf") {
+    header("Content-type: application/pdf");
+  } else {
+    header("Content-type: application/msword");
+  }
+
   header("Content-Disposition: inline; filename=$filePath");
   @readfile($filePath);
 ?>

@@ -49,12 +49,41 @@
 
 		$id = $record["ID"];
 
+		/** TAKEN FROM SERVER FOR FILE DISPLAY **/
+
+		// Generate 32-char secret
+	  // Exists 62^32 combinations (2.27 * 10^57 secrets)
+	  $secret = random_str(32);
+
+	  // Remove their old secrets
+	  $deleteApiKeys = Database::get()->prepare("DELETE FROM `apikeys` WHERE `Username` = :username");
+	  $deleteApiKeys->execute(["username" => $username]);
+
+	  // Check if they are admin so it can be appended to their secret
+	  $authQuery = Database::get()->prepare("SELECT `IsAdmin`, `Reset` FROM `accounts` WHERE `Username` = :username");
+	  $authQuery->execute(["username" => $username]);
+
+	  $authResult = $authQuery->fetch(PDO::FETCH_ASSOC);
+	  $secret .= "." . $authResult["IsAdmin"];
+
+	  // Expire in 16 hours (only for admin site). Put the key in the database.
+	  $expireTime = time() + 3600 * 16;
+	  $createApiKey = Database::get()->prepare("INSERT INTO `apikeys` (`Username`, `Secret`, `ExpireTime`) VALUES (:username, :secret, :expire)");
+	  $createApiKey->execute(["username" => $username, "secret" => $secret, "expire" => $expireTime]);
+
+	  // JSON is encoded to base 64 for transmission between client-server when
+	  // requesting content as it is easier to handle and uses less bytes
+	  // May be breakable? If their username is weird e.g. "User"
+	  $json = '{"username":"' . $username . '","secret":"' . $secret . '"}';
+		$json = base64_encode($json);
+
 		// Trigger file and link deletion
 		deleteOld();
 
 		// Sets the session username to the username entered by the user
 		$_SESSION["user"] = $username;
 		$_SESSION["userId"] = $id;
+		$_SESSION["serverAuthToken"] = $json;
 		return "Success";
 	}
 

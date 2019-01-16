@@ -27,7 +27,8 @@
 			$base = "../../../files/";
       // Generate a random name though may be unnecessary to prevent access to
       // other files
-			$randomName = random_str(16) . "_$type.pdf";
+      $extension = strtolower(pathinfo($_FILES["uploadedFile"]["name"], PATHINFO_EXTENSION));
+			$randomName = random_str(16) . "_$type." . $extension;
 			$storageFile = $base . $randomName;
 
       // Happened to collide but very unlikely as 62^16 file names
@@ -36,9 +37,9 @@
 			} else if($_FILES["uploadedFile"]["size"] > 15000000) {
         // 15 mb should be okay for now
 				$message = "File size is currently limited to 15mb, this file is too big.";
-			} else if(strtolower(pathinfo($_FILES["uploadedFile"]["name"], PATHINFO_EXTENSION)) != "pdf") {
+			} else if(!in_array($extension, ["pdf", "doc", "docx"])) {
         // Only accepting pdfs at the moment
-				$message = "File must be a pdf.";
+				$message = "File must be a pdf or word document.";
 			} else {
         // Move the file
 				$result = move_uploaded_file($_FILES["uploadedFile"]["tmp_name"], $storageFile);
@@ -93,7 +94,7 @@
 			<br>
 			<form method="POST" enctype="multipart/form-data">
 				<table>
-					<tr><td>File</td><td><input type="file" accept="application/pdf" name="uploadedFile" required></td></tr>
+					<tr><td>File</td><td><input type="file" accept=".doc, .docx, .pdf" name="uploadedFile" required></td></tr>
 					<tr><td>Name</td><td><input type="text" name="displayName" required></td></tr>
 					<tr><td>Expiry Date</td><td><input type="date" name="expiryDate"></td></tr>
 					<tr><td colspan="2">Type:</td></tr>
