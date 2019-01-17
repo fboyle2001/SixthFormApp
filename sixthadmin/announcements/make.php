@@ -48,7 +48,7 @@
         // Only push if requested
         if($push == true) {
           $trimmedTitle = strlen($title) > 60 ? substr($title, 0, 60) . '...' : $title;
-          $trimmedContent = strlen($content) > 30 ? substr($content, 0, 30) . '...' : $content;
+          $trimmedContent = strlen($content) > 60 ? substr($content, 0, 60) . '...' : $content;
 
           // Made an announcement so push it
           if($group == -999) {
