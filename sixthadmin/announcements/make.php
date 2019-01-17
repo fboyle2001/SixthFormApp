@@ -116,7 +116,7 @@
 							</td>
 						</tr>
             <tr><td>Push Notification:</td><td><input type="checkbox" name="push" checked></td></tr>
-            <tr><td colspan="2"><input type="submit" value="Make Announcement"></td></tr>
+            <tr><td colspan="2"><input type="submit" value="Make Announcement" id="submit_data"></td></tr>
           </table>
       </form>
       <p><?php echo $message; ?></p>

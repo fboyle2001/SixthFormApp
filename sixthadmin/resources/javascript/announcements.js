@@ -13,6 +13,10 @@ $(document).ready(function () {
     var contentTerm = $("#contentsearch").val();
     contentSearch(contentTerm);
   });
+
+  $("#submit_data").click(function (e) {
+    $(this).attr("disabled", "disabled");
+  });
 });
 
 // Search by content
