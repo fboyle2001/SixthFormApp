@@ -167,12 +167,13 @@ function cacheContent(key, content) {
 }
 
 function registerPush() {
-  if(getUserSettings().hasOwnProperty("pushId")) {
+  if(getUserSettings().hasOwnProperty("pushId") && getUserSettings().pushId !== "") {
     // Already been registered
     return;
   }
 
   window.plugins.OneSignal.getIds(function (ids) {
+
     query("/push/register/", {pushId: ids.userId}, function (data) {
       var currentSettings = getUserSettings();
       currentSettings.pushId = ids.userId;
