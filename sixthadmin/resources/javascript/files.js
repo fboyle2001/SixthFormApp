@@ -81,11 +81,11 @@ function processData(result) {
 			displayExpiryDate = "Never";
 		} else {
       var expiryDate = new Date(item["ExpiryDate"] * 1000);
-      var displayExpiryDate = expiryDate.getDate() + "/" + (expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
+      var displayExpiryDate = prependZero(expiryDate.getDate()) + "/" + prependZero(expiryDate.getMonth() + 1) + "/" + (expiryDate.getYear() + 1900);
 		}
 
     // Resolve date and type
-    var displayAddedDate = addedDate.getDate() + "/" + (addedDate.getMonth() + 1) + "/" + (addedDate.getYear() + 1900);
+    var displayAddedDate = prependZero(addedDate.getDate()) + "/" + prependZero(addedDate.getMonth() + 1) + "/" + prependZero(addedDate.getYear() + 1900);
     var type = types.resolve(item["Type"]);
 
     // Add it to the table

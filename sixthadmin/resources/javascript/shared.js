@@ -66,3 +66,8 @@ var getUrlParameter = function getUrlParameter(sParam) {
 
   return null;
 };
+
+// Prepend a zero e.g. 07:08 am instead of 7:8 am
+function prependZero(value) {
+  return value < 10 ? "0" + value : value;
+}
