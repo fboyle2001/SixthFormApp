@@ -36,6 +36,11 @@ function query(url, postData, callback, fatal) {
   });
 }
 
+// Prepend a zero e.g. 07:08 am
+function prependZero(value) {
+  return value < 10 ? "0" + value : value;
+}
+
 // Opens a link in the browser
 function openInBrowser(url) {
   if(typeof cordova !== "undefined" && typeof cordova.InAppBrowser !== "undefined") {
@@ -162,12 +167,13 @@ function cacheContent(key, content) {
 }
 
 function registerPush() {
-  if(getUserSettings().hasOwnProperty("pushId")) {
+  if(getUserSettings().hasOwnProperty("pushId") && getUserSettings().pushId !== "") {
     // Already been registered
     return;
   }
 
   window.plugins.OneSignal.getIds(function (ids) {
+
     query("/push/register/", {pushId: ids.userId}, function (data) {
       var currentSettings = getUserSettings();
       currentSettings.pushId = ids.userId;

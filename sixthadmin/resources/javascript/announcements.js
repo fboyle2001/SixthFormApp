@@ -13,6 +13,10 @@ $(document).ready(function () {
     var contentTerm = $("#contentsearch").val();
     contentSearch(contentTerm);
   });
+
+  $("#submit_data").click(function (e) {
+    $(this).attr("disabled", "disabled");
+  });
 });
 
 // Search by content
@@ -54,7 +58,7 @@ function processData(result) {
   $.each(result["content"]["records"], function(index, item) {
     // Convert unix timestamp to readable timestamp
     var date = new Date(item["DateAdded"] * 1000);
-    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
+    var displayDate = prependZero(date.getDate()) + "/" + prependZero(date.getMonth() + 1) + "/" + prependZero(date.getYear() + 1900) + " " + prependZero(date.getHours()) + ":" + prependZero(date.getMinutes());
 
     $("#announcements_table > tbody").append('<tr><td>' + item["Title"] + '</td><td>' + item["Content"] + '</td><td>' + item["GroupName"] + '</td><td>' + displayDate + '</td><td id="delete_' + item["ID"] + '"><a id="delete_link_' + item["ID"] + '" href="javascript:remove(' + item["ID"] + ')">Delete</a></td></tr>');
   });

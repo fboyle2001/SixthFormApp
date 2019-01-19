@@ -56,10 +56,16 @@
 
           // Put a reference to it in the database
           $insertQuery = Database::get()->prepare("INSERT INTO `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) VALUES (:name, :added, :expiry, :type, :link)");
-          $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $randomName]);
+          $insertSuccess = $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $randomName]);
 
-					if($insertQuery == true) {
+					if($insertSuccess == true) {
 						$message = "Successfully uploaded file.";
+
+            if($type == 1) {
+              sendNotification("Newsletter", "A new newsletter is now available");
+            } else if($type == 2) {
+              sendNotification("Daily Notices", "The daily notices are now available");
+            }
 					} else {
             // Probably means database is down
 						$message = "File uploaded but unable to add database. This shouldn't happen.";

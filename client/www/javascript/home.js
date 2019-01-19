@@ -30,7 +30,7 @@ function initialLoad() {
 
 // Searches the announcements based on the user's query
 function search(parameter) {
-  query("/fetch/announcements/list/", {"limit": 10, "contains": parameter}, function(data) {
+  query("/fetch/announcements/list/", {"limit": 15, "contains": parameter}, function(data) {
     loadAnnouncements(data);
   }, function(data) {
     sendAlert("An unexpected error occurred. Error Code H01", "Error");
@@ -43,7 +43,7 @@ function loadAnnouncements(data) {
   $("#announcements").empty();
   $.each(data["content"]["records"], function(index, item){
     var date = new Date(item["DateAdded"] * 1000);
-    var displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + date.getHours() + ":" + date.getMinutes();
+    var displayDate = prependZero(date.getDate()) + "/" + prependZero(date.getMonth() + 1) + "/" + (date.getYear() + 1900) + " " + prependZero(date.getHours()) + ":" + prependZero(date.getMinutes());
 
     $("#announcements").append('<div class="segment"><h2 class="title">' + item["Title"] + '</h2><p class="subtitle">Added ' + displayDate + '. Sent to ' + item["GroupName"] + '.</p><p>' + item["Content"] + '</p></div><br>');
   });

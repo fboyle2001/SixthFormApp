@@ -41,7 +41,7 @@ function process(result) {
 			displayDate = "Never";
 		} else {
 			var date = new Date(item["ExpiryDate"] * 1000);
-			displayDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + (date.getYear() + 1900);
+			displayDate = prependZero(date.getDate()) + "/" + prependZero(date.getMonth() + 1) + "/" + prependZero(date.getYear() + 1900);
 		}
 
 		// Decode the URL for display
