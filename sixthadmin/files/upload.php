@@ -56,9 +56,9 @@
 
           // Put a reference to it in the database
           $insertQuery = Database::get()->prepare("INSERT INTO `files` (`Name`, `AddedDate`, `ExpiryDate`, `Type`, `Link`) VALUES (:name, :added, :expiry, :type, :link)");
-          $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $randomName]);
+          $insertSuccess = $insertQuery->execute(["name" => $displayName, "added" => $addedDate, "expiry" => $expiryDate, "type" => $type, "link" => $randomName]);
 
-					if($insertQuery == true) {
+					if($insertSuccess == true) {
 						$message = "Successfully uploaded file.";
 
             if($type == 1) {
