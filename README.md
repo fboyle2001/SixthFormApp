@@ -23,22 +23,22 @@ App designed and produced by:
 - Callum Cash
 - Dan Arnold
 - Freddie Webb
-- Jake Bozward
-With help from Mr Sexton
+- Jake Bozward 
+- With help from Mr Sexton
 
-External libraries and plugins:
-jQuery - Licensed under MIT
-js-cookies - Licensed under MIT
-PhoneGap - Licensed under Apache 2
-cordova-plugin-whitelist - Licensed under Apache 2
-cordova-plugin-inappbrowser - Licensed under Apache 2
-cordova-plugin-dialogs - Licensed under Apache 2
-onesignal-cordova-plugin - Licensed under Modified MIT
-cordova-plugin-statusbar - Licensed under Apache 2
-cordova-clipboard - Licensed under MIT
-cordova-plugin-device - Licensed under Apache 2
-cordova-plugin-network-information - Licensed under Apache 2
+## External libraries and plugins:
+- jQuery - Licensed under MIT
+- js-cookies - Licensed under MIT
+- PhoneGap - Licensed under Apache 2
+- cordova-plugin-whitelist - Licensed under Apache 2
+- cordova-plugin-inappbrowser - Licensed under Apache 2
+- cordova-plugin-dialogs - Licensed under Apache 2
+- onesignal-cordova-plugin - Licensed under Modified MIT
+- cordova-plugin-statusbar - Licensed under Apache 2
+- cordova-clipboard - Licensed under MIT
+- cordova-plugin-device - Licensed under Apache 2
+- cordova-plugin-network-information - Licensed under Apache 2
 
-External images and resources:
-Icons made by https://www.freepik.com/ from https://www.flaticon.com/ are licensed by CC 3.0 BY
-Icons made by https://www.flaticon.com/authors/smashicons from https://www.flaticon.com/ are licensed by CC 3.0 BY
+## External images and resources:
+- Icons made by https://www.freepik.com/ from https://www.flaticon.com/ are licensed by CC 3.0 BY
+- Icons made by https://www.flaticon.com/authors/smashicons from https://www.flaticon.com/ are licensed by CC 3.0 BY
