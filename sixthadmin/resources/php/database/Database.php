@@ -1,4 +1,5 @@
 <?php
+  include("details.php");
 
   // Database wrapper. Uses PDO as framework.
   class Database {
@@ -7,7 +8,8 @@
     private $database;
 
     private function __construct() {
-      $this->database = new PDO("mysql:host=localhost;dbname=sixthapp", "root", "root", [PDO::ATTR_PERSISTENT => true]);
+      $connectionString = "mysql:host=" . DB_HOST . ";dbname=" . DB_NAME;
+      $this->database = new PDO($connectionString, DB_USERNAME, DB_PASSWORD, [PDO::ATTR_PERSISTENT => true]);
     }
 
     public static function get() {
