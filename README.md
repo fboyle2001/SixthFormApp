@@ -23,7 +23,7 @@ App designed and produced by:
 - Callum Cash
 - Dan Arnold
 - Freddie Webb
-- Jake Bozward 
+- Jake Bozward
 - With help from Mr Sexton
 
 ## External libraries and plugins:
