@@ -23,8 +23,13 @@ App designed and produced by:
 - Callum Cash
 - Dan Arnold
 - Freddie Webb
+<<<<<<< HEAD
 - Jake Bozward
 - With help from Mr Sexton
+=======
+- Jake Bozward \
+With help from Mr Sexton
+>>>>>>> dc0e75f2019b399362379d344e88977cf29abe34
 
 ## External libraries and plugins:
 - jQuery - Licensed under MIT
@@ -41,4 +46,8 @@ App designed and produced by:
 
 ## External images and resources:
 - Icons made by https://www.freepik.com/ from https://www.flaticon.com/ are licensed by CC 3.0 BY
+<<<<<<< HEAD
 - Icons made by https://www.flaticon.com/authors/smashicons from https://www.flaticon.com/ are licensed by CC 3.0 BY
+=======
+0 Icons made by https://www.flaticon.com/authors/smashicons from https://www.flaticon.com/ are licensed by CC 3.0 BY
+>>>>>>> dc0e75f2019b399362379d344e88977cf29abe34
