@@ -12,11 +12,6 @@ App Store: https://itunes.apple.com/gb/app/mca6/id1449187832
 Current released version is v1.0.1. \
 There is no current project.
 
-## Contributing
-There are two main ways to contribute:
-- Issues. Ensure they have a sensible title and are descriptive of the error/feature. Then tag them appropriately with either bug, enhancement, invalid, question or security. These will then be reviewed and either be answered, marked accordingly, scheduled in a project or acknowledged.
-- Pull requests. If you wish to solve an existing issue, fork the repository. Then make the necessary changes and submit a pull request and request that it is reviewed. It can then be merged to the latest version branch for testing and then release. Ensure the pull request is descriptive of changes and the code is commented and follows a similar style to the rest of the code in the repository.
-
 # Credits
 App designed and produced by:
 - Finlay Boyle
