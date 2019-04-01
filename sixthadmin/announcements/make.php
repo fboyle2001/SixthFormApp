@@ -55,10 +55,12 @@
             // All
             sendNotificationToAll($trimmedTitle, $trimmedContent);
           } else if ($group == -998) {
-            // Year 12
+            // Year 12 and Admins
+            sendNotificationToAdmins($trimmedTitle, $trimmedContent);
             sendNotificationToYear($trimmedTitle, $trimmedContent, 12);
           } else if ($group == -997) {
-            // Year 13
+            // Year 13 and Admins
+            sendNotificationToAdmins($trimmedTitle, $trimmedContent);
             sendNotificationToYear($trimmedTitle, $trimmedContent, 13);
           } else if ($group == -996) {
             sendNotificationToAdmins($trimmedTitle, $trimmedContent);

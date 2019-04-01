@@ -56,8 +56,10 @@
 
   if($admin == 1) {
     // Admin
+    // Display year group specific announcements to admins
     array_push($groupList, -996);
-    // May want to display all announcements to admins
+    array_push($groupList, -997);
+    array_push($groupList, -998);
   } else {
     if($year == 12) {
       // Year 12

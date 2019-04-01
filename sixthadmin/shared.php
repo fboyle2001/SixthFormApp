@@ -16,7 +16,7 @@
   // Starts the session
 	session_start();
 
-	$cost = 12;
+	$cost = 11;
 
 	// Checks if the user is logged in
 	function isLoggedIn() {
