@@ -14,6 +14,8 @@
       $this->description = "";
     }
 
+    // Create a new instance which will have the code and description set
+    // Effective makes it a one-line statement instead
     public static function withData($code, $description) {
       $status = new ReplyStatus();
       $status->setCode($code);

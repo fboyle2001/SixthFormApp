@@ -1,0 +1,30 @@
+<!--
+#########################
+This page is a template for adding new pages. Detailed documentation and links to documentation and tutorials can be found at https://github.com/fboyle2001/SixthFormApp/wiki/
+#########################
+-->
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https: http: 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src * ; script-src 'self' 'unsafe-inline' 'unsafe-eval';"><!-- This is required by PhoneGap to ensure the page can function as if it were a traditional webpage -->
+		<script src="./javascript/jquery-3.2.1.min.js"></script><!-- This includes jQuery, a powerful JavaScript framework, in every page. It is strongly recommended you check the documentation out and read a bit about this. It will make things much easier for you when coding in JavaScript for this project -->
+		<script src="./javascript/js.cookie.js"></script><!-- A small library used to make handling cookies simple -->
+		<script src="cordova.js"></script><!-- This contains some Cordova specific code which is automatically injected by PhoneGap into the directory -->
+		<script src="./javascript/settings_loader.js"></script><!-- This is a custom file that loads the settings for the user -->
+		<script src="./javascript/query.js"></script><!-- Another custom file that allows interaction with the server via AJAX -->
+	</head>
+	<body>
+		<nav><!-- This is the navigation bar, copy and paste a line to link to a new page. Aim to keep it consistent on each page for the user experience. -->
+			<ul>
+				<a href="home.html"><li id="nav_home" class="current">Home</li></a>
+				<a href="documents.html"><li id="nav_documents">Documents</li></a>
+				<a href="links.html"><li id="nav_links">Links</li></a>
+				<a href="calendar.html" id="experimental_calendar"><li id="nav_calendar"></li></a>
+				<a href="settings.html"><li id="nav_settings">Settings</li></a>
+			</ul>
+		</nav>
+		<div class="content"><!-- All of the pages content should be put in here -->
+			<h1 class="header">MAIN HEADING HERE</h1>
+		</div>
+	</body>
+</html>

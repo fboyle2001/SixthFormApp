@@ -21,5 +21,8 @@
 			// Includes the default body which includes the navigation menu at the top of the page
 			require($_SERVER["DOCUMENT_ROOT"] . "/sixthadmin/resources/php/body.php");
 		?>
+		<div>
+			<!-- PUT ALL YOUR CONTENT FOR THE PAGE IN HERE (OR ADD EXTRA DIVS) -->
+		</div>
   </body>
 </html>

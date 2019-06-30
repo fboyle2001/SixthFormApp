@@ -16,6 +16,8 @@
       $this->content = [];
     }
 
+    // Creates a reply with a status object already set
+    // Defaults the content to be empty
     public static function withStatus($status) {
       $reply = new Reply();
       $reply->status = $status;
