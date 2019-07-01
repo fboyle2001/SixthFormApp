@@ -47,13 +47,41 @@
     }
   } else if ($actionId == 3) {
     // Delete all old students
-    $deleteQuery = Database::get()->exec("DELETE FROM `accounts` WHERE `Year` >= 14");
+    $selectAllQuery = Database::get()->prepare("SELECT * FROM `accounts` WHERE `Year` = 14");
+    $selectAllQuery->execute();
 
-    if($deleteQuery == 0) {
-      $reply->setStatus(ReplyStatus::withData(500, "Unable to delete old students (or none exist)."));
-    } else {
-      $reply->setStatus(ReplyStatus::withData(200, "Successfully deleted old students."));
+    if($selectAllQuery->rowCount() == 0) {
+      $reply->setStatus(ReplyStatus::withData(400, "No users found to delete"));
+      die($reply->toJson());
     }
+
+    $successDelete = 0;
+    $failDelete = 0;
+
+    // Loop the users and delete them
+    while($row = $selectQuery->fetch(PDO::FETCH_ASSOC)) {
+      $deleteAPI = Database::get()->prepare("DELETE FROM `apikeys` WHERE `Username` = :username");
+      $deleteAPI->execute(["username" => $row["Username"]]);
+
+      $deleteGroupLink = Database::get()->prepare("DELETE FROM `grouplink` WHERE `AccountID` = :id");
+      $deleteGroupLink->execute(["id" => $row["ID"]]);
+
+      $deletePush = Database::get()->prepare("DELETE FROM `push` WHERE `AccountID` = :id");
+      $deletePush->execute(["id" => $row["ID"]]);
+
+      $deleteAccount = Database::get()->prepare("DELETE FROM `accounts` WHERE `ID` = :id");
+      $success = $deleteAccount->execute(["id" => $row["ID"]]);
+
+      if($success) {
+        $successDelete += 1;
+      } else {
+        $failDelete += 1;
+      }
+    }
+
+    $reply->setStatus(ReplyStatus::withData(200, "Deleted old accounts"));
+    $reply->setValue("success", $successDelete);
+    $reply->setValue("fail", $failDelete);
   }
 
   echo $reply->toJson();

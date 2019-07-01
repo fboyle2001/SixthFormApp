@@ -70,7 +70,11 @@ function deleteOld() {
 		dataType: "json",
 		data: "actionId=" + 3,
     success: function(data) {
-      $("#do").text(data["status"]["description"]);
+      if(data["status"]["code"] == 200) {
+        $("#do").text(data["status"]["description"] + " " + data["content"]["success"] " successes and " + data["content"]["fail"] +  " failures.");
+      } else {
+        $("#do").text(data["status"]["description"]);
+      }
     },
     error: function(data) {
       alert("An unexpected error occurred")
